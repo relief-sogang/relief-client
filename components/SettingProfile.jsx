@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef, useState} from 'react';
 import {View, Text, TextInput} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import SaveComp from './SaveComp';
@@ -6,7 +6,41 @@ import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SettingProfile = ({navigation, route}) => {
-  const onChange = (name, text) => {};
+  const [inputs, setInputs] = useState({
+    name: '',
+    sex: '',
+    year: '',
+    month: '',
+    day: '',
+    address: '',
+    ph1: '',
+    ph2: '',
+    ph3: '',
+  });
+  const {name, sex, year, month, day, address, ph1, ph2, ph3} = inputs;
+
+  const ref1 = useRef();
+  const ref2 = useRef();
+  const ref3 = useRef();
+  const ref4 = useRef();
+  const ref5 = useRef();
+  const ref6 = useRef();
+
+  const onChange = (name, text) => {
+    if (name === 'year' && text.length === 4) {
+      ref2.current.focus();
+    } else if (name === 'month' && text.length === 2) {
+      ref3.current.focus();
+    } else if (name === 'ph1' && text.length === 3) {
+      ref5.current.focus();
+    } else if (name === 'ph2' && text.length === 4) {
+      ref6.current.focus();
+    }
+    setInputs({
+      ...inputs,
+      [name]: text,
+    });
+  };
   return (
     <>
       <View style={SettingStyle.settingWrap}>
@@ -32,6 +66,8 @@ const SettingProfile = ({navigation, route}) => {
                 placeholder="이름을 작성해주세요."
                 style={[EnrollStyle.enrollInput, {width: '100%'}]}
                 onChangeText={text => onChange('name', text)}
+                name="name"
+                value={name}
               />
             </View>
           </View>
@@ -44,7 +80,9 @@ const SettingProfile = ({navigation, route}) => {
               <TextInput
                 placeholder="성별을 작성해주세요."
                 style={[EnrollStyle.enrollInput, {width: '100%'}]}
-                onChangeText={text => onChange('name', text)}
+                onChangeText={text => onChange('sex', text)}
+                name="sex"
+                value={sex}
               />
             </View>
           </View>
@@ -54,9 +92,30 @@ const SettingProfile = ({navigation, route}) => {
             </View>
 
             <View style={EnrollStyle.enrollInputBox}>
-              <TextInput style={EnrollStyle.enrollInput} />
-              <TextInput style={EnrollStyle.enrollInput} />
-              <TextInput style={EnrollStyle.enrollInput} />
+              <TextInput
+                placeholder="YYYY"
+                onChangeText={text => onChange('year', text)}
+                style={EnrollStyle.enrollInput}
+                name="year"
+                value={year}
+                ref={ref1}
+              />
+              <TextInput
+                placeholder="MM"
+                onChangeText={text => onChange('month', text)}
+                style={EnrollStyle.enrollInput}
+                name="month"
+                value={month}
+                ref={ref2}
+              />
+              <TextInput
+                placeholder="DD"
+                onChangeText={text => onChange('day', text)}
+                style={EnrollStyle.enrollInput}
+                name="year"
+                value={day}
+                ref={ref3}
+              />
             </View>
           </View>
           <View style={EnrollStyle.enrollBox}>
@@ -68,7 +127,9 @@ const SettingProfile = ({navigation, route}) => {
               <TextInput
                 placeholder="주소를 작성해주세요."
                 style={[EnrollStyle.enrollInput, {width: '100%'}]}
-                onChangeText={text => onChange('name', text)}
+                onChangeText={text => onChange('address', text)}
+                name="address"
+                value={address}
               />
             </View>
           </View>
@@ -78,9 +139,27 @@ const SettingProfile = ({navigation, route}) => {
             </View>
 
             <View style={EnrollStyle.enrollInputBox}>
-              <TextInput style={EnrollStyle.enrollInput} />
-              <TextInput style={EnrollStyle.enrollInput} />
-              <TextInput style={EnrollStyle.enrollInput} />
+              <TextInput
+                style={EnrollStyle.enrollInput}
+                name="ph1"
+                value={ph1}
+                onChangeText={text => onChange('ph1', text)}
+                ref={ref4}
+              />
+              <TextInput
+                style={EnrollStyle.enrollInput}
+                name="ph2"
+                value={ph2}
+                onChangeText={text => onChange('ph2', text)}
+                ref={ref5}
+              />
+              <TextInput
+                style={EnrollStyle.enrollInput}
+                name="ph3"
+                value={ph3}
+                onChangeText={text => onChange('ph3', text)}
+                ref={ref6}
+              />
             </View>
           </View>
 

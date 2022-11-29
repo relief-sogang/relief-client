@@ -25,10 +25,7 @@ const Unregister = ({navigation, route}) => {
           </View>
 
           <View style={EnrollStyle.enrollInputBox}>
-            <TextInput
-              placeholder="등록할 보호자의 이름을 지정해주세요."
-              style={[EnrollStyle.enrollInput, {width: '100%'}]}
-            />
+            <TextInput style={[EnrollStyle.enrollInput, {width: '100%'}]} />
           </View>
         </View>
         <View style={EnrollStyle.enrollBox}>
@@ -37,10 +34,7 @@ const Unregister = ({navigation, route}) => {
           </View>
 
           <View style={EnrollStyle.enrollInputBox}>
-            <TextInput
-              placeholder="등록할 보호자의 이름을 지정해주세요."
-              style={[EnrollStyle.enrollInput, {width: '100%'}]}
-            />
+            <TextInput style={[EnrollStyle.enrollInput, {width: '100%'}]} />
           </View>
         </View>
 
