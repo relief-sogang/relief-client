@@ -1,10 +1,13 @@
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
+import {withSafeAreaInsets} from 'react-native-safe-area-context';
 
 let chartHeight = Dimensions.get('window').height;
 let chartWidth = Dimensions.get('window').width;
-chartHeight = Math.ceil(chartHeight);
-chartWidth = Math.ceil(chartWidth);
+// chartHeight = Math.ceil(chartHeight);
+// chartWidth = Math.ceil(chartWidth);
+chartHeight = chartHeight;
+chartWidth = chartWidth;
 
 export const HomeStyle = StyleSheet.create({
   container: {
@@ -36,22 +39,24 @@ export const HomeStyle = StyleSheet.create({
     // justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingLeft: 10,
+    paddingRight: 10,
   },
   searchInput: {
     // backgroundColor: 'orange',
     height: '100%',
     width: '90%',
-    paddingLeft: 10,
-    paddingRight: 10,
   },
   searchBtn: {
-    backgroundColor: 'orange',
+    // backgroundColor: 'orange',
+    // width: '10%',
   },
   menuIcon: {
     position: 'absolute',
     top: 75,
     right: 15,
-    backgroundColor: 'orange',
+    // backgroundColor: 'orange',
     width: 30,
     height: 30,
     zIndex: 10,
@@ -96,6 +101,8 @@ export const HomeStyle = StyleSheet.create({
     height: 70,
     width: 70,
     borderRadius: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
@@ -134,7 +141,7 @@ export const SettingStyle = StyleSheet.create({
     zIndex: 10,
     width: 30,
     height: 30,
-    backgroundColor: 'aqua',
+    // backgroundColor: 'aqua',
   },
   settingTitle: {
     lineHeight: 60,
@@ -257,6 +264,8 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 15,
     position: 'relative',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   userImgBtn: {
     position: 'absolute',
@@ -267,6 +276,8 @@ export const styles = StyleSheet.create({
     height: 25,
     borderRadius: 12.5,
     backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   userName: {
     fontSize: 18,
@@ -302,7 +313,7 @@ export const styles = StyleSheet.create({
   },
   scrapBox: {
     flexWrap: 'wrap',
-    width: '90%',
+    width: '90.001%',
     flexDirection: 'row',
     // backgroundColor: 'orange',
     marginTop: 30,
@@ -332,6 +343,8 @@ export const styles = StyleSheet.create({
     // backgroundColor: 'orange',
     padding: 10,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   scrapName: {
     color: 'white',

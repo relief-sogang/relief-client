@@ -3,6 +3,7 @@ import {View, Text, TextInput} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SettingProfile = ({navigation, route}) => {
   const onChange = (name, text) => {};
@@ -14,7 +15,10 @@ const SettingProfile = ({navigation, route}) => {
 
           <View style={styles.userInfoBox}>
             <View style={styles.userImgBox}>
-              <View style={styles.userImgBtn}></View>
+              <Icon name="user" color="white" size={70} />
+              <View style={styles.userImgBtn}>
+                <Icon name="pencil" color="white" size={15} />
+              </View>
             </View>
           </View>
 

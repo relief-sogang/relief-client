@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SettingStyle} from '../styleSheets';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const SettingHeader = ({text, navigation}) => {
   const goHome = () => {
@@ -10,9 +11,9 @@ const SettingHeader = ({text, navigation}) => {
     <View style={SettingStyle.settingHeader}>
       <Text style={SettingStyle.settingTitle}>{text}</Text>
 
-      <TouchableOpacity
-        onPress={goHome}
-        style={SettingStyle.goHomeBtn}></TouchableOpacity>
+      <TouchableOpacity onPress={goHome} style={SettingStyle.goHomeBtn}>
+        <Icon name="home" size={30} color={'#333'} />
+      </TouchableOpacity>
     </View>
   );
 };

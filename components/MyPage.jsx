@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SettingStyle, styles, EnrollStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 const MyPage = ({navigation, route}) => {
   return (
     <>
@@ -10,7 +12,9 @@ const MyPage = ({navigation, route}) => {
           <SettingHeader text="마이페이지" navigation={navigation} />
 
           <View style={styles.userInfoBox}>
-            <View style={styles.userImgBox}></View>
+            <View style={styles.userImgBox}>
+              <Icon name="user" color="white" size={70} />
+            </View>
             <Text style={styles.userName}>홍길동</Text>
             <Text style={styles.userId}>gildong</Text>
           </View>

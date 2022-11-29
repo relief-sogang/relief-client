@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 // import MapView, {PROVIDER_GOOGLE, PROVIDER_DEFAULT} from 'react-native-maps';
 import {HomeStyle} from '../styleSheets';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Home = ({navigation, route}) => {
   const [provider, setProvider] = useState();
@@ -54,16 +55,18 @@ const Home = ({navigation, route}) => {
             onChangeText={onChange}
           />
           <View style={HomeStyle.searchBtn}>
-            {/* <FontAwesomeIcon icon={faMagnifyingGlass} /> */}
-            {/* <Icon name="heart" size={30} color="#900" /> */}
+            <Icon name="search" size={24} color="#D9D9D9" />
           </View>
         </View>
       </View>
       <TouchableOpacity style={HomeStyle.menuIcon} onPress={onPress}>
+        <Icon name="align-justify" size={30} color="#333" />
         {clickMenu && (
           <View style={HomeStyle.menuBar}>
             <TouchableOpacity onPress={() => setClickMenu(false)}>
-              <Text style={HomeStyle.menuCloseBtn}>X</Text>
+              <Text style={HomeStyle.menuCloseBtn}>
+                <Icon name="times-circle" size={20} color="#333" />
+              </Text>
             </TouchableOpacity>
             <View style={HomeStyle.menuItemBox}>
               <Text
@@ -101,14 +104,18 @@ const Home = ({navigation, route}) => {
         }}></MapView> */}
 
       <View style={HomeStyle.buttonContainer}>
-        <View
-          style={[HomeStyle.reliefBtn, {backgroundColor: '#EDADD3'}]}></View>
-        <View
-          style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}></View>
-        <View
-          style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}></View>
-        <View
-          style={[HomeStyle.reliefBtn, {backgroundColor: '#ED3D3D'}]}></View>
+        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#EDADD3'}]}>
+          <Icon name="heart" size={36} color="white" />
+        </View>
+        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
+          <Icon name="address-book" size={36} color="white" />
+        </View>
+        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
+          <Icon name="comment" size={36} color="white" />
+        </View>
+        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#ED3D3D'}]}>
+          <Icon name="map-marker" size={36} color="white" />
+        </View>
       </View>
     </View>
   );
