@@ -32,6 +32,11 @@ const Home = ({navigation, route}) => {
     setClickMenu(clickMenu ? false : true);
   };
 
+  const onNavigate = text => {
+    navigation.navigate(text);
+    setClickMenu(false);
+  };
+
   return (
     // <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
     //   <Text>Home Screen</Text>
@@ -61,13 +66,18 @@ const Home = ({navigation, route}) => {
               <Text style={HomeStyle.menuCloseBtn}>X</Text>
             </TouchableOpacity>
             <View style={HomeStyle.menuItemBox}>
-              <Text style={HomeStyle.menuItem}>마이페이지</Text>
+              <Text
+                style={HomeStyle.menuItem}
+                onPress={() => {
+                  onNavigate('My page');
+                }}>
+                마이페이지
+              </Text>
             </View>
             <View style={HomeStyle.menuItemBox}>
               <Text
                 onPress={() => {
-                  navigation.navigate('안심 서비스 설정');
-                  setClickMenu(false);
+                  onNavigate('안심 서비스 설정');
                 }}
                 style={HomeStyle.menuItem}>
                 안심 서비스 설정

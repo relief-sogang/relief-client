@@ -35,7 +35,7 @@ const EnrollFriend = ({navigation, route}) => {
   return (
     <View style={SettingStyle.settingWrap}>
       <View style={SettingStyle.settingBox}>
-        <SettingHeader text="보호자 등록" />
+        <SettingHeader text="보호자 등록" navigation={navigation} />
 
         <View style={EnrollStyle.enrollBox}>
           <View style={EnrollStyle.enrollHeader}>
@@ -50,8 +50,6 @@ const EnrollFriend = ({navigation, route}) => {
               onChangeText={text => onChange('name', text)}
             />
           </View>
-
-          <View style={EnrollStyle.enrollInputBox}></View>
         </View>
 
         <View style={EnrollStyle.enrollBox}>
@@ -67,33 +65,9 @@ const EnrollFriend = ({navigation, route}) => {
               onChangeText={text => onChange('id', text)}
             />
           </View>
-
-          {/* <View style={EnrollStyle.enrollInputBox}>
-            <TextInput
-              value={first}
-              onChangeText={text => onChange('first', text)}
-              style={EnrollStyle.enrollInput}
-              placeholder="010"
-              ref={ref1}
-            />
-            <TextInput
-              value={second}
-              onChangeText={text => onChange('second', text)}
-              style={EnrollStyle.enrollInput}
-              placeholder="1234"
-              ref={ref2}
-            />
-            <TextInput
-              value={third}
-              onChangeText={text => onChange('third', text)}
-              style={EnrollStyle.enrollInput}
-              placeholder="1234"
-              ref={ref3}
-            />
-          </View> */}
         </View>
 
-        <SaveComp text1={'취소'} text2={'저장'} />
+        <SaveComp text1={'취소'} text2={'저장'} navigation={navigation} />
       </View>
     </View>
   );

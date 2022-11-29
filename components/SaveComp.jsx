@@ -1,16 +1,22 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {SettingStyle} from '../styleSheets';
 
-const SaveComp = ({text1, text2}) => {
+const SaveComp = ({text1, text2, navigation}) => {
+  const onCancel = () => {
+    navigation.pop();
+  };
   return (
     <View style={SettingStyle.settingBtnWrap}>
-      <View style={[SettingStyle.settingBtnView, {backgroundColor: '#ADC2B0'}]}>
+      <TouchableOpacity
+        style={[SettingStyle.settingBtnView, {backgroundColor: '#ADC2B0'}]}
+        onPress={onCancel}>
         <Text style={SettingStyle.settingBtnText}>{text1}</Text>
-      </View>
-      <View style={[SettingStyle.settingBtnView, {backgroundColor: '#04BC00'}]}>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[SettingStyle.settingBtnView, {backgroundColor: '#04BC00'}]}>
         <Text style={SettingStyle.settingBtnText}>{text2}</Text>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 };

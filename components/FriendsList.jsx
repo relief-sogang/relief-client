@@ -22,13 +22,15 @@ const FriendsList = ({navigation, route}) => {
     <>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
-          <SettingHeader text="보호자 목록" />
+          <SettingHeader text="보호자 목록" navigation={navigation} />
 
           <View style={[EnrollStyle.enrollBox, {marginTop: 15}]}>
             <TouchableOpacity
               style={EnrollStyle.enrollHeaderBox}
               onPress={() => navigation.navigate('보호자 등록')}>
-              <Text style={EnrollStyle.enrollText}>보호자 등록</Text>
+              <Text style={[EnrollStyle.enrollText, {marginLeft: 20}]}>
+                보호자 등록
+              </Text>
             </TouchableOpacity>
           </View>
 

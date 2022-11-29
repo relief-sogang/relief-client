@@ -1,75 +1,3 @@
-// import React from 'react';
-// import {
-//   SafeAreaView,
-//   ScrollView,
-//   StatusBar,
-//   StyleSheet,
-//   Text,
-//   useColorScheme,
-//   View,
-//   Button,
-// } from 'react-native';
-// import {NavigationContainer} from '@react-navigation/native';
-// import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
-// const HomeScreen = ({navigation, route}) => {
-//   return (
-//     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-//       <Text>Home Screen</Text>
-//       <Button
-//         title="Go to profile"
-//         onPress={() => navigation.navigate('Profile')}
-//       />
-//     </View>
-//   );
-// };
-
-// const ProfileScreen = ({navigation, route}) => {
-//   return (
-//     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-//       <Text>This is profile</Text>
-//     </View>
-//   );
-// };
-
-// const Stack = createNativeStackNavigator();
-
-// const App = () => {
-//   return (
-//     // <View style={styles.container}>
-//     //   <View style={styles.box1}></View>
-//     //   <View style={styles.box2}></View>
-//     //   <View style={styles.box3}></View>
-//     // </View>
-//     <NavigationContainer>
-//       <Stack.Navigator>
-//         <Stack.Screen name="Home" component={HomeScreen} />
-//         <Stack.Screen name="Profile" component={ProfileScreen} />
-//       </Stack.Navigator>
-//     </NavigationContainer>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//   },
-//   box1: {
-//     flex: 1,
-//     backgroundColor: 'red',
-//   },
-//   box2: {
-//     flex: 1,
-//     backgroundColor: 'blue',
-//   },
-//   box3: {
-//     flex: 1,
-//     backgroundColor: 'green',
-//   },
-// });
-
-// export default App;
-
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
@@ -88,6 +16,10 @@ import Home from './components/Home';
 import EnrollFriend from './components/EnrollFriend';
 import SafetySurvice from './components/SafetySurvice';
 import FriendsList from './components/FriendsList';
+import MyPage from './components/MyPage';
+import SettingProfile from './components/SettingProfile';
+import Unregister from './components/Unregister';
+import Scrap from './components/Scrap';
 
 const Stack = createNativeStackNavigator();
 
@@ -149,6 +81,12 @@ const App = () => {
         <Stack.Screen name="안심 서비스 설정" component={SafetySurvice} />
         <Stack.Screen name="보호자 등록" component={EnrollFriend} />
         <Stack.Screen name="보호자 목록" component={FriendsList} />
+
+        {/* 마이 페이지 */}
+        <Stack.Screen name="My page" component={MyPage} />
+        <Stack.Screen name="프로필 설정" component={SettingProfile} />
+        <Stack.Screen name="회원 탈퇴" component={Unregister} />
+        <Stack.Screen name="스크랩" component={Scrap} />
       </Stack.Navigator>
     </NavigationContainer>
   );
