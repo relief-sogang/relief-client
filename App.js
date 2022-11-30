@@ -21,6 +21,8 @@ import SettingProfile from './components/SettingProfile';
 import Unregister from './components/Unregister';
 import Scrap from './components/Scrap';
 
+import SplashScreen from 'react-native-splash-screen';
+
 const Stack = createNativeStackNavigator();
 
 // async function requestPermission() {
@@ -33,6 +35,11 @@ const Stack = createNativeStackNavigator();
 //   }
 // }
 const App = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 2000);
+  }, []);
   // const [location, setLocation] = useState();
   // useEffect(() => {
   //   requestPermission().then(result => {
