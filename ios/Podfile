@@ -19,6 +19,9 @@ end
 target 'relief' do
   config = use_native_modules!
 
+  # new
+  pod 'NMapsMap','3.16.0'
+
   # Flags change depending on the env values.
   flags = get_default_flags()
 

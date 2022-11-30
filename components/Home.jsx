@@ -10,6 +10,8 @@ import {
 // import MapView, {PROVIDER_GOOGLE, PROVIDER_DEFAULT} from 'react-native-maps';
 import {HomeStyle} from '../styleSheets';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MyWebView from './MyWebView';
+import MyMap from './MyMap';
 
 const Home = ({navigation, route}) => {
   const [provider, setProvider] = useState();
@@ -102,6 +104,8 @@ const Home = ({navigation, route}) => {
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
         }}></MapView> */}
+      {/* <MyWebView /> */}
+      <MyMap />
 
       <View style={HomeStyle.buttonContainer}>
         <View style={[HomeStyle.reliefBtn, {backgroundColor: '#EDADD3'}]}>
