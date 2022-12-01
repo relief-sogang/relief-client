@@ -1,56 +1,69 @@
 import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
+import Friend from './atomic/Friend';
+import MenuBig from './atomic/MenuBig';
 import SettingHeader from './SettingHeader';
 
 const frineds = [
   {
-    name: '엄마',
+    nickname: '엄마',
+    name: '봉미선',
     id: 'mother',
   },
   {
-    name: '아빠',
+    nickname: '아빠',
+    name: '신형만',
     id: 'fater',
   },
   {
-    name: '길동이',
+    nickname: '철수',
+    name: '김철수',
     id: 'gildong',
   },
 ];
 const FriendsList = ({navigation, route}) => {
+  const target = route.params.target;
+  const onPress = ({name, email, nickname}) => {
+    navigation.navigate('피보호자/보호자 정보', {
+      name,
+      email,
+      nickname,
+      target,
+    });
+  };
+
+  const goEnroll = text => {
+    navigation.navigate('보호자 등록');
+  };
+
   return (
     <>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
-          <SettingHeader text="보호자 목록" navigation={navigation} />
+          <SettingHeader text={`${target} 관리`} navigation={navigation} />
 
-          <View style={[EnrollStyle.enrollBox, {marginTop: 15}]}>
-            <TouchableOpacity
-              style={EnrollStyle.enrollHeaderBox}
-              onPress={() => navigation.navigate('보호자 등록')}>
-              <Text style={[EnrollStyle.enrollText, {marginLeft: 20}]}>
-                보호자 등록
-              </Text>
-            </TouchableOpacity>
-          </View>
+          {target === '보호자' && (
+            <>
+              <View style={{marginTop: 15}} />
+              <MenuBig onPress={goEnroll} text="보호자 등록" />
+            </>
+          )}
 
           <View style={EnrollStyle.enrollBox}>
             <View style={EnrollStyle.enrollHeader}>
-              <Text style={EnrollStyle.enrollText}>보호자 목록</Text>
+              <Text style={EnrollStyle.enrollText}>{target} 목록</Text>
             </View>
 
             {frineds.map((data, idx) => (
-              <View style={styles.friendBox} key={idx}>
-                <View style={styles.friendNum}>
-                  <Text>{idx + 1}</Text>
-                </View>
-                <View>
-                  <Text style={styles.friendName}>{data.name}</Text>
-                </View>
-                <View>
-                  <Text style={styles.friendId}>{data.id}</Text>
-                </View>
-              </View>
+              <Friend
+                key={idx}
+                onPress={onPress}
+                num={idx + 1}
+                nickname={data.nickname}
+                name={data.name}
+                email={data.id}
+              />
             ))}
           </View>
         </View>

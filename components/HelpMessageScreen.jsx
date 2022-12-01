@@ -4,17 +4,18 @@ import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import MenuBig from './atomic/MenuBig';
 
-const menu = ['보호자 등록', '보호자 관리', '피보호자 관리'];
+const menu = ['도움 요청 메시지 관리', '도움 요청 메시지 내역'];
 
-const SafetySurvice = ({navigation, route}) => {
+const HelpMessageScreen = ({navigation, route}) => {
   const onPress = text => {
     navigation.navigate(text);
   };
+
   return (
     <>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
-          <SettingHeader text="보호자/피보호자 관리" navigation={navigation} />
+          <SettingHeader text="도움 요청 메시지" navigation={navigation} />
 
           <View style={{marginTop: 30}} />
           {menu.map((text, idx) => (
@@ -26,4 +27,4 @@ const SafetySurvice = ({navigation, route}) => {
   );
 };
 
-export default SafetySurvice;
+export default HelpMessageScreen;

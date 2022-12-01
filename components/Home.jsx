@@ -10,13 +10,11 @@ import {
 // import MapView, {PROVIDER_GOOGLE, PROVIDER_DEFAULT} from 'react-native-maps';
 import {HomeStyle} from '../styleSheets';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import MyWebView from './MyWebView';
 import MyMap from './MyMap';
+import SideMenu from './SideMenu';
 
 const Home = ({navigation, route}) => {
-  const [provider, setProvider] = useState();
   const [input, setInput] = useState('');
-  const [clickMenu, setClickMenu] = useState(false);
 
   //   useEffect(() => {
   //     const os = Platform.OS;
@@ -31,24 +29,13 @@ const Home = ({navigation, route}) => {
     setInput(e);
   };
 
-  const onPress = () => {
-    setClickMenu(clickMenu ? false : true);
-  };
-
   const onNavigate = text => {
     navigation.navigate(text);
-    setClickMenu(false);
   };
 
   return (
-    // <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-    //   <Text>Home Screen</Text>
-    //   <Button
-    //     title="Go to profile"
-    //     onPress={() => navigation.navigate('Profile')}
-    //   />
-    // </View>
     <View style={HomeStyle.container}>
+      {/* search bar */}
       <View style={HomeStyle.searchContainer}>
         <View style={HomeStyle.searchBar}>
           <TextInput
@@ -61,50 +48,10 @@ const Home = ({navigation, route}) => {
           </View>
         </View>
       </View>
-      <TouchableOpacity style={HomeStyle.menuIcon} onPress={onPress}>
-        <Icon name="align-justify" size={30} color="#333" />
-        {clickMenu && (
-          <View style={HomeStyle.menuBar}>
-            <TouchableOpacity onPress={() => setClickMenu(false)}>
-              <Text style={HomeStyle.menuCloseBtn}>
-                <Icon name="times-circle" size={20} color="#333" />
-              </Text>
-            </TouchableOpacity>
-            <View style={HomeStyle.menuItemBox}>
-              <Text
-                style={HomeStyle.menuItem}
-                onPress={() => {
-                  onNavigate('My page');
-                }}>
-                마이페이지
-              </Text>
-            </View>
-            <View style={HomeStyle.menuItemBox}>
-              <Text
-                onPress={() => {
-                  onNavigate('안심 서비스 설정');
-                }}
-                style={HomeStyle.menuItem}>
-                안심 서비스 설정
-              </Text>
-            </View>
-            <View style={HomeStyle.menuItemBox}>
-              <Text style={HomeStyle.menuItem}>설정</Text>
-            </View>
-          </View>
-        )}
-      </TouchableOpacity>
 
-      {/* <MapView
-        style={{flex: 1}}
-        provider={provider}
-        initialRegion={{
-          latitude: 37.78825,
-          longitude: -122.4324,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}></MapView> */}
-      {/* <MyWebView /> */}
+      {/* menu bar */}
+      <SideMenu onNavigate={onNavigate} />
+
       <MyMap />
 
       <View style={HomeStyle.buttonContainer}>

@@ -30,6 +30,7 @@ const Scrap = ({navigation, route}) => {
                 </View>
               </View>
             </View>
+
             <View style={styles.scrapWrap}>
               <View style={styles.scrapImgBox}>
                 <View style={styles.scrapDescBox}>
@@ -39,6 +40,60 @@ const Scrap = ({navigation, route}) => {
                 </View>
               </View>
             </View>
+            {/* <View style={styles.scrapWrap}>
+              <View style={styles.scrapImgBox}>
+                <View style={styles.scrapDescBox}>
+                  <Text style={styles.scrapName}>서강대학교</Text>
+
+                  <Icon name="heart" size={15} color="white" />
+                </View>
+              </View>
+            </View>
+            <View style={styles.scrapWrap}>
+              <View style={styles.scrapImgBox}>
+                <View style={styles.scrapDescBox}>
+                  <Text style={styles.scrapName}>서강대학교</Text>
+
+                  <Icon name="heart" size={15} color="white" />
+                </View>
+              </View>
+            </View> */}
+            {/* <View style={styles.scrapWrap}>
+              <View style={styles.scrapImgBox}>
+                <View style={styles.scrapDescBox}>
+                  <Text style={styles.scrapName}>서강대학교</Text>
+
+                  <Icon name="heart" size={15} color="white" />
+                </View>
+              </View>
+            </View>
+            <View style={styles.scrapWrap}>
+              <View style={styles.scrapImgBox}>
+                <View style={styles.scrapDescBox}>
+                  <Text style={styles.scrapName}>서강대학교</Text>
+
+                  <Icon name="heart" size={15} color="white" />
+                </View>
+              </View>
+            </View> */}
+            {/* <View style={styles.scrapWrap}>
+              <View style={styles.scrapImgBox}>
+                <View style={styles.scrapDescBox}>
+                  <Text style={styles.scrapName}>서강대학교</Text>
+
+                  <Icon name="heart" size={15} color="white" />
+                </View>
+              </View>
+            </View>
+            <View style={styles.scrapWrap}>
+              <View style={styles.scrapImgBox}>
+                <View style={styles.scrapDescBox}>
+                  <Text style={styles.scrapName}>서강대학교</Text>
+
+                  <Icon name="heart" size={15} color="white" />
+                </View>
+              </View>
+            </View> */}
           </View>
         </View>
       </View>

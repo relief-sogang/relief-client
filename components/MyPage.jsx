@@ -3,8 +3,19 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import {SettingStyle, styles, EnrollStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MenuSmall from './atomic/MenuSmall';
 
+const menu = [
+  '프로필 설정',
+  '스크랩',
+  '보호자/피보호자 관리',
+  '회원 탈퇴',
+  '설정',
+];
 const MyPage = ({navigation, route}) => {
+  const onPress = text => {
+    navigation.navigate(text);
+  };
   return (
     <>
       <View style={SettingStyle.settingWrap}>
@@ -19,41 +30,10 @@ const MyPage = ({navigation, route}) => {
             <Text style={styles.userId}>gildong</Text>
           </View>
 
-          <View style={[EnrollStyle.enrollBox, {marginTop: 30}]}>
-            <TouchableOpacity
-              style={EnrollStyle.enrollHeaderBox}
-              onPress={() => navigation.navigate('프로필 설정')}>
-              <Text style={styles.myPageText}>프로필 설정</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={EnrollStyle.enrollBox}>
-            <TouchableOpacity
-              style={EnrollStyle.enrollHeaderBox}
-              onPress={() => navigation.navigate('스크랩')}>
-              <Text style={styles.myPageText}>스크랩</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={EnrollStyle.enrollBox}>
-            <TouchableOpacity
-              style={EnrollStyle.enrollHeaderBox}
-              onPress={() => navigation.navigate('안심 서비스 설정')}>
-              <Text style={styles.myPageText}>안심 서비스 설정</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={EnrollStyle.enrollBox}>
-            <TouchableOpacity
-              style={EnrollStyle.enrollHeaderBox}
-              onPress={() => navigation.navigate('보호자 목록')}>
-              <Text style={styles.myPageText}>안심 서비스 내역</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={EnrollStyle.enrollBox}>
-            <TouchableOpacity
-              style={EnrollStyle.enrollHeaderBox}
-              onPress={() => navigation.navigate('회원 탈퇴')}>
-              <Text style={styles.myPageText}>회원 탈퇴</Text>
-            </TouchableOpacity>
-          </View>
+          <View style={{marginTop: 30}} />
+          {menu.map((text, idx) => (
+            <MenuSmall onPress={onPress} text={text} />
+          ))}
         </View>
       </View>
     </>

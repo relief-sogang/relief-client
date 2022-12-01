@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SettingStyle} from '../styleSheets';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
+import SideMenu from './SideMenu';
 const SettingHeader = ({text, navigation}) => {
   const goHome = () => {
     navigation.navigate('Home');

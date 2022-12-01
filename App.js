@@ -20,54 +20,21 @@ import MyPage from './components/MyPage';
 import SettingProfile from './components/SettingProfile';
 import Unregister from './components/Unregister';
 import Scrap from './components/Scrap';
+import DetailFriend from './components/DetailFriend';
+import HelpMessageScreen from './components/HelpMessageScreen';
+import ManageMessage from './components/ManageMessage';
 
 import SplashScreen from 'react-native-splash-screen';
 
 const Stack = createNativeStackNavigator();
 
-// async function requestPermission() {
-//   try {
-//     if (Platform.OS === 'ios') {
-//       return await Geolocation.requestAuthorization('always');
-//     }
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
 const App = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 2000);
   }, []);
-  // const [location, setLocation] = useState();
-  // useEffect(() => {
-  //   requestPermission().then(result => {
-  //     if (result === 'granted') {
-  //       Geolocation.getCurrentPosition(
-  //         pos => {
-  //           console.log(pos);
-  //         },
-  //         error => {
-  //           console.log(error);
-  //         },
-  //         {
-  //           enableHighAccuracy: true,
-  //           timeout: 3600,
-  //           maximumAge: 3600,
-  //         },
-  //       );
-  //     }
-  //   });
-  // }, []);
 
-  // if (!location) {
-  //   return (
-  //     <View>
-  //       <Text>Splash Screen</Text>
-  //     </View>
-  //   );
-  // }
   return (
     <NavigationContainer>
       <Stack.Navigator
@@ -84,10 +51,28 @@ const App = () => {
         {/* Home: Map */}
         <Stack.Screen name="Home" component={Home} />
 
-        {/* 친구 등록 페이지 */}
-        <Stack.Screen name="안심 서비스 설정" component={SafetySurvice} />
+        {/* 보호자/피보호자 관리 스크린 */}
+        <Stack.Screen name="보호자/피보호자 관리" component={SafetySurvice} />
         <Stack.Screen name="보호자 등록" component={EnrollFriend} />
-        <Stack.Screen name="보호자 목록" component={FriendsList} />
+        <Stack.Screen
+          name="보호자 관리"
+          component={FriendsList}
+          initialParams={{target: '보호자'}}
+        />
+        <Stack.Screen
+          name="피보호자 관리"
+          component={FriendsList}
+          initialParams={{target: '피보호자'}}
+        />
+        <Stack.Screen name="피보호자/보호자 정보" component={DetailFriend} />
+
+        {/* 도움 요청 메시지 관리 스크린 */}
+        <Stack.Screen name="도움 요청 메시지" component={HelpMessageScreen} />
+        <Stack.Screen name="도움 요청 메시지 관리" component={ManageMessage} />
+        <Stack.Screen
+          name="도움 요청 메시지 내역"
+          component={HelpMessageScreen}
+        />
 
         {/* 마이 페이지 */}
         <Stack.Screen name="My page" component={MyPage} />
