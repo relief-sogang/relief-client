@@ -23,6 +23,7 @@ import Scrap from './components/Scrap';
 import DetailFriend from './components/DetailFriend';
 import HelpMessageScreen from './components/HelpMessageScreen';
 import ManageMessage from './components/ManageMessage';
+import Login from './components/Login';
 
 import SplashScreen from 'react-native-splash-screen';
 import {PermissionsAndroid} from 'react-native';
@@ -81,6 +82,10 @@ const App = () => {
         <Stack.Screen name="프로필 설정" component={SettingProfile} />
         <Stack.Screen name="회원 탈퇴" component={Unregister} />
         <Stack.Screen name="스크랩" component={Scrap} />
+
+        {/* 로그인 */}
+        <Stack.Screen name="로그인" component={Login} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

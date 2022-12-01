@@ -398,3 +398,85 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+
+export const LoginPageStyles = StyleSheet.create({
+  Rectangle1: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#ffffff',
+  },
+  Rectangle2: {
+      alignItems: 'center',
+  },
+  Text1: {
+      color: '#747474',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: 24,
+  },
+  LoginButton: {
+      marginTop: 60,
+      width: 290,
+      height: 46,
+  },
+  KakaoView: {
+      marginTop: 60,
+      width: 290,
+      height: 46,
+      backgroundColor: '#f7e600',
+      alignItems: 'center',
+      flexDirection: 'row',
+  },
+  FacebookView: {
+      marginTop: 12,
+      width: 290,
+      height: 46,
+      backgroundColor: '#1877f2',
+      alignItems: 'center',
+      flexDirection: 'row',
+  },
+  NaverView: {
+      marginTop: 12,
+      width: 290,
+      height: 46,
+      backgroundColor: '#1ec800',
+      alignItems: 'center',
+      flexDirection: 'row',
+  },
+  GoogleView: {
+      marginTop: 12,
+      width: 290,
+      height: 46,
+      backgroundColor: '#e8e8e8',
+      alignItems: 'center',
+      flexDirection: 'row',
+      
+  },
+  Text2: {
+      color: '#000000',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: 16,
+  },
+  Text3: {
+      color: '#ffffff',
+      fontFamily: 'Inter, sans-serif',
+      fontSize: 16,
+  },
+  Rectangle3: {
+      width: 290,
+      height: 46,
+      backgroundColor: '#000000',
+      borderRadius: 30,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: 'auto',
+      marginBottom: 20,
+  },
+  icon: {
+    marginLeft: 10,
+    marginRight: 10,
+    width: 30,
+    height: 30,
+  }
+})
