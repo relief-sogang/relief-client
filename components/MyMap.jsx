@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import NaverMapView, {
   Circle,
   Marker,
@@ -7,12 +7,56 @@ import NaverMapView, {
   Polygon,
 } from 'react-native-nmap';
 import axios from 'axios';
+import {PermissionsAndroid, Platform} from 'react-native';
+import Geolocation from 'react-native-geolocation-service';
 
 function MyMap() {
+  const [location, setLocation] = useState();
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
   const P2 = {latitude: 37.565383, longitude: 126.976292};
+
+  const requestPermission = async () => {
+    const os = Platform.OS;
+    try {
+      if (os === 'android') {
+        return await PermissionsAndroid.requestMultiple([
+          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        ]);
+      }
+      if (os === 'ios') {
+        return await Geolocation.requestAuthorization('always');
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    requestPermission().then(result => {
+      if (result === 'granted') {
+        Geolocation.getCurrentPosition(
+          pos => {
+            setLocation({
+              latitude: pos.coords.latitude,
+              longitude: pos.coords.longitude,
+            });
+            console.log(pos.coords);
+          },
+          error => {
+            console.log(error);
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 3600,
+            maximumAge: 3600,
+          },
+        );
+      }
+    });
+  }, []);
 
   return (
     <NaverMapView
