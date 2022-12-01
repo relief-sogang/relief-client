@@ -11,7 +11,7 @@ import {PermissionsAndroid, Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
 function MyMap() {
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState(null);
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
@@ -21,10 +21,13 @@ function MyMap() {
     const os = Platform.OS;
     try {
       if (os === 'android') {
-        return await PermissionsAndroid.requestMultiple([
-          PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        // return await PermissionsAndroid.requestMultiple([
+        //   PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+        //   PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+        // ]);
+        return await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        ]);
+        );
       }
       if (os === 'ios') {
         return await Geolocation.requestAuthorization('always');
@@ -43,7 +46,7 @@ function MyMap() {
               latitude: pos.coords.latitude,
               longitude: pos.coords.longitude,
             });
-            console.log(pos.coords);
+            // console.log(pos.coords);
           },
           error => {
             console.log(error);
@@ -58,11 +61,16 @@ function MyMap() {
     });
   }, []);
 
+  if (location === null) {
+    return <></>;
+  }
+  console.log(location);
+
   return (
     <NaverMapView
       style={{width: '100%', height: '100%'}}
       showsMyLocationButton={true}
-      center={{...sogang, zoom: 16}}
+      center={{...location, zoom: 16}}
       onTouch={e => {
         console.warn('onTouch', JSON.stringify(e.nativeEvent));
       }}
@@ -70,7 +78,10 @@ function MyMap() {
       onMapClick={e => {
         console.warn('onMapClick', JSON.stringify(e));
       }}>
-      <Marker coordinate={sogang} onClick={() => console.warn('onClick! p0')} />
+      <Marker
+        coordinate={location}
+        onClick={() => console.warn('onClick! p0')}
+      />
       {/* <Marker
         coordinate={P1}
         pinColor="blue"
