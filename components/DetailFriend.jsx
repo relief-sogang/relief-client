@@ -57,7 +57,7 @@ const DetailFriend = ({navigation, route}) => {
             <Text>{email}</Text>
           </View>
         </View>
-        <SaveComp text1={'취소'} text2={'삭제'} navigation={navigation} />
+        <SaveComp text1={'삭제'} text2={'저장'} navigation={navigation} />
       </View>
     </View>
   );

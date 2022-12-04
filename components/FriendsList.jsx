@@ -55,6 +55,18 @@ const FriendsList = ({navigation, route}) => {
               <Text style={EnrollStyle.enrollText}>{target} 목록</Text>
             </View>
 
+            {target === '보호자' && (
+              <Text
+                style={{
+                  marginBottom: 10,
+                  fontSize: 12,
+                  color: '#F34646',
+                  width: '100%',
+                }}>
+                위치 공유/도움 메시지 보내기를 원하는 보호자를 설정하세요!
+              </Text>
+            )}
+
             {frineds.map((data, idx) => (
               <Friend
                 key={idx}
@@ -63,6 +75,7 @@ const FriendsList = ({navigation, route}) => {
                 nickname={data.nickname}
                 name={data.name}
                 email={data.id}
+                target={target}
               />
             ))}
           </View>
