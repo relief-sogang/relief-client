@@ -15,26 +15,26 @@ import SideMenu from './SideMenu';
 
 const Home = ({navigation, route}) => {
   const [input, setInput] = useState('');
-
-  //   useEffect(() => {
-  //     const os = Platform.OS;
-  //     if (os === 'ios') {
-  //       setProvider(PROVIDER_DEFAULT);
-  //     } else {
-  //       setProvider(PROVIDER_GOOGLE);
-  //     }
-  //   }, []);
+  const [clickMenu, setClickMenu] = useState(false);
 
   const onChange = e => {
     setInput(e);
   };
 
-  const onNavigate = text => {
+  const moveScreen = text => {
     navigation.navigate(text);
+    setClickMenu(false);
+  };
+
+  const onClick = () => {
+    setClickMenu(false);
   };
 
   return (
-    <View style={HomeStyle.container}>
+    <TouchableOpacity
+      style={HomeStyle.container}
+      onPress={onClick}
+      activeOpacity={1}>
       {/* search bar */}
       <View style={HomeStyle.searchContainer}>
         <View style={HomeStyle.searchBar}>
@@ -50,7 +50,11 @@ const Home = ({navigation, route}) => {
       </View>
 
       {/* menu bar */}
-      <SideMenu onNavigate={onNavigate} />
+      <SideMenu
+        clickMenu={clickMenu}
+        setClickMenu={setClickMenu}
+        moveScreen={moveScreen}
+      />
 
       <MyMap />
 
@@ -68,7 +72,7 @@ const Home = ({navigation, route}) => {
           <Icon name="map-marker" size={36} color="white" />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
