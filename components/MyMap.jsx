@@ -11,12 +11,13 @@ import {PermissionsAndroid, Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
 function MyMap() {
-  const [location, setLocation] = useState(null);
+  const [location, setLocation] = useState();
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
   const P2 = {latitude: 37.565383, longitude: 126.976292};
 
+  // 위치 추적 허가
   const requestPermission = async () => {
     const os = Platform.OS;
     try {
@@ -37,6 +38,7 @@ function MyMap() {
     }
   };
 
+  // 앱 진입 시 현재 위치 받아오기(사용자 위치 한 번만 받기)
   useEffect(() => {
     requestPermission().then(result => {
       if (result === 'granted') {
@@ -61,27 +63,39 @@ function MyMap() {
     });
   }, []);
 
-  if (location === null) {
-    return <></>;
-  }
-  console.log(location);
+  // useEffect(() => {
+  //   const os = Platform.OS;
+
+  //   if (os === 'ios') {
+  //     console.log('ios location: ', location);
+  //   } else if (os === 'android') {
+  //     console.log('android location: ', location);
+  //   }
+  // }, [location]);
+
+  // // 사용자 위치 계속 추적
+  // Geolocation.watchPosition(position => {
+  //   const {latitude, longitude} = position.coords;
+  //   console.log(latitude, longitude);
+  // });
+
+  // if (!location) {
+  //   return <></>;
+  // }
 
   return (
     <NaverMapView
       style={{width: '100%', height: '100%'}}
       showsMyLocationButton={true}
-      center={{...location, zoom: 16}}
+      center={{...sogang, zoom: 16}}
       onTouch={e => {
-        console.warn('onTouch', JSON.stringify(e.nativeEvent));
+        // console.warn('onTouch', JSON.stringify(e.nativeEvent));
       }}
-      onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
+      // onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
       onMapClick={e => {
-        console.warn('onMapClick', JSON.stringify(e));
+        // console.warn('onMapClick', JSON.stringify(e));
       }}>
-      <Marker
-        coordinate={location}
-        onClick={() => console.warn('onClick! p0')}
-      />
+      <Marker coordinate={sogang} onClick={() => console.warn('onClick! p0')} />
       {/* <Marker
         coordinate={P1}
         pinColor="blue"

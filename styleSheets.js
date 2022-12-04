@@ -66,7 +66,7 @@ export const HomeStyle = StyleSheet.create({
     top: 35,
     right: 0,
     zIndex: 10,
-    width: 190,
+    width: 220,
     // height: 100,
     backgroundColor: 'white',
     borderRadius: 10,
@@ -396,6 +396,32 @@ export const styles = StyleSheet.create({
   scrapName: {
     color: 'white',
     fontWeight: 'bold',
+  },
+  messageRecordBox: {
+    width: '90%',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: 'rgba(72, 72, 72, .4)',
+    padding: 10,
+    marginBottom: 10,
+  },
+  messageInfo: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: 36,
+    // backgroundColor: 'orange',
+  },
+  messageLight: {
+    color: '#ABABAB',
+    // lineHeight: 30,
+  },
+  messageBold: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    // paddingTop: 10,
+    // paddingBottom: 10,
   },
 });
 

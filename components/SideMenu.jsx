@@ -3,15 +3,9 @@ import {TouchableOpacity, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {HomeStyle} from '../styleSheets';
 
-const SideMenu = ({onNavigate}) => {
-  const [clickMenu, setClickMenu] = useState(false);
-
+const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
   const onPress = e => {
     setClickMenu(clickMenu ? false : true);
-  };
-  const moveScreen = text => {
-    onNavigate(text);
-    setClickMenu(false);
   };
 
   return (
@@ -42,6 +36,15 @@ const SideMenu = ({onNavigate}) => {
                 <Icon name="map-marker" size={18} color="#9B9B9B" />
               </View>
               <Text style={HomeStyle.menuItem}>피보호자 위치 확인</Text>
+              <View style={HomeStyle.pushAlarmBox}>
+                <Text style={HomeStyle.pushAlarm}>1</Text>
+              </View>
+            </View>
+            <View style={HomeStyle.menuItemBox}>
+              <View style={HomeStyle.menuIcons}>
+                <Icon name="bell" size={16} color="#9B9B9B" />
+              </View>
+              <Text style={HomeStyle.menuItem}>피보호자 도움 요청 확인</Text>
               <View style={HomeStyle.pushAlarmBox}>
                 <Text style={HomeStyle.pushAlarm}>1</Text>
               </View>

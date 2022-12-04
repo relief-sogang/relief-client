@@ -1,15 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  Button,
-  Platform,
-} from 'react-native';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Home from './components/Home';
@@ -24,10 +14,11 @@ import DetailFriend from './components/DetailFriend';
 import HelpMessageScreen from './components/HelpMessageScreen';
 import ManageMessage from './components/ManageMessage';
 import Login from './components/Login';
+import MessageRecords from './components/MessageRecords';
 
 import SplashScreen from 'react-native-splash-screen';
-import {PermissionsAndroid} from 'react-native';
-import Geolocation from 'react-native-geolocation-service';
+import axios from 'axios';
+import {APIURL} from './config/key';
 
 const Stack = createNativeStackNavigator();
 
@@ -36,6 +27,17 @@ const App = () => {
     setTimeout(() => {
       SplashScreen.hide();
     }, 2000);
+  }, []);
+
+  useEffect(() => {
+    // api sample
+    axios
+      .post(`${APIURL}/api/query/sample`, {
+        id: 1,
+      })
+      .then(res => {
+        console.log(res.data);
+      });
   }, []);
 
   return (
@@ -72,10 +74,7 @@ const App = () => {
         {/* 도움 요청 메시지 관리 스크린 */}
         <Stack.Screen name="도움 요청 메시지" component={HelpMessageScreen} />
         <Stack.Screen name="도움 요청 메시지 관리" component={ManageMessage} />
-        <Stack.Screen
-          name="도움 요청 메시지 내역"
-          component={HelpMessageScreen}
-        />
+        <Stack.Screen name="도움 요청 메시지 내역" component={MessageRecords} />
 
         {/* 마이 페이지 */}
         <Stack.Screen name="My page" component={MyPage} />
@@ -85,28 +84,9 @@ const App = () => {
 
         {/* 로그인 */}
         <Stack.Screen name="로그인" component={Login} />
-        
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  box1: {
-    flex: 1,
-    backgroundColor: 'red',
-  },
-  box2: {
-    flex: 1,
-    backgroundColor: 'blue',
-  },
-  box3: {
-    flex: 1,
-    backgroundColor: 'green',
-  },
-});
 
 export default App;
