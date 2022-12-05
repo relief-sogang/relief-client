@@ -532,3 +532,35 @@ export const LoginPageStyles = StyleSheet.create({
     height: 30,
   },
 });
+
+export const ReliefServiceStyles = (color) => StyleSheet.create({
+  container: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    paddingBottom: 30,
+  },
+  BtnWrap: {
+    marginBottom: 12,
+    width: '90%',
+    borderRadius: 20,
+    backgroundColor: color,
+    position: 'relative',
+    paddingBottom: 70,
+  },
+  BtnTitle: {
+    marginTop: 10,
+    lineHeight: 60,
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginLeft: 15,
+    color: 'white',
+  },
+  BtnContent: {
+    lineHeight: 30,
+    fontSize: 15,
+    marginLeft: 15,
+    color: 'white',
+  },
+})

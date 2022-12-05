@@ -77,7 +77,13 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
               <View style={HomeStyle.menuIcons}>
                 <Icon name="heart-o" size={14} color="#9B9B9B" />
               </View>
-              <Text style={HomeStyle.menuItem}>안심 서비스 소개</Text>
+              <Text
+                style={HomeStyle.menuItem}
+                onPress={() => {
+                  moveScreen('안심 서비스 소개');
+                }}>
+                안심 서비스 소개
+              </Text>
             </View>
             <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>

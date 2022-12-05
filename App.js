@@ -20,6 +20,7 @@ import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 import {APIURL} from './config/key';
 import {ScrollView} from 'react-native';
+import ReliefService from './components/ReliefService';
 
 const Stack = createNativeStackNavigator();
 
@@ -85,6 +86,10 @@ const App = () => {
 
         {/* 로그인 */}
         <Stack.Screen name="로그인" component={Login} />
+
+        {/* 안심 서비스 소개 */}
+        <Stack.Screen name="안심 서비스 소개" component={ReliefService} />
+
       </Stack.Navigator>
     </NavigationContainer>
   );
