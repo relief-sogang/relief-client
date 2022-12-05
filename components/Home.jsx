@@ -16,6 +16,7 @@ import SideMenu from './SideMenu';
 const Home = ({navigation, route}) => {
   const [input, setInput] = useState('');
   const [clickMenu, setClickMenu] = useState(false);
+  const [clickSharing, setClickSharing] = useState(false);
 
   const onChange = e => {
     setInput(e);
@@ -59,18 +60,38 @@ const Home = ({navigation, route}) => {
       <MyMap />
 
       <View style={HomeStyle.buttonContainer}>
-        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#EDADD3'}]}>
+        <TouchableOpacity
+          onPress={() => moveScreen('스크랩')}
+          style={[HomeStyle.reliefBtn, {backgroundColor: '#EDADD3'}]}>
           <Icon name="heart" size={36} color="white" />
-        </View>
-        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => moveScreen('보호자/피보호자 관리')}
+          style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
           <Icon name="address-book" size={36} color="white" />
-        </View>
-        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => moveScreen('도움 요청 메시지')}
+          style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
           <Icon name="comment" size={36} color="white" />
-        </View>
-        <View style={[HomeStyle.reliefBtn, {backgroundColor: '#ED3D3D'}]}>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setClickSharing(clickSharing ? false : true)}
+          style={[HomeStyle.reliefBtn, {backgroundColor: '#ED3D3D'}]}>
           <Icon name="map-marker" size={36} color="white" />
-        </View>
+
+          {clickSharing && (
+            <TouchableOpacity style={HomeStyle.shareLocationBox}>
+              <Text style={HomeStyle.shareLocationText}>위치 공유하기</Text>
+              <Icon
+                name="sort-desc"
+                size={35}
+                color="#EFA0A0"
+                style={{position: 'absolute', right: 20, bottom: -13}}
+              />
+            </TouchableOpacity>
+          )}
+        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );

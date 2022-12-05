@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, ScrollView} from 'react-native';
 import {SettingStyle, styles} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Scrap = ({navigation, route}) => {
   return (
-    <>
+    <ScrollView>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="스크랩" navigation={navigation} />
@@ -40,7 +40,7 @@ const Scrap = ({navigation, route}) => {
                 </View>
               </View>
             </View>
-            {/* <View style={styles.scrapWrap}>
+            <View style={styles.scrapWrap}>
               <View style={styles.scrapImgBox}>
                 <View style={styles.scrapDescBox}>
                   <Text style={styles.scrapName}>서강대학교</Text>
@@ -57,8 +57,8 @@ const Scrap = ({navigation, route}) => {
                   <Icon name="heart" size={15} color="white" />
                 </View>
               </View>
-            </View> */}
-            {/* <View style={styles.scrapWrap}>
+            </View>
+            <View style={styles.scrapWrap}>
               <View style={styles.scrapImgBox}>
                 <View style={styles.scrapDescBox}>
                   <Text style={styles.scrapName}>서강대학교</Text>
@@ -75,8 +75,8 @@ const Scrap = ({navigation, route}) => {
                   <Icon name="heart" size={15} color="white" />
                 </View>
               </View>
-            </View> */}
-            {/* <View style={styles.scrapWrap}>
+            </View>
+            <View style={styles.scrapWrap}>
               <View style={styles.scrapImgBox}>
                 <View style={styles.scrapDescBox}>
                   <Text style={styles.scrapName}>서강대학교</Text>
@@ -93,11 +93,11 @@ const Scrap = ({navigation, route}) => {
                   <Icon name="heart" size={15} color="white" />
                 </View>
               </View>
-            </View> */}
+            </View>
           </View>
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 };
 

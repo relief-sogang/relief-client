@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import Friend from './atomic/Friend';
 import MenuBig from './atomic/MenuBig';
@@ -38,7 +38,7 @@ const FriendsList = ({navigation, route}) => {
   };
 
   return (
-    <>
+    <ScrollView>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text={`${target} 관리`} navigation={navigation} />
@@ -81,7 +81,7 @@ const FriendsList = ({navigation, route}) => {
           </View>
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 };
 

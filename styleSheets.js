@@ -129,6 +129,23 @@ export const HomeStyle = StyleSheet.create({
     borderRadius: 35,
     justifyContent: 'center',
     alignItems: 'center',
+    position: 'relative',
+  },
+  shareLocationBox: {
+    position: 'absolute',
+    top: -58,
+    right: 0,
+    zIndex: 10,
+    backgroundColor: '#EFA0A0',
+    width: 150,
+    height: 45,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  shareLocationText: {
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
 
@@ -148,7 +165,7 @@ export const SettingStyle = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     position: 'relative',
-    paddingBottom: 50,
+    paddingBottom: 70,
     alignItems: 'center',
   },
   settingHeader: {
@@ -238,18 +255,22 @@ export const EnrollStyle = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     // height: 34,
-    borderColor: 'rgba(72, 72, 72, .3)',
-    borderWidth: 1,
-    borderRadius: 5,
+    // borderColor: 'rgba(72, 72, 72, .3)',
+    // borderWidth: 1,
+    // borderRadius: 5,
     // paddingLeft: 10,
     // paddingRight: 10,
-    padding: 10,
+    // padding: 10,
     alignItems: 'center',
   },
   enrollInput: {
     fontSize: 12,
-    width: '100%',
-    // lineHeight: 34,
+    width: '30%',
+    borderColor: 'rgba(72, 72, 72, .3)',
+    borderWidth: 1,
+    borderRadius: 5,
+    // lineHeight: 30,
+    padding: 10,
   },
   enrollBtn: {
     borderRadius: 5,
@@ -263,6 +284,9 @@ export const EnrollStyle = StyleSheet.create({
     // backgroundColor: 'orange',
     height: 200,
     textAlignVertical: 'top',
+    borderColor: 'rgba(72, 72, 72, .3)',
+    borderWidth: 1,
+    borderRadius: 5,
   },
 });
 
@@ -441,7 +465,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
   Text1: {
     color: '#747474',
-    fontFamily: 'Inter, sans-serif',
+    // fontFamily: 'Inter, sans-serif',
     fontSize: 24,
   },
   LoginButton: {
@@ -483,12 +507,12 @@ export const LoginPageStyles = StyleSheet.create({
   },
   Text2: {
     color: '#000000',
-    fontFamily: 'Inter, sans-serif',
+    // fontFamily: 'Inter, sans-serif',
     fontSize: 16,
   },
   Text3: {
     color: '#ffffff',
-    fontFamily: 'Inter, sans-serif',
+    // fontFamily: 'Inter, sans-serif',
     fontSize: 16,
   },
   Rectangle3: {

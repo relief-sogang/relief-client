@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, ScrollView} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
@@ -42,7 +42,7 @@ const SettingProfile = ({navigation, route}) => {
     });
   };
   return (
-    <>
+    <ScrollView>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="프로필 설정" navigation={navigation} />
@@ -166,7 +166,7 @@ const SettingProfile = ({navigation, route}) => {
           <SaveComp text1={'취소'} text2={'저장'} navigation={navigation} />
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 };
 

@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React, {useRef, useState} from 'react';
 import {TextInput, View, Text, Button, TouchableOpacity} from 'react-native';
+import {APIURL} from '../config/key';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
@@ -13,8 +15,9 @@ const EnrollFriend = ({navigation, route}) => {
     second: '',
     third: '',
     id: '',
+    message: '',
   });
-  const {name, first, second, third, id} = {inputs};
+  const {name, first, second, third, id, message} = {inputs};
   const ref1 = useRef();
   const ref2 = useRef();
   const ref3 = useRef();
@@ -30,6 +33,20 @@ const EnrollFriend = ({navigation, route}) => {
       ...inputs,
       [name]: value,
     });
+  };
+
+  const sendRequest = async () => {
+    const res = await axios.post(`${APIURL}/api/command/guardian/request`, {
+      guardianId: id,
+      guardianName: name,
+      RequestMessage: message,
+    });
+
+    if (res.data.code == 1) {
+      // 성공
+    } else {
+      // 실패
+    }
   };
 
   return (
@@ -63,6 +80,21 @@ const EnrollFriend = ({navigation, route}) => {
               style={[EnrollStyle.enrollInput, {width: '100%'}]}
               value={id}
               onChangeText={text => onChange('id', text)}
+            />
+          </View>
+        </View>
+
+        <View style={EnrollStyle.enrollBox}>
+          <View style={EnrollStyle.enrollHeader}>
+            <Text style={EnrollStyle.enrollText}>보호자 신청 메시지</Text>
+          </View>
+          <View style={EnrollStyle.enrollInputBox}>
+            <TextInput
+              style={EnrollStyle.enrollBigInput}
+              multiline={true}
+              placeholder="보호자 신청 메시지를 작성해주세요."
+              value={message}
+              onChangeText={text => onChange('message', message)}
             />
           </View>
         </View>

@@ -4,7 +4,7 @@ import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import MenuBig from './atomic/MenuBig';
 
-const menu = ['보호자 등록', '보호자 관리', '피보호자 관리'];
+const menu = ['보호자 등록', '보호자 관리', '피보호자 관리', '친구 승낙'];
 
 const SafetySurvice = ({navigation, route}) => {
   const onPress = text => {

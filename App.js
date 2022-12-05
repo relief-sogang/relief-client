@@ -19,6 +19,7 @@ import MessageRecords from './components/MessageRecords';
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 import {APIURL} from './config/key';
+import {ScrollView} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 

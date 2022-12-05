@@ -1,11 +1,17 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, TextInput} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+  ScrollView,
+} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 
 const MessageRecords = ({navigation, route}) => {
   return (
-    <>
+    <ScrollView>
       <View style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="도움 요청 메시지 내역" navigation={navigation} />
@@ -40,7 +46,7 @@ const MessageRecords = ({navigation, route}) => {
           </View>
         </View>
       </View>
-    </>
+    </ScrollView>
   );
 };
 
