@@ -1,32 +1,24 @@
-import React from 'react'
-import { View, Text, Image, StyleSheet } from 'react-native'
-import {LoginPageStyles} from '../styleSheets';
+import React, { useEffect } from 'react'
+import { View, Text, Image, StyleSheet, Linking, TouchableOpacity } from 'react-native'
+import {LoginPageStyles} from '../styleSheets'
+import axios from 'axios'
 
-// const RestApiKey = '';
-// const redirectUrl = 'http://localhost:3000';
-// const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${RestApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
+const RestApiKey = process.env.REACT_APP_REST_API_KEY
+const redirectUrl = 'http://localhost:3000/kakaoLogin'
+const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${RestApiKey}&redirect_uri=${redirectUrl}&response_type=code`
 
-const Login = ({navigation, route}) => {
+const Login = () => {
+
     return (
         <View style={LoginPageStyles.Rectangle1}>
-            {/* <a
-                href={kakaoUrl}
-                style={{
-                minWidth: 250,
-                padding: '10px 0px',
-                borderRadius: 5,
-                backgroundColor: '#F1DC11',
-                fontSize: 20,
-                textDecoration: 'none',
-                textAlign: 'center',
-                }}>
-                카카오 로그인
-            </a> */}
             <View style={LoginPageStyles.Rectangle2}>
                 <Text style={LoginPageStyles.Text1}>
                     relief로 안심하세요!
                 </Text>
-                <View style={LoginPageStyles.KakaoView}>
+                <TouchableOpacity
+                    style={LoginPageStyles.KakaoView}
+                    onPress={() => Linking.openURL(kakaoUrl)}
+                >
                     <Image
                         style={LoginPageStyles.icon}
                         source={require('../assets/images/kakao.png')}
@@ -34,7 +26,7 @@ const Login = ({navigation, route}) => {
                     <Text style={LoginPageStyles.Text2}>
                         카카오톡으로 계속하기
                     </Text>
-                </View>
+                </TouchableOpacity>
                 
                 <View style={LoginPageStyles.FacebookView}>
                     <Image
