@@ -6,8 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 const Scrap = ({navigation, route}) => {
   return (
-    <ScrollView>
-      <View style={SettingStyle.settingWrap}>
+    <>
+      <ScrollView style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="스크랩" navigation={navigation} />
 
@@ -96,8 +96,8 @@ const Scrap = ({navigation, route}) => {
             </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 

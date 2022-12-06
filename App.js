@@ -19,11 +19,11 @@ import ReliefService from './components/ReliefService';
 import Setting from './components/Setting';
 import ChangePassword from './components/ChangePassword';
 import SettingPushNotice from './components/SettingPushNotice';
+import AcceptGuardian from './components/AcceptGuardian';
 
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 import {APIURL} from './config/key';
-import {ScrollView} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -75,6 +75,7 @@ const App = () => {
           initialParams={{target: '피보호자'}}
         />
         <Stack.Screen name="피보호자/보호자 정보" component={DetailFriend} />
+        <Stack.Screen name="보호자 요청 수락" component={AcceptGuardian} />
 
         {/* 도움 요청 메시지 관리 스크린 */}
         <Stack.Screen name="도움 요청 메시지" component={HelpMessageScreen} />
@@ -97,7 +98,6 @@ const App = () => {
         <Stack.Screen name="설정" component={Setting} />
         <Stack.Screen name="비밀번호 변경" component={ChangePassword} />
         <Stack.Screen name="알림 설정" component={SettingPushNotice} />
-
       </Stack.Navigator>
     </NavigationContainer>
   );

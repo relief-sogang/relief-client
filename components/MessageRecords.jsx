@@ -11,8 +11,8 @@ import SettingHeader from './SettingHeader';
 
 const MessageRecords = ({navigation, route}) => {
   return (
-    <ScrollView>
-      <View style={SettingStyle.settingWrap}>
+    <>
+      <ScrollView style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="도움 요청 메시지 내역" navigation={navigation} />
 
@@ -45,8 +45,8 @@ const MessageRecords = ({navigation, route}) => {
             </View>
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 

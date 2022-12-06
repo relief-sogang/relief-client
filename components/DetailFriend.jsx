@@ -39,7 +39,7 @@ const DetailFriend = ({navigation, route}) => {
           <View
             style={[
               EnrollStyle.enrollInputBox,
-              {backgroundColor: 'rgba(218, 218, 218, .3)'},
+              {backgroundColor: 'rgba(218, 218, 218, .3)', padding: 10},
             ]}>
             <Text>{name}</Text>
           </View>
@@ -52,7 +52,7 @@ const DetailFriend = ({navigation, route}) => {
           <View
             style={[
               EnrollStyle.enrollInputBox,
-              {backgroundColor: 'rgba(218, 218, 218, .3)'},
+              {backgroundColor: 'rgba(218, 218, 218, .3)', padding: 10},
             ]}>
             <Text>{email}</Text>
           </View>

@@ -71,7 +71,7 @@ const SettingProfile = ({navigation, route}) => {
               />
             </View>
           </View>
-          <View style={EnrollStyle.enrollBox}>
+          {/* <View style={EnrollStyle.enrollBox}>
             <View style={EnrollStyle.enrollHeader}>
               <Text style={styles.profileText}>성별</Text>
             </View>
@@ -85,8 +85,8 @@ const SettingProfile = ({navigation, route}) => {
                 value={sex}
               />
             </View>
-          </View>
-          <View style={EnrollStyle.enrollBox}>
+          </View> */}
+          {/* <View style={EnrollStyle.enrollBox}>
             <View style={EnrollStyle.enrollHeader}>
               <Text style={styles.profileText}>생년월일</Text>
             </View>
@@ -117,8 +117,8 @@ const SettingProfile = ({navigation, route}) => {
                 ref={ref3}
               />
             </View>
-          </View>
-          <View style={EnrollStyle.enrollBox}>
+          </View> */}
+          {/* <View style={EnrollStyle.enrollBox}>
             <View style={EnrollStyle.enrollHeader}>
               <Text style={styles.profileText}>주소</Text>
             </View>
@@ -132,7 +132,7 @@ const SettingProfile = ({navigation, route}) => {
                 value={address}
               />
             </View>
-          </View>
+          </View> */}
           <View style={EnrollStyle.enrollBox}>
             <View style={EnrollStyle.enrollHeader}>
               <Text style={styles.profileText}>전화번호</Text>

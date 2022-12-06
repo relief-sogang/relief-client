@@ -38,8 +38,8 @@ const FriendsList = ({navigation, route}) => {
   };
 
   return (
-    <ScrollView>
-      <View style={SettingStyle.settingWrap}>
+    <>
+      <ScrollView style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text={`${target} 관리`} navigation={navigation} />
 
@@ -80,8 +80,8 @@ const FriendsList = ({navigation, route}) => {
             ))}
           </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 

@@ -155,7 +155,7 @@ export const SettingStyle = StyleSheet.create({
     height: '100%',
     backgroundColor: '#FFBBE4',
     // justifyContent: 'center',
-    alignItems: 'center',
+    // alignItems: 'center',
     paddingTop: 50,
     paddingBottom: 30,
   },
@@ -167,6 +167,8 @@ export const SettingStyle = StyleSheet.create({
     position: 'relative',
     paddingBottom: 70,
     alignItems: 'center',
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
   settingHeader: {
     width: '95%',
@@ -257,7 +259,7 @@ export const EnrollStyle = StyleSheet.create({
     // height: 34,
     // borderColor: 'rgba(72, 72, 72, .3)',
     // borderWidth: 1,
-    // borderRadius: 5,
+    borderRadius: 5,
     // paddingLeft: 10,
     // paddingRight: 10,
     // padding: 10,
@@ -562,4 +564,4 @@ export const ReliefServiceStyles = StyleSheet.create({
     marginLeft: 15,
     color: 'white',
   },
-})
+});
