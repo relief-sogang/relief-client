@@ -19,14 +19,51 @@ const AcceptGuardian = ({navigation, route}) => {
             </Text>
           </View>
 
-          <View style={styles.messageRecordBox}>
+          <View style={[styles.messageRecordBox, {borderColor: '#0CB927'}]}>
             <View style={styles.messageInfo}>
               <Text style={styles.messageLight}>이름</Text>
               <Text style={styles.messageBold}>홍길동</Text>
             </View>
             <View style={styles.messageInfo}>
+              <Text style={styles.messageLight}>아이디</Text>
+              <Text style={styles.messageBold}>gildong</Text>
+            </View>
+            <View style={styles.messageInfo}>
               <Text style={styles.messageLight}>이메일</Text>
               <Text style={styles.messageBold}>gildong@naver.com</Text>
+            </View>
+
+            <View style={styles.acceptBox}>
+              <View style={[styles.acceptBtn, {backgroundColor: '#F33939'}]}>
+                <Text style={styles.acceptText}>거절</Text>
+              </View>
+              <View style={styles.acceptBtn}>
+                <Text style={styles.acceptText}>수락</Text>
+              </View>
+            </View>
+          </View>
+
+          <View style={[styles.messageRecordBox, {borderColor: '#0CB927'}]}>
+            <View style={styles.messageInfo}>
+              <Text style={styles.messageLight}>이름</Text>
+              <Text style={styles.messageBold}>신짱구</Text>
+            </View>
+            <View style={styles.messageInfo}>
+              <Text style={styles.messageLight}>아이디</Text>
+              <Text style={styles.messageBold}>zzang</Text>
+            </View>
+            <View style={styles.messageInfo}>
+              <Text style={styles.messageLight}>이메일</Text>
+              <Text style={styles.messageBold}>zzang@naver.com</Text>
+            </View>
+
+            <View style={styles.acceptBox}>
+              <View style={[styles.acceptBtn, {backgroundColor: '#F33939'}]}>
+                <Text style={styles.acceptText}>거절</Text>
+              </View>
+              <View style={styles.acceptBtn}>
+                <Text style={styles.acceptText}>수락</Text>
+              </View>
             </View>
           </View>
         </View>
