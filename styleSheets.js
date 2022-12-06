@@ -533,7 +533,7 @@ export const LoginPageStyles = StyleSheet.create({
   },
 });
 
-export const ReliefServiceStyles = (color) => StyleSheet.create({
+export const ReliefServiceStyles = StyleSheet.create({
   container: {
     width: '100%',
     height: '100%',
@@ -545,7 +545,6 @@ export const ReliefServiceStyles = (color) => StyleSheet.create({
     marginBottom: 12,
     width: '90%',
     borderRadius: 20,
-    backgroundColor: color,
     position: 'relative',
     paddingBottom: 70,
   },

@@ -34,20 +34,20 @@ const ReliefService = ({navigation, route}) => {
     }
 
   return (
-    <View style={ReliefServiceStyles().container}>
+    <View style={ReliefServiceStyles.container}>
         <SettingHeader text="안심 서비스" navigation={navigation} />
 
         <View style={{marginTop: 30}} />
         {menu.map((item, idx) => (
         <TouchableOpacity
             key={idx}
-            style={ReliefServiceStyles(item.color).BtnWrap}
+            style={[ReliefServiceStyles.BtnWrap, {backgroundColor: item.color}]}
             onPress={() => onPress(idx)}
         >
-            <Text style={ReliefServiceStyles().BtnTitle}>
+            <Text style={ReliefServiceStyles.BtnTitle}>
                 {item.title}
             </Text>
-            <Text style={ReliefServiceStyles().BtnContent}>
+            <Text style={ReliefServiceStyles.BtnContent}>
                 {item.content}
             </Text>
         </TouchableOpacity>

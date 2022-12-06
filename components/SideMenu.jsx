@@ -89,7 +89,13 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
               <View style={HomeStyle.menuIcons}>
                 <Icon name="gear" size={18} color="#9B9B9B" />
               </View>
-              <Text style={HomeStyle.menuItem}>설정</Text>
+              <Text
+                style={HomeStyle.menuItem}
+                onPress={() => {
+                  moveScreen('설정');
+                }}>
+                설정
+              </Text>
             </View>
             <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>

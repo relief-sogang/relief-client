@@ -15,12 +15,15 @@ import HelpMessageScreen from './components/HelpMessageScreen';
 import ManageMessage from './components/ManageMessage';
 import Login from './components/Login';
 import MessageRecords from './components/MessageRecords';
+import ReliefService from './components/ReliefService';
+import Setting from './components/Setting';
+import ChangePassword from './components/ChangePassword';
+import SettingPushNotice from './components/SettingPushNotice';
 
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 import {APIURL} from './config/key';
 import {ScrollView} from 'react-native';
-import ReliefService from './components/ReliefService';
 
 const Stack = createNativeStackNavigator();
 
@@ -89,6 +92,11 @@ const App = () => {
 
         {/* 안심 서비스 소개 */}
         <Stack.Screen name="안심 서비스 소개" component={ReliefService} />
+
+        {/* 설정 */}
+        <Stack.Screen name="설정" component={Setting} />
+        <Stack.Screen name="비밀번호 변경" component={ChangePassword} />
+        <Stack.Screen name="알림 설정" component={SettingPushNotice} />
 
       </Stack.Navigator>
     </NavigationContainer>
