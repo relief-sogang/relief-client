@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import {LoginPageStyles} from '../styleSheets';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const RestApiKey = process.env.REACT_APP_REST_API_KEY;
 const redirectUrl = 'http://localhost:3000/kakaoLogin';
@@ -19,6 +20,16 @@ const Login = ({navigation, route}) => {
     <View style={LoginPageStyles.Rectangle1}>
       <View style={LoginPageStyles.Rectangle2}>
         <Text style={LoginPageStyles.Text1}>relief로 안심하세요!</Text>
+
+        <View style={LoginPageStyles.loginBox}>
+          <Text style={{color: '#747474'}}>소셜 간편 로그인</Text>
+          <Icon
+            name="rocket"
+            size={20}
+            color="#4E52B4"
+            style={{marginLeft: 5}}
+          />
+        </View>
         <TouchableOpacity
           style={LoginPageStyles.KakaoView}
           // onPress={() => Linking.openURL(kakaoUrl)}>

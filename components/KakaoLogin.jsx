@@ -34,7 +34,8 @@ const KakaoLogin = ({navigation: {navigate}}) => {
       //       ),
       //     );
 
-      navigate('Home', {screen: 'Home'});
+      //   navigate('Home', {screen: 'Home'});
+      navigate('회원가입', {screen: '회원가입'});
     }
   };
 

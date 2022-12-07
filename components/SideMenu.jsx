@@ -109,6 +109,18 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 로그인(임시)
               </Text>
             </View>
+            <View style={HomeStyle.menuItemBox}>
+              <View style={HomeStyle.menuIcons}>
+                <Icon name="comment" size={14} color="#9B9B9B" />
+              </View>
+              <Text
+                style={HomeStyle.menuItem}
+                onPress={() => {
+                  moveScreen('회원가입');
+                }}>
+                회원가입(임시)
+              </Text>
+            </View>
           </View>
         )}
       </TouchableOpacity>

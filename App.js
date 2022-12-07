@@ -20,7 +20,7 @@ import Setting from './components/Setting';
 import ChangePassword from './components/ChangePassword';
 import SettingPushNotice from './components/SettingPushNotice';
 import AcceptGuardian from './components/AcceptGuardian';
-
+import Register from './components/Register';
 import KakaoLogin from './components/KakaoLogin';
 
 import SplashScreen from 'react-native-splash-screen';
@@ -93,6 +93,7 @@ const App = () => {
         {/* 로그인 */}
         <Stack.Screen name="로그인" component={Login} />
         <Stack.Screen name="카카오로그인" component={KakaoLogin} />
+        <Stack.Screen name="회원가입" component={Register} />
 
         {/* 안심 서비스 소개 */}
         <Stack.Screen name="안심 서비스 소개" component={ReliefService} />
