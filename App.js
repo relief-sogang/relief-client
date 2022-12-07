@@ -21,6 +21,8 @@ import ChangePassword from './components/ChangePassword';
 import SettingPushNotice from './components/SettingPushNotice';
 import AcceptGuardian from './components/AcceptGuardian';
 
+import KakaoLogin from './components/KakaoLogin';
+
 import SplashScreen from 'react-native-splash-screen';
 import axios from 'axios';
 import {APIURL} from './config/key';
@@ -90,6 +92,7 @@ const App = () => {
 
         {/* 로그인 */}
         <Stack.Screen name="로그인" component={Login} />
+        <Stack.Screen name="카카오로그인" component={KakaoLogin} />
 
         {/* 안심 서비스 소개 */}
         <Stack.Screen name="안심 서비스 소개" component={ReliefService} />
