@@ -147,6 +147,24 @@ export const HomeStyle = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
   },
+  sharingWrap: {
+    position: 'absolute',
+    left: 20,
+    top: -100,
+    zIndex: 10,
+  },
+  sharingBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 146,
+    height: 41,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: '#F461CB',
+    backgroundColor: '#F461CB',
+    marginBottom: 5,
+    flexDirection: 'row',
+  },
 });
 
 export const SettingStyle = StyleSheet.create({

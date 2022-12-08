@@ -17,6 +17,8 @@ const Home = ({navigation, route}) => {
   const [input, setInput] = useState('');
   const [clickMenu, setClickMenu] = useState(false);
   const [clickSharing, setClickSharing] = useState(false);
+  const [loading, setLoading] = useState('');
+  const [isSharing, setIsSharing] = useState(false);
 
   const onChange = e => {
     setInput(e);
@@ -29,6 +31,21 @@ const Home = ({navigation, route}) => {
 
   const onClick = () => {
     setClickMenu(false);
+  };
+
+  if (isSharing) {
+    setTimeout(() => {
+      if (loading.length === 3) {
+        setLoading('');
+      } else {
+        setLoading(loading + '.');
+      }
+    }, 500);
+  }
+
+  const onSharingClick = () => {
+    setIsSharing(isSharing ? false : true);
+    setClickSharing(false);
   };
 
   return (
@@ -81,8 +98,12 @@ const Home = ({navigation, route}) => {
           <Icon name="map-marker" size={36} color="white" />
 
           {clickSharing && (
-            <TouchableOpacity style={HomeStyle.shareLocationBox}>
-              <Text style={HomeStyle.shareLocationText}>위치 공유하기</Text>
+            <TouchableOpacity
+              style={HomeStyle.shareLocationBox}
+              onPress={onSharingClick}>
+              <Text style={HomeStyle.shareLocationText}>
+                {isSharing ? <>위치 공유 취소</> : <>위치 공유 하기</>}
+              </Text>
               <Icon
                 name="sort-desc"
                 size={35}
@@ -92,6 +113,29 @@ const Home = ({navigation, route}) => {
             </TouchableOpacity>
           )}
         </TouchableOpacity>
+
+        {isSharing && (
+          <View style={HomeStyle.sharingWrap}>
+            <TouchableOpacity
+              style={
+                loading.length % 2 == 0
+                  ? HomeStyle.sharingBox
+                  : [HomeStyle.sharingBox, {borderColor: 'white'}]
+              }>
+              <Text style={HomeStyle.shareLocationText}>위치 공유 중</Text>
+              <Text style={[HomeStyle.shareLocationText, {width: 17}]}>
+                {loading}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[
+                HomeStyle.sharingBox,
+                {backgroundColor: '#04BC00', borderColor: '#04BC00'},
+              ]}>
+              <Text style={HomeStyle.shareLocationText}>도움 요청</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
     </TouchableOpacity>
   );

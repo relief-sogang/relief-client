@@ -24,8 +24,6 @@ import Register from './components/Register';
 import KakaoLogin from './components/KakaoLogin';
 
 import SplashScreen from 'react-native-splash-screen';
-import axios from 'axios';
-import {APIURL} from './config/key';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,18 +31,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       SplashScreen.hide();
-    }, 2000);
-  }, []);
-
-  useEffect(() => {
-    // api sample
-    axios
-      .post(`${APIURL}/api/query/sample`, {
-        id: 1,
-      })
-      .then(res => {
-        console.log(res.data);
-      });
+    }, 1500);
   }, []);
 
   return (

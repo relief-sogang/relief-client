@@ -57,6 +57,9 @@ const Register = ({navigation, route}) => {
   };
 
   const onRegister = async () => {
+    // 임시
+    navigation.navigate('Home', {screen: 'Home'});
+
     if (!isValidId || !id) {
       alert('아이디를 확인해주세요!');
       return;
