@@ -2,8 +2,8 @@ import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 import {withSafeAreaInsets} from 'react-native-safe-area-context';
 
-let chartHeight = Dimensions.get('window').height;
-let chartWidth = Dimensions.get('window').width;
+export let chartHeight = Dimensions.get('window').height;
+export let chartWidth = Dimensions.get('window').width;
 // chartHeight = Math.ceil(chartHeight);
 // chartWidth = Math.ceil(chartWidth);
 chartHeight = chartHeight;
@@ -498,16 +498,20 @@ export const styles = StyleSheet.create({
 
 export const LoginPageStyles = StyleSheet.create({
   Rectangle1: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#ffffff',
+    // flex: 1,
+    width: '100%',
+    minHeight: '100%',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    backgroundColor: 'white',
     position: 'relative',
   },
   Rectangle2: {
+    width: '100%',
     alignItems: 'center',
     // backgroundColor: 'orange',
-    paddingBottom: 120,
+    paddingTop: chartHeight * 0.1,
+    paddingBottom: chartHeight * 0.1,
   },
   loginBox: {
     borderWidth: 1,
@@ -608,11 +612,10 @@ export const LoginPageStyles = StyleSheet.create({
     shadowOpacity: 30,
     shadowRadius: 3.84,
     width: '80%',
-    // height: 100,
     alignItems: 'center',
     paddingBottom: 100,
-    marginTop: 30,
-    marginBottom: 100,
+    marginTop: 20,
+    position: 'relative',
   },
   registerTextBox: {
     width: '100%',
@@ -620,20 +623,21 @@ export const LoginPageStyles = StyleSheet.create({
     backgroundColor: '#F461CB',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 30,
+    marginBottom: 20,
   },
   registerBtn: {
     backgroundColor: 'black',
-    width: '80%',
+    width: '85%',
     height: 40,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
     position: 'absolute',
-    bottom: 50,
+    left: '7.5%',
+    bottom: 20,
   },
   registerText: {
-    height: 30,
+    height: 32,
     flexDirection: 'row',
     alignItems: 'center',
   },

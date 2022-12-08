@@ -29,10 +29,9 @@ const KakaoLogin = ({navigation: {navigate}}) => {
         })
         .then(res => {
           console.log(res.data);
-          // AsyncStorage.setItem(
-          //   'userNumber',
-          //   JSON.stringify(res['data']['userId']),
-          // ),
+          setData('accessToken', res.data.accessToken);
+          setData('refreshToken', res.data.refreshToken);
+          setData('email', res.data.email);
         });
 
       //   navigate('Home', {screen: 'Home'});
