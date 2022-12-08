@@ -24,6 +24,7 @@ import Register from './components/Register';
 import KakaoLogin from './components/KakaoLogin';
 
 import SplashScreen from 'react-native-splash-screen';
+import {getData, setData} from './config/asyncStorage';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,6 +34,17 @@ const App = () => {
       SplashScreen.hide();
     }, 1500);
   }, []);
+
+  // useEffect(() => {
+  //   setData('temp', {
+  //     name: 'ahyoung',
+  //     age: 24,
+  //   })
+  //     .then(() => getData('temp'))
+  //     .then(res => {
+  //       console.log('app: ', res);
+  //     });
+  // }, []);
 
   return (
     <NavigationContainer>

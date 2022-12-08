@@ -1,8 +1,10 @@
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React from 'react';
 import {View, LogBox, Text} from 'react-native';
 import {WebView} from 'react-native-webview';
+import {APIURL} from '../config/key';
+import {setData} from '../config/asyncStorage';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -21,18 +23,17 @@ const KakaoLogin = ({navigation: {navigate}}) => {
       const authCode = url.substring(startIndex + exp.length);
       console.log('access code :: ' + authCode);
 
-      //   await axios
-      //     .post('본인 url', {
-      //       params: {
-      //         code: authCode,
-      //       },
-      //     })
-      //     .then(res =>
-      //       AsyncStorage.setItem(
-      //         'userNumber',
-      //         JSON.stringify(res['data']['userId']),
-      //       ),
-      //     );
+      await axios
+        .post(`${APIURL}/oauth2/code/kakao`, {
+          code: authCode,
+        })
+        .then(res => {
+          console.log(res.data);
+          // AsyncStorage.setItem(
+          //   'userNumber',
+          //   JSON.stringify(res['data']['userId']),
+          // ),
+        });
 
       //   navigate('Home', {screen: 'Home'});
       navigate('회원가입', {screen: '회원가입'});
