@@ -16,6 +16,17 @@ const redirectUrl = 'http://localhost:3000/kakaoLogin';
 const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${RestApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
 
 const Login = ({navigation, route}) => {
+
+  const handler = () => {
+    console.log("qwer")
+    console.log("url : " + url)
+  }
+
+  useEffect(() => {
+    console.log('asdf')
+    Linking.addEventListener('url', handler);
+  }, []);
+
   return (
     <View style={LoginPageStyles.Rectangle1}>
       <View style={LoginPageStyles.Rectangle2}>
@@ -59,13 +70,15 @@ const Login = ({navigation, route}) => {
                         네이버로 계속하기
                     </Text>
                 </View> */}
-        <View style={LoginPageStyles.GoogleView}>
+        <TouchableOpacity
+          style={LoginPageStyles.GoogleView}
+          onPress={() => navigation.navigate('구글로그인')}>
           <Image
             style={LoginPageStyles.icon}
             source={require('../assets/images/google.png')}
           />
           <Text style={LoginPageStyles.Text2}>구글로 계속하기</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
