@@ -22,6 +22,7 @@ import SettingPushNotice from './components/SettingPushNotice';
 import AcceptGuardian from './components/AcceptGuardian';
 import Register from './components/Register';
 import KakaoLogin from './components/KakaoLogin';
+import GoogleLogin from './components/GoogleLogin';
 
 import SplashScreen from 'react-native-splash-screen';
 import {getData, setData} from './config/asyncStorage';
@@ -92,6 +93,7 @@ const App = () => {
         {/* 로그인 */}
         <Stack.Screen name="로그인" component={Login} />
         <Stack.Screen name="카카오로그인" component={KakaoLogin} />
+        <Stack.Screen name="구글로그인" component={GoogleLogin} />
         <Stack.Screen name="회원가입" component={Register} />
 
         {/* 안심 서비스 소개 */}
