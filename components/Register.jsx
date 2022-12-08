@@ -11,10 +11,13 @@ import {
 import {chartHeight} from '../styleSheets';
 import {APIURL} from '../config/key';
 import {EnrollStyle, LoginPageStyles, styles} from '../styleSheets';
+import {getData, setData} from '../config/asyncStorage';
 
 const Register = ({navigation, route}) => {
   const [isValidId, setIsValidId] = useState(false);
   const [height, setHeight] = useState(0);
+  const [isValidPwd, setIsValidPwd] = useState(false);
+  const [isPwdRight, setIsPwdRight] = useState(false);
   const [inputs, setInputs] = useState({
     name: '',
     id: '',
@@ -41,9 +44,21 @@ const Register = ({navigation, route}) => {
   const onChangeText = (name, text) => {
     if (name === 'id' && isValidId) {
       setIsValidId(false);
-    }
-
-    if (name === 'ph1' && text.length === 3) {
+    } else if (name === 'pwd') {
+      // 비밀번호 유효성 검사 영문 대소문자, 숫자 8~16자
+      var regExp = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{8,16}$/;
+      if (regExp.test(text)) {
+        setIsValidPwd(true);
+      } else {
+        setIsValidPwd(false);
+      }
+    } else if (name === 'pwd2') {
+      if (text === pwd) {
+        setIsPwdRight(true);
+      } else {
+        setIsPwdRight(false);
+      }
+    } else if (name === 'ph1' && text.length === 3) {
       ref2.current.focus();
     } else if (name === 'ph2' && text.length === 4) {
       ref3.current.focus();
@@ -79,20 +94,48 @@ const Register = ({navigation, route}) => {
 
   const onRegister = async () => {
     // 임시
-    navigation.navigate('Home', {screen: 'Home'});
+    // navigation.navigate('Home', {screen: 'Home'});
 
-    if (!isValidId || !id) {
-      alert('아이디를 확인해주세요!');
+    if (!name) {
+      alert('이름을 입력해주세요!');
       return;
     }
+    if (!id) {
+      alert('아이디를 입력해주세요!');
+      return;
+    }
+    if (!isValidId) {
+      alert('아이디 중복 확인이 필요합니다.');
+      return;
+    }
+    if (!pwd) {
+      alert('비밀번호를 입력해주세요!');
+      return;
+    }
+    if (!isValidPwd) {
+      alert('비밀번호를 확인해주세요!');
+      return;
+    }
+    if (!isPwdRight) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    const email = getData('email');
+
     await axios
       .post(`${APIURL}/api/command/member/signupdetail`, {
-        id,
+        userId: id,
+        userName: name,
+        password: pwd,
+        email: email,
         phoneNumber: ph1 + ph2 + ph3,
       })
       .then(res => {
         if (res.data.code == 1) {
           // 성공
+          setData('userId', res.data.userId);
+          setData('userName', res.data.userName);
           navigation.navigate('Home', {screen: 'Home'});
         }
       });
@@ -203,6 +246,16 @@ const Register = ({navigation, route}) => {
                     *
                   </Text>
                 </View>
+
+                {!isValidPwd && pwd && (
+                  <Text
+                    style={[
+                      LoginPageStyles.checkValidIdText,
+                      {color: '#F54242'},
+                    ]}>
+                    영문/숫자 조합 8~16자
+                  </Text>
+                )}
               </View>
               <View style={EnrollStyle.enrollInputBox}>
                 <TextInput
@@ -211,6 +264,7 @@ const Register = ({navigation, route}) => {
                   value={pwd}
                   onChangeText={text => onChangeText('pwd', text)}
                   secureTextEntry={true}
+                  placeholder="영문/숫자 조합 8~16자"
                 />
               </View>
             </View>
@@ -231,14 +285,30 @@ const Register = ({navigation, route}) => {
                     *
                   </Text>
                 </View>
+
+                {isValidPwd && !isPwdRight && pwd2 && (
+                  <Text
+                    style={[
+                      LoginPageStyles.checkValidIdText,
+                      {color: '#F54242'},
+                    ]}>
+                    비밀번호가 일치하지 않습니다.
+                  </Text>
+                )}
               </View>
               <View style={EnrollStyle.enrollInputBox}>
                 <TextInput
-                  style={[EnrollStyle.enrollInput, {width: '100%'}]}
+                  style={[
+                    EnrollStyle.enrollInput,
+                    {width: '100%'},
+                    !isValidPwd && {backgroundColor: 'rgba(72, 72, 72, 0.05)'},
+                  ]}
                   name="pwd2"
                   value={pwd2}
                   onChangeText={text => onChangeText('pwd2', text)}
                   secureTextEntry={true}
+                  editable={isValidPwd ? true : false}
+                  selectTextOnFocus={isValidPwd ? true : false}
                 />
               </View>
             </View>
