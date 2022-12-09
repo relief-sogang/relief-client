@@ -8,10 +8,10 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import {chartHeight} from '../styleSheets';
 import {APIURL} from '../config/key';
 import {EnrollStyle, LoginPageStyles, styles} from '../styleSheets';
 import {getData, setData} from '../config/asyncStorage';
+import client from '../config/axios';
 
 const Register = ({navigation, route}) => {
   const [isValidId, setIsValidId] = useState(false);
@@ -71,24 +71,26 @@ const Register = ({navigation, route}) => {
   };
 
   const checkValudId = async () => {
-    // console.log('id: ', id);
-
     if (!id) {
       alert('아이디를 입력해주세요.');
       return;
     }
 
-    await axios
-      .post(`${APIURL}/api/query/user/checkid`, {
-        id: id,
+    await client
+      .post('/api/query/member/checkid', {
+        userId: id,
       })
       .then(res => {
-        console.log(res.data);
         if (res.data.isExist) {
-          alert('이미 사용 중인 아이디 입니다.');
+          alert('이미 존재하는 아이디입니다.');
+          return false;
         } else {
-          setIsValidId(true);
+          alert('사용 가능한 아이디입니다.');
+          return true;
         }
+      })
+      .then(ret => {
+        setIsValidId(ret);
       });
   };
 
@@ -121,23 +123,40 @@ const Register = ({navigation, route}) => {
       return;
     }
 
-    const email = getData('email');
+    const email = await getData('email');
 
-    await axios
-      .post(`${APIURL}/api/command/member/signupdetail`, {
+    // await axios
+    //   .post(`${APIURL}/api/command/member/signupdetail`, {
+    //     userId: id,
+    //     userName: name,
+    //     password: pwd,
+    //     email: email,
+    //     phoneNumber: ph1 + ph2 + ph3,
+    //   })
+    //   .then(res => {
+    //     if (res.data.code == 1) {
+    //       // 성공
+    //       setData('userId', res.data.userId);
+    //       setData('userName', res.data.userName);
+    //       navigation.navigate('Home', {screen: 'Home'});
+    //     }
+    //   });
+
+    await client
+      .post('/api/command/member/signupdetail', {
+        email,
         userId: id,
         userName: name,
         password: pwd,
-        email: email,
         phoneNumber: ph1 + ph2 + ph3,
       })
       .then(res => {
-        if (res.data.code == 1) {
-          // 성공
-          setData('userId', res.data.userId);
-          setData('userName', res.data.userName);
-          navigation.navigate('Home', {screen: 'Home'});
-        }
+        console.log(res.data);
+        setData('userId', id)
+          .then(() => setData('userName', name))
+          .then(() => {
+            navigation.navigate('Home');
+          });
       });
   };
   return (

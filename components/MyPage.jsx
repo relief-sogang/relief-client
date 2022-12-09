@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {SettingStyle, styles, EnrollStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MenuSmall from './atomic/MenuSmall';
+import {getData} from '../config/asyncStorage';
 
 const menu = [
   '프로필 설정',
@@ -14,9 +15,27 @@ const menu = [
   '설정',
 ];
 const MyPage = ({navigation, route}) => {
+  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const onPress = text => {
     navigation.navigate(text);
   };
+
+  const setUserInfo = async () => {
+    const id = await getData('userId');
+    const name = await getData('userName');
+    const email = await getData('email');
+
+    setUserId(id);
+    setUserName(name);
+    setUserEmail(email);
+  };
+
+  useEffect(() => {
+    setUserInfo();
+  }, []);
+
   return (
     <>
       <View style={SettingStyle.settingWrap}>
@@ -27,8 +46,9 @@ const MyPage = ({navigation, route}) => {
             <View style={styles.userImgBox}>
               <Icon name="user" color="white" size={70} />
             </View>
-            <Text style={styles.userName}>홍길동</Text>
-            <Text style={styles.userId}>gildong</Text>
+            <Text style={styles.userName}>{userName}</Text>
+            <Text style={styles.userId}>{userId}</Text>
+            <Text style={styles.userId}>{userEmail}</Text>
           </View>
 
           <View style={{marginTop: 30}} />

@@ -26,6 +26,8 @@ import GoogleLogin from './components/GoogleLogin';
 
 import SplashScreen from 'react-native-splash-screen';
 import {getData, setData} from './config/asyncStorage';
+import axios from 'axios';
+import {APIURL} from './config/key';
 
 const Stack = createNativeStackNavigator();
 

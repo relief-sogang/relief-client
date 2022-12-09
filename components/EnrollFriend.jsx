@@ -5,6 +5,8 @@ import {APIURL} from '../config/key';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
+import client from '../config/axios';
+import {getData} from '../config/asyncStorage';
 
 const EnrollFriend = ({navigation, route}) => {
   // name, phone
@@ -36,16 +38,27 @@ const EnrollFriend = ({navigation, route}) => {
   };
 
   const sendRequest = async () => {
-    const res = await axios.post(`${APIURL}/api/command/guardian/request`, {
+    const userId = await getData('userId');
+
+    const res = await client.post('/api/command/guardian/request', {
+      userId,
       guardianId: id,
       guardianName: name,
       RequestMessage: message,
     });
 
-    if (res.data.code == 1) {
+    if (res.data.code == 'SUCCESS') {
       // 성공
-    } else {
+      alert('보호자 등록 성공');
+      navigation.navigate('보호자 관리');
+      return;
+    } else if (res.data.code === 'NOT_EXIST') {
       // 실패
+      alert('존재하지 않은 아이디 입니다.');
+    } else if (res.data.code === 'DUPLICATE_NAME') {
+      alert('이미 해당 이름으로 등록된 보호자가 있습니다.');
+    } else if (res.data.code === 'DUPLICATE_GUARDIAN') {
+      alert('이미 등록된 보호자 입니다.');
     }
   };
 
