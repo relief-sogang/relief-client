@@ -15,7 +15,7 @@ client.interceptors.request.use(
     // console.log(token);
 
     config.headers['accessToken'] = token;
-    // console.log(config);
+    console.log('client config: ', config);
     return config;
   },
   function (error) {

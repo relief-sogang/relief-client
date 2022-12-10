@@ -48,7 +48,6 @@ const App = () => {
   //       console.log('app: ', res);
   //     });
   // }, []);
-
   return (
     <NavigationContainer>
       <Stack.Navigator

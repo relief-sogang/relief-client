@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import {getData} from '../config/asyncStorage';
 import client from '../config/axios';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import Friend from './atomic/Friend';
@@ -39,8 +40,17 @@ const FriendsList = ({navigation, route}) => {
   };
 
   const getGuardian = async () => {
-    const res = await client.get('/api/query/guardian/list');
+    const id = await getData('userId');
+    const res = await client.post('/api/query/guardian/list', {
+      userId: id,
+    });
+
+    console.log(res.data);
   };
+
+  useEffect(() => {
+    getGuardian();
+  }, []);
 
   return (
     <>

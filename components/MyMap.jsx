@@ -65,12 +65,12 @@ function MyMap() {
   }, []);
 
   const getCctvList = async () => {
-    const res = await client.get(`/api/query/spot/cctv`, {
+    const res = await client.post(`/api/query/spot/cctv`, {
       xAxis: location.latitude,
       yAxis: location.longitude,
     });
 
-    console.log(res.data);
+    console.log('cctv list: ', res.data);
   };
 
   useEffect(() => {

@@ -12,6 +12,8 @@ import {HomeStyle} from '../styleSheets';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import MyMap from './MyMap';
 import SideMenu from './SideMenu';
+import client from '../config/axios';
+import {getData} from '../config/asyncStorage';
 
 const Home = ({navigation, route}) => {
   const [input, setInput] = useState('');
@@ -43,8 +45,25 @@ const Home = ({navigation, route}) => {
     }, 500);
   }
 
+  const onShare = async () => {
+    const id = await getData('userId');
+
+    console.log('id: ', id);
+    const res = await client.post('/api/command/spot/share/start', {
+      userId: id,
+    });
+
+    console.log('sharing location: ', res.data);
+  };
+
   const onSharingClick = () => {
-    setIsSharing(isSharing ? false : true);
+    if (isSharing) {
+      setIsSharing(false);
+    } else {
+      setIsSharing(true);
+      onShare();
+    }
+
     setClickSharing(false);
   };
 
