@@ -51,6 +51,8 @@ const Home = ({navigation, route}) => {
     console.log('id: ', id);
     const res = await client.post('/api/command/spot/share/start', {
       userId: id,
+      xAxis: '37.5509442',
+      yAxis: '126.9410023',
     });
 
     console.log('sharing location: ', res.data);

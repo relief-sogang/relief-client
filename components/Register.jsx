@@ -125,23 +125,6 @@ const Register = ({navigation, route}) => {
 
     const email = await getData('email');
 
-    // await axios
-    //   .post(`${APIURL}/api/command/member/signupdetail`, {
-    //     userId: id,
-    //     userName: name,
-    //     password: pwd,
-    //     email: email,
-    //     phoneNumber: ph1 + ph2 + ph3,
-    //   })
-    //   .then(res => {
-    //     if (res.data.code == 1) {
-    //       // 성공
-    //       setData('userId', res.data.userId);
-    //       setData('userName', res.data.userName);
-    //       navigation.navigate('Home', {screen: 'Home'});
-    //     }
-    //   });
-
     await client
       .post('/api/command/member/signupdetail', {
         email,

@@ -348,6 +348,10 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  friendStatus: {
+    fontSize: 10,
+    color: '#0CB927',
+  },
   userInfoBox: {
     alignItems: 'center',
   },

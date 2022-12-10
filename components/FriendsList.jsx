@@ -1,36 +1,29 @@
-import React, {useEffect} from 'react';
+import axios from 'axios';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {getData} from '../config/asyncStorage';
 import client from '../config/axios';
+import {APIURL} from '../config/key';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import Friend from './atomic/Friend';
 import MenuBig from './atomic/MenuBig';
 import SettingHeader from './SettingHeader';
+import {useIsFocused} from '@react-navigation/native';
 
-const frineds = [
-  {
-    nickname: '엄마',
-    name: '봉미선',
-    id: 'mother',
-  },
-  {
-    nickname: '아빠',
-    name: '신형만',
-    id: 'fater',
-  },
-  {
-    nickname: '철수',
-    name: '김철수',
-    id: 'gildong',
-  },
-];
 const FriendsList = ({navigation, route}) => {
+  // {eamil, id, name, status}
+  // status
+  // REQUEST
+  // ON
+  // OFF
+  // REJECT
+  const [friends, setFriends] = useState([]);
   const target = route.params.target;
-  const onPress = ({name, email, nickname}) => {
+  const onPress = ({name, email, id}) => {
     navigation.navigate('피보호자/보호자 정보', {
       name,
       email,
-      nickname,
+      id,
       target,
     });
   };
@@ -41,16 +34,28 @@ const FriendsList = ({navigation, route}) => {
 
   const getGuardian = async () => {
     const id = await getData('userId');
-    const res = await client.post('/api/query/guardian/list', {
-      userId: id,
-    });
+    const token = await getData('accessToken');
 
-    console.log(res.data);
+    await client
+      .post('/api/query/guardian/list', {
+        userId: id,
+      })
+      .then(res => {
+        console.log(res.data);
+        setFriends(res.data.guardianList);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
+  const isFocused = useIsFocused();
   useEffect(() => {
-    getGuardian();
-  }, []);
+    if (target === '보호자') {
+      getGuardian();
+    } else if (target === '피보호자') {
+    }
+  }, [isFocused]);
 
   return (
     <>
@@ -82,14 +87,15 @@ const FriendsList = ({navigation, route}) => {
               </Text>
             )}
 
-            {frineds.map((data, idx) => (
+            {friends.map((data, idx) => (
               <Friend
                 key={idx}
                 onPress={onPress}
                 num={idx + 1}
-                nickname={data.nickname}
                 name={data.name}
-                email={data.id}
+                email={data.email}
+                id={data.id}
+                status={data.status}
                 target={target}
               />
             ))}

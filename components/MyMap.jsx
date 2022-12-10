@@ -7,16 +7,18 @@ import NaverMapView, {
   Polygon,
 } from 'react-native-nmap';
 import axios from 'axios';
-import {PermissionsAndroid, Platform} from 'react-native';
+import {PermissionsAndroid, Platform, Text, View} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import client from '../config/axios';
 
 function MyMap() {
-  const [location, setLocation] = useState({});
+  // const [location, setLocation] = useState({});
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
+  const [location, setLocation] = useState(sogang);
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
   const P2 = {latitude: 37.565383, longitude: 126.976292};
+  const [cctvs, setCctvs] = useState([]);
 
   // 위치 추적 허가
   const requestPermission = async () => {
@@ -45,10 +47,10 @@ function MyMap() {
       if (result === 'granted') {
         Geolocation.getCurrentPosition(
           pos => {
-            setLocation({
-              latitude: pos.coords.latitude,
-              longitude: pos.coords.longitude,
-            });
+            // setLocation({
+            //   latitude: pos.coords.latitude,
+            //   longitude: pos.coords.longitude,
+            // });
             console.log(pos.coords);
           },
           error => {
@@ -70,7 +72,8 @@ function MyMap() {
       yAxis: location.longitude,
     });
 
-    console.log('cctv list: ', res.data);
+    console.log('cctv list: ', res.data.cctvList);
+    setCctvs(res.data.cctvList);
   };
 
   useEffect(() => {
@@ -113,6 +116,20 @@ function MyMap() {
         // console.warn('onMapClick', JSON.stringify(e));
       }}>
       <Marker coordinate={sogang} onClick={() => console.warn('onClick! p0')} />
+
+      {cctvs.length !== 0 && (
+        <>
+          {cctvs.map((cctv, idx) => (
+            <Marker
+              key={idx}
+              coordinate={{
+                latitude: cctv.xaxis,
+                longitude: cctv.yaxis,
+              }}
+              pinColor="blue"></Marker>
+          ))}
+        </>
+      )}
       {/* <Marker
         coordinate={P1}
         pinColor="blue"
