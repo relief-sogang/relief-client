@@ -3,7 +3,8 @@ import {View, Text, TextInput, ScrollView} from 'react-native';
 import {EnrollStyle, SettingStyle, LoginPageStyles} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
-import axios from 'axios'
+import client from '../config/axios';
+import {APIURL} from '../config/key';
 
 const ChangePassword = ({navigation, route}) => {
   const [isValidPwd, setIsValidPwd] = useState(false);
@@ -60,7 +61,7 @@ const ChangePassword = ({navigation, route}) => {
       return;
     }
 
-    await axios
+    await client
       .post(`${APIURL}/`, {
         
       })
