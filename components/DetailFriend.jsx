@@ -10,6 +10,10 @@ const DetailFriend = ({navigation, route}) => {
   const email = route.params.email;
   const target = route.params.target;
 
+  const deleteFriend = async () => {};
+
+  const editFriend = async () => {};
+
   return (
     <View style={SettingStyle.settingWrap}>
       <View style={SettingStyle.settingBox}>
@@ -57,7 +61,13 @@ const DetailFriend = ({navigation, route}) => {
             <Text>{email}</Text>
           </View>
         </View>
-        <SaveComp text1={'삭제'} text2={'저장'} navigation={navigation} />
+        <SaveComp
+          text1={'삭제'}
+          text2={'저장'}
+          navigation={navigation}
+          method1={deleteFriend}
+          method2={editFriend}
+        />
       </View>
     </View>
   );

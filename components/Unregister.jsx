@@ -1,6 +1,11 @@
 import React, {useRef, useState} from 'react';
 import {TextInput, View, Text, Button, TouchableOpacity} from 'react-native';
-import {EnrollStyle, SettingStyle, styles, LoginPageStyles} from '../styleSheets';
+import {
+  EnrollStyle,
+  SettingStyle,
+  styles,
+  LoginPageStyles,
+} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
 import client from '../config/axios';
@@ -44,14 +49,14 @@ const Unregister = ({navigation, route}) => {
 
     await client
       .post(`${APIURL}/api/command/member/withdraw`, {
-        password: pwd
+        password: pwd,
       })
       .then(res => {
         if (res.data.code === 'SUCCESS') {
-          alert('회원 탈퇴 완료')
+          alert('회원 탈퇴 완료');
           navigation.navigate('로그인');
         } else if (res.data.code === 'FAIL') {
-          alert('비밀번호가 일치하지 않습니다.')
+          alert('비밀번호가 일치하지 않습니다.');
         }
       });
   };
@@ -78,7 +83,7 @@ const Unregister = ({navigation, route}) => {
           <View style={EnrollStyle.enrollInputBox}>
             <TextInput
               style={[EnrollStyle.enrollInput, {width: '100%'}]}
-              name='pwd'
+              name="pwd"
               value={pwd}
               onChangeText={text => onChangeText('pwd', text)}
               secureTextEntry={true}
@@ -90,10 +95,7 @@ const Unregister = ({navigation, route}) => {
             <Text style={EnrollStyle.enrollText}>비밀번호 확인</Text>
             {!isPwdRight && pwd2 && (
               <Text
-                style={[
-                  LoginPageStyles.checkValidIdText,
-                  {color: '#F54242'},
-                ]}>
+                style={[LoginPageStyles.checkValidIdText, {color: '#F54242'}]}>
                 비밀번호가 일치하지 않습니다.
               </Text>
             )}
@@ -101,17 +103,22 @@ const Unregister = ({navigation, route}) => {
 
           <View style={EnrollStyle.enrollInputBox}>
             <TextInput
-                style={[EnrollStyle.enrollInput, {width: '100%'}]}
-                name='pwd2'
-                value={pwd2}
-                onChangeText={text => onChangeText('pwd2', text)}
-                secureTextEntry={true}
-              />
-            </View>
+              style={[EnrollStyle.enrollInput, {width: '100%'}]}
+              name="pwd2"
+              value={pwd2}
+              onChangeText={text => onChangeText('pwd2', text)}
+              secureTextEntry={true}
+            />
+          </View>
         </View>
         <Button title={'탈퇴'} onPress={sendRequest}></Button>
 
-        <SaveComp text1={'취소'} text2={'탈퇴'} navigation={navigation} />
+        <SaveComp
+          text1={'취소'}
+          text2={'탈퇴'}
+          navigation={navigation}
+          method2={sendRequest}
+        />
       </View>
     </View>
   );

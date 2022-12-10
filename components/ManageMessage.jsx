@@ -12,6 +12,10 @@ const ManageMessage = ({navigation, route}) => {
   const onToggleClick = () => {
     setToggle(toggle ? false : true);
   };
+
+  const saveMessageInfo = async () => {
+    // todo
+  };
   return (
     <View style={SettingStyle.settingWrap}>
       <View style={SettingStyle.settingBox}>
@@ -47,7 +51,12 @@ const ManageMessage = ({navigation, route}) => {
           </View>
         </View>
 
-        <SaveComp text1={'취소'} text2={'저장'} navigation={navigation} />
+        <SaveComp
+          text1={'취소'}
+          text2={'저장'}
+          navigation={navigation}
+          method2={saveMessageInfo}
+        />
       </View>
     </View>
   );

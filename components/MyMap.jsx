@@ -9,9 +9,10 @@ import NaverMapView, {
 import axios from 'axios';
 import {PermissionsAndroid, Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
+import client from '../config/axios';
 
 function MyMap() {
-  const [location, setLocation] = useState();
+  const [location, setLocation] = useState({});
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
@@ -48,7 +49,7 @@ function MyMap() {
               latitude: pos.coords.latitude,
               longitude: pos.coords.longitude,
             });
-            // console.log(pos.coords);
+            console.log(pos.coords);
           },
           error => {
             console.log(error);
@@ -62,6 +63,22 @@ function MyMap() {
       }
     });
   }, []);
+
+  const getCctvList = async () => {
+    const res = await client.get(`/api/query/spot/cctv`, {
+      xAxis: location.latitude,
+      yAxis: location.longitude,
+    });
+
+    console.log(res.data);
+  };
+
+  useEffect(() => {
+    console.log(location);
+    if (location !== {}) {
+      getCctvList();
+    }
+  }, [location]);
 
   // useEffect(() => {
   //   const os = Platform.OS;

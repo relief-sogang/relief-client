@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import client from '../config/axios';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import Friend from './atomic/Friend';
 import MenuBig from './atomic/MenuBig';
@@ -35,6 +36,10 @@ const FriendsList = ({navigation, route}) => {
 
   const goEnroll = text => {
     navigation.navigate('보호자 등록');
+  };
+
+  const getGuardian = async () => {
+    const res = await client.get('/api/query/guardian/list');
   };
 
   return (

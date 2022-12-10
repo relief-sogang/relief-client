@@ -44,7 +44,7 @@ const EnrollFriend = ({navigation, route}) => {
       userId,
       guardianId: id,
       guardianName: name,
-      RequestMessage: message,
+      message,
     });
 
     if (res.data.code == 'SUCCESS') {
@@ -112,7 +112,12 @@ const EnrollFriend = ({navigation, route}) => {
           </View>
         </View>
 
-        <SaveComp text1={'취소'} text2={'저장'} navigation={navigation} />
+        <SaveComp
+          text1={'취소'}
+          text2={'저장'}
+          navigation={navigation}
+          method2={sendRequest}
+        />
       </View>
     </View>
   );

@@ -58,6 +58,10 @@ const SettingProfile = ({navigation, route}) => {
       [name]: text,
     });
   };
+
+  const saveProfileInfo = async () => {
+    // todo
+  };
   return (
     <ScrollView>
       <View style={SettingStyle.settingWrap}>
@@ -153,7 +157,12 @@ const SettingProfile = ({navigation, route}) => {
             </View>
           </View>
 
-          <SaveComp text1={'취소'} text2={'저장'} navigation={navigation} />
+          <SaveComp
+            text1={'취소'}
+            text2={'저장'}
+            navigation={navigation}
+            method2={saveProfileInfo}
+          />
         </View>
       </View>
     </ScrollView>
