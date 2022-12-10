@@ -53,6 +53,27 @@ const Home = ({navigation, route}) => {
       style={HomeStyle.container}
       onPress={onClick}
       activeOpacity={1}>
+      {/* <TouchableOpacity
+        style={[
+          HomeStyle.sharingBox,
+          {
+            backgroundColor: '#336EFF',
+            borderColor: '#336EFF',
+            position: 'absolute',
+            left: 20,
+            top: 80,
+            zIndex: 20,
+            width: 200,
+          },
+
+          loading.length % 2 == 0 && {borderColor: 'white'},
+        ]}>
+        <Text style={HomeStyle.shareLocationText}>신짱구님의 위치 찾기</Text>
+        <Text style={[HomeStyle.shareLocationText, {width: 17}]}>
+          {loading}
+        </Text>
+      </TouchableOpacity> */}
+
       {/* search bar */}
       <View style={HomeStyle.searchContainer}>
         <View style={HomeStyle.searchBar}>

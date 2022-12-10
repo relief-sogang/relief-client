@@ -1,23 +1,22 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import {View, Text, TextInput, ScrollView} from 'react-native';
 import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {getData} from '../config/asyncStorage';
 
 const SettingProfile = ({navigation, route}) => {
+  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userEmail, setUserEmail] = useState('');
   const [inputs, setInputs] = useState({
     name: '',
-    sex: '',
-    year: '',
-    month: '',
-    day: '',
-    address: '',
     ph1: '',
     ph2: '',
     ph3: '',
   });
-  const {name, sex, year, month, day, address, ph1, ph2, ph3} = inputs;
+  const {name, ph1, ph2, ph3} = inputs;
 
   const ref1 = useRef();
   const ref2 = useRef();
@@ -25,6 +24,24 @@ const SettingProfile = ({navigation, route}) => {
   const ref4 = useRef();
   const ref5 = useRef();
   const ref6 = useRef();
+
+  const setUserInfo = async () => {
+    const id = await getData('userId');
+    const name = await getData('userName');
+    const email = await getData('email');
+
+    setUserId(id);
+    setUserName(name);
+    setUserEmail(email);
+    setInputs({
+      ...inputs,
+      name: name,
+    });
+  };
+
+  useEffect(() => {
+    setUserInfo();
+  }, []);
 
   const onChange = (name, text) => {
     if (name === 'year' && text.length === 4) {
@@ -47,12 +64,47 @@ const SettingProfile = ({navigation, route}) => {
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="프로필 설정" navigation={navigation} />
 
-          <View style={styles.userInfoBox}>
+          {/* <View style={styles.userInfoBox}>
             <View style={styles.userImgBox}>
               <Icon name="user" color="white" size={70} />
               <View style={styles.userImgBtn}>
                 <Icon name="pencil" color="white" size={15} />
               </View>
+            </View>
+          </View> */}
+
+          <View style={{marginBottom: 20}} />
+
+          <View style={EnrollStyle.enrollBox}>
+            <View style={EnrollStyle.enrollHeader}>
+              <Text style={styles.profileText}>아이디</Text>
+            </View>
+
+            <View
+              style={[
+                EnrollStyle.enrollInputBox,
+                {
+                  backgroundColor: 'rgba(218, 218, 218, .3)',
+                  padding: 10,
+                },
+              ]}>
+              <Text>{userId}</Text>
+            </View>
+          </View>
+          <View style={EnrollStyle.enrollBox}>
+            <View style={EnrollStyle.enrollHeader}>
+              <Text style={styles.profileText}>이메일</Text>
+            </View>
+
+            <View
+              style={[
+                EnrollStyle.enrollInputBox,
+                {
+                  backgroundColor: 'rgba(218, 218, 218, .3)',
+                  padding: 10,
+                },
+              ]}>
+              <Text>{userEmail}</Text>
             </View>
           </View>
 
@@ -71,68 +123,6 @@ const SettingProfile = ({navigation, route}) => {
               />
             </View>
           </View>
-          {/* <View style={EnrollStyle.enrollBox}>
-            <View style={EnrollStyle.enrollHeader}>
-              <Text style={styles.profileText}>성별</Text>
-            </View>
-
-            <View style={EnrollStyle.enrollInputBox}>
-              <TextInput
-                placeholder="성별을 작성해주세요."
-                style={[EnrollStyle.enrollInput, {width: '100%'}]}
-                onChangeText={text => onChange('sex', text)}
-                name="sex"
-                value={sex}
-              />
-            </View>
-          </View> */}
-          {/* <View style={EnrollStyle.enrollBox}>
-            <View style={EnrollStyle.enrollHeader}>
-              <Text style={styles.profileText}>생년월일</Text>
-            </View>
-
-            <View style={EnrollStyle.enrollInputBox}>
-              <TextInput
-                placeholder="YYYY"
-                onChangeText={text => onChange('year', text)}
-                style={EnrollStyle.enrollInput}
-                name="year"
-                value={year}
-                ref={ref1}
-              />
-              <TextInput
-                placeholder="MM"
-                onChangeText={text => onChange('month', text)}
-                style={EnrollStyle.enrollInput}
-                name="month"
-                value={month}
-                ref={ref2}
-              />
-              <TextInput
-                placeholder="DD"
-                onChangeText={text => onChange('day', text)}
-                style={EnrollStyle.enrollInput}
-                name="year"
-                value={day}
-                ref={ref3}
-              />
-            </View>
-          </View> */}
-          {/* <View style={EnrollStyle.enrollBox}>
-            <View style={EnrollStyle.enrollHeader}>
-              <Text style={styles.profileText}>주소</Text>
-            </View>
-
-            <View style={EnrollStyle.enrollInputBox}>
-              <TextInput
-                placeholder="주소를 작성해주세요."
-                style={[EnrollStyle.enrollInput, {width: '100%'}]}
-                onChangeText={text => onChange('address', text)}
-                name="address"
-                value={address}
-              />
-            </View>
-          </View> */}
           <View style={EnrollStyle.enrollBox}>
             <View style={EnrollStyle.enrollHeader}>
               <Text style={styles.profileText}>전화번호</Text>
