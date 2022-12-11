@@ -10,11 +10,12 @@ import axios from 'axios';
 import {PermissionsAndroid, Platform, Text, View} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import client from '../config/axios';
+import {getData} from '../config/asyncStorage';
 
 function MyMap() {
   // const [location, setLocation] = useState({});
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
-  const [location, setLocation] = useState(sogang);
+  const [location, setLocation] = useState({});
   const P0 = {latitude: 37.564362, longitude: 126.977011};
   const P1 = {latitude: 37.565051, longitude: 126.978567};
   const P2 = {latitude: 37.565383, longitude: 126.976292};
@@ -47,10 +48,10 @@ function MyMap() {
       if (result === 'granted') {
         Geolocation.getCurrentPosition(
           pos => {
-            // setLocation({
-            //   latitude: pos.coords.latitude,
-            //   longitude: pos.coords.longitude,
-            // });
+            setLocation({
+              latitude: pos.coords.latitude,
+              longitude: pos.coords.longitude,
+            });
             console.log(pos.coords);
           },
           error => {
@@ -82,6 +83,23 @@ function MyMap() {
       getCctvList();
     }
   }, [location]);
+
+  const onScrap = async () => {
+    const userId = await getData('userId');
+    await client
+      .post('/api/command/spot/register', {
+        userId,
+        name: '서강대학교',
+        lat: sogang.latitude,
+        lng: sogang.longitude,
+      })
+      .then(res => {
+        console.log('test scrap: ', res);
+      })
+      .catch(err => {
+        console.log('scrap err: ', err);
+      });
+  };
 
   // useEffect(() => {
   //   const os = Platform.OS;

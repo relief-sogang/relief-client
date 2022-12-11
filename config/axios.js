@@ -23,4 +23,18 @@ client.interceptors.request.use(
   },
 );
 
+client.interceptors.response.use(
+  async function (response) {
+    return response;
+  },
+  async function (error) {
+    const provider = await getData('provider');
+
+    if (provider === 'kakao') {
+      // code & accessToken 다시 받기
+    }
+    return Promise.reject(error);
+  },
+);
+
 export default client;

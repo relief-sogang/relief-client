@@ -14,6 +14,7 @@ import MyMap from './MyMap';
 import SideMenu from './SideMenu';
 import client from '../config/axios';
 import {getData} from '../config/asyncStorage';
+import {useIsFocused} from '@react-navigation/native';
 
 const Home = ({navigation, route}) => {
   const [input, setInput] = useState('');
@@ -68,6 +69,11 @@ const Home = ({navigation, route}) => {
 
     setClickSharing(false);
   };
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    console.log('home focus');
+  }, [isFocused]);
 
   return (
     <TouchableOpacity

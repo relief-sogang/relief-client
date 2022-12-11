@@ -5,19 +5,11 @@ import {View, LogBox, Text} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {APIURL} from '../config/key';
 import {setData} from '../config/asyncStorage';
+import {KAKAO_URL} from '../config/key';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
 const runFirst = `window.ReactNativeWebView.postMessage("this is message from web");`;
-
-const RestApiKey = '77fdc6db412130cd33e2a3ccc265db4a';
-// const redirectUrl = 'http://localhost:3000';
-const redirectUrl = 'https://www.kakaocorp.com/page/';
-// const redirectUrl =
-//   'http://ec2-3-39-236-36.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/kakao';
-const kakaoUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${RestApiKey}&redirect_uri=${redirectUrl}&response_type=code`;
-// const kakaoUrl =
-//   'https://kauth.kakao.com/oauth/authorize?client_id=77fdc6db412130cd33e2a3ccc265db4a&redirect_uri=http://ec2-3-39-236-36.ap-northeast-2.compute.amazonaws.com:8080/login/oauth2/code/kakao&response_type=code';
 
 const KakaoLogin = ({navigation: {navigate}}) => {
   const parseAuthCode = async url => {
@@ -34,6 +26,7 @@ const KakaoLogin = ({navigation: {navigate}}) => {
           setData('accessToken', res.data.accessToken);
           setData('refreshToken', res.data.refreshToken);
           setData('email', res.data.email);
+          setData('provider', 'kakao');
 
           return res.data.isNew;
         })
@@ -57,7 +50,7 @@ const KakaoLogin = ({navigation: {navigate}}) => {
         scalesPageToFit={false}
         style={{marginTop: 30}}
         source={{
-          uri: kakaoUrl,
+          uri: KAKAO_URL,
         }}
         injectedJavaScript={runFirst}
         javaScriptEnabled={true}
