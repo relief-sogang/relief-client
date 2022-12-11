@@ -31,26 +31,31 @@ const GoogleLogin = ({navigation: {navigate}}) => {
       console.log('access code :: ' + authCode);
 
       await axios
-        .get(`${APIURL}/login/oauth2/code/google?code=${authCode}`)
+        .get(`${APIURL}/oauth2/code/google`, {
+          code: authCode,
+          // params: {
+          //   code: authCode,
+          // },
+        })
         .then(res => {
           console.log(res);
+          setData('accessToken', res.data.accessToken);
+          setData('refreshToken', res.data.refreshToken);
+          setData('email', res.data.email);
+
+          // return res.data.isNew;
+        })
+        .then(res => {
+          if (res) {
+            navigate('회원가입', {screen: '회원가입'});
+          } else {
+            navigate('Home', {screen: 'Home'});
+          }
+        })
+        .catch(err => {
+          console.log(err);
         });
-
-      //   await axios
-      //     .post('본인 url', {
-      //       params: {
-      //         code: authCode,
-      //       },
-      //     })
-      //     .then(res =>
-      //       AsyncStorage.setItem(
-      //         'userNumber',
-      //         JSON.stringify(res['data']['userId']),
-      //       ),
-      //     );
-
-      //   navigate('Home', {screen: 'Home'});
-      navigate('회원가입', {screen: '회원가입'});
+      // navigate('회원가입', {screen: '회원가입'});
     }
   };
 

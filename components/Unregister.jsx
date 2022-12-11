@@ -1,11 +1,6 @@
-import React, {useRef, useState} from 'react';
-import {TextInput, View, Text, Button, TouchableOpacity} from 'react-native';
-import {
-  EnrollStyle,
-  SettingStyle,
-  styles,
-  LoginPageStyles,
-} from '../styleSheets';
+import React, {useState} from 'react';
+import {TextInput, View, Text} from 'react-native';
+import {EnrollStyle, SettingStyle, styles, LoginPageStyles} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
 import client from '../config/axios';
@@ -111,7 +106,6 @@ const Unregister = ({navigation, route}) => {
             />
           </View>
         </View>
-        <Button title={'탈퇴'} onPress={sendRequest}></Button>
 
         <SaveComp
           text1={'취소'}
