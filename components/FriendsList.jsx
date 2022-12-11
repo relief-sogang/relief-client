@@ -17,7 +17,14 @@ const FriendsList = ({navigation, route}) => {
   // ON
   // OFF
   // REJECT
-  const [friends, setFriends] = useState([]);
+  const [friends, setFriends] = useState([
+    {
+      name: 'asdf',
+      email: 'asdf@asdf',
+      id: 'asdf',
+      target: '피보호자'
+    }
+  ]);
   const target = route.params.target;
   const onPress = ({name, email, id}) => {
     navigation.navigate('피보호자/보호자 정보', {
@@ -49,11 +56,30 @@ const FriendsList = ({navigation, route}) => {
       });
   };
 
+  const getProtege = async () => {
+    const id = await getData('userId');
+    const token = await getData('accessToken');
+
+    await client
+      .post('/api/query/protege/list', {
+        userId: id,
+        status: 'ALL'
+      })
+      .then(res => {
+        console.log(res.data);
+        setFriends(res.data.protegeList);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   const isFocused = useIsFocused();
   useEffect(() => {
     if (target === '보호자') {
       getGuardian();
     } else if (target === '피보호자') {
+      getProtege();
     }
   }, [isFocused]);
 

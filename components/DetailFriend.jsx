@@ -12,23 +12,45 @@ const DetailFriend = ({navigation, route}) => {
   const email = route.params.email;
   const target = route.params.target;
 
-  const deleteFriend = async () => {};
+  const deleteFriend = async () => {
+    const userId = await getData('userId');
+    await client
+      .post('/api/command/mapping/delete', {
+        userId,
+        deletedId: id,
+        type: target === '보호자' ? 'GUARDIAN' : 'PROTEGE'
+      })
+      .then(res => {
+        const code = res.data.code;
+        if (code === 'SUCCESS') {
+          alert(`${target}가 삭제되었습니다.`);
+          if (target === '피보호자')
+            alert('보호자 요청 수락 페이지에서 다시 피보호자로 등록할 수 있습니다.')
+          navigation.navigate(`${target} 관리`);
+        }
+      })
+  };
 
   const editFriend = async () => {
     const userId = await getData('userId');
     await client
-      .post('/api/command/guardian/rename', {
+      .post('/api/command/' + (target === '보호자' ? 'guardian' : 'protege') + '/rename',
+      target === '보호자' ? {
         userId,
         guardianId: id,
+        rename,
+      } : {
+        userId,
+        protegeId: id,
         rename,
       })
       .then(res => {
         const code = res.data.code;
         if (code === 'SUCCESS') {
-          alert(`보호자 이름이 수정되었습니다.`);
-          navigation.navigate('보호자 관리');
+          alert(`${target} 이름이 수정되었습니다.`);
+          navigation.navigate(`${target} 관리`);
         } else if (code === 'DUPLICATE_NAME') {
-          alert('해당 이름의 보호자가 이미 존재합니다.');
+          alert(`해당 이름의 ${target}가 이미 존재합니다.`);
         }
       });
   };
