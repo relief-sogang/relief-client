@@ -23,6 +23,7 @@ const Home = ({navigation, route}) => {
   const [clickSharing, setClickSharing] = useState(false);
   const [loading, setLoading] = useState('');
   const [isSharing, setIsSharing] = useState(false);
+  const [code, setCode] = useState('')
 
   const onChange = e => {
     setInput(e);
@@ -53,16 +54,30 @@ const Home = ({navigation, route}) => {
     console.log('id: ', id);
     const res = await client.post('/api/command/spot/share/start', {
       userId: id,
-      xAxis: '37.5509442',
-      yAxis: '126.9410023',
     });
 
-    console.log('sharing location: ', res.data);
+    setCode(res.data.code);
+    // console.log('sharing location: ', res.data);
+  };
+
+  const endShare = async () => {
+    const id = await getData('userId');
+
+    console.log('id: ', id);
+    const res = await client.post('/api/command/spot/share/end', {
+      userId: id,
+    });
+    const code = res.data.code;
+    if (code === 'SUCCESS') {
+      
+    }
+    // console.log('sharing location: ', res.data);
   };
 
   const onSharingClick = () => {
     if (isSharing) {
       setIsSharing(false);
+      endShare();
     } else {
       setIsSharing(true);
       onShare();
