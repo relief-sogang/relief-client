@@ -18,32 +18,40 @@ const DetailFriend = ({navigation, route}) => {
       .post('/api/command/mapping/delete', {
         userId,
         deletedId: id,
-        type: target === '보호자' ? 'GUARDIAN' : 'PROTEGE'
+        type: target === '보호자' ? 'GUARDIAN' : 'PROTEGE',
       })
       .then(res => {
         const code = res.data.code;
         if (code === 'SUCCESS') {
           alert(`${target}가 삭제되었습니다.`);
           if (target === '피보호자')
-            alert('보호자 요청 수락 페이지에서 다시 피보호자로 등록할 수 있습니다.')
+            alert(
+              '보호자 요청 수락 페이지에서 다시 피보호자로 등록할 수 있습니다.',
+            );
           navigation.navigate(`${target} 관리`);
         }
-      })
+      });
   };
 
   const editFriend = async () => {
     const userId = await getData('userId');
     await client
-      .post('/api/command/' + (target === '보호자' ? 'guardian' : 'protege') + '/rename',
-      target === '보호자' ? {
-        userId,
-        guardianId: id,
-        rename,
-      } : {
-        userId,
-        protegeId: id,
-        rename,
-      })
+      .post(
+        '/api/command/' +
+          (target === '보호자' ? 'guardian' : 'protege') +
+          '/rename',
+        target === '보호자'
+          ? {
+              userId,
+              guardianId: id,
+              rename,
+            }
+          : {
+              userId,
+              protegeId: id,
+              rename,
+            },
+      )
       .then(res => {
         const code = res.data.code;
         if (code === 'SUCCESS') {
@@ -67,7 +75,7 @@ const DetailFriend = ({navigation, route}) => {
 
           <View style={EnrollStyle.enrollInputBox}>
             <TextInput
-              placeholder="보호자의 이름을 지정하세요!"
+              placeholder={`${target}의 이름을 지정하세요!`}
               style={[EnrollStyle.enrollInput, {width: '100%'}]}
               value={rename}
               onChangeText={text => {

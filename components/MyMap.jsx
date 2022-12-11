@@ -73,12 +73,11 @@ function MyMap() {
       yAxis: location.longitude,
     });
 
-    console.log('cctv list: ', res.data.cctvList);
+    // console.log('cctv list: ', res.data.cctvList);
     setCctvs(res.data.cctvList);
   };
 
   useEffect(() => {
-    console.log(location);
     if (location !== {}) {
       getCctvList();
     }
@@ -94,7 +93,7 @@ function MyMap() {
         lng: sogang.longitude,
       })
       .then(res => {
-        console.log('test scrap: ', res);
+        console.log('test scrap: ', res.data);
       })
       .catch(err => {
         console.log('scrap err: ', err);

@@ -22,9 +22,11 @@ const FriendsList = ({navigation, route}) => {
       name: 'asdf',
       email: 'asdf@asdf',
       id: 'asdf',
-      target: '피보호자'
-    }
+      target: '피보호자',
+    },
   ]);
+  const [requests, setRequests] = useState([]);
+
   const target = route.params.target;
   const onPress = ({name, email, id}) => {
     navigation.navigate('피보호자/보호자 정보', {
@@ -63,11 +65,24 @@ const FriendsList = ({navigation, route}) => {
     await client
       .post('/api/query/protege/list', {
         userId: id,
-        status: 'ALL'
+        status: 'ALL',
       })
       .then(res => {
         console.log(res.data);
-        setFriends(res.data.protegeList);
+        // setFriends(res.data.protegeList);
+
+        const list = res.data.protegeList;
+        const tmp1 = [];
+        const tmp2 = [];
+        for (let i = 0; i < list.length; i++) {
+          if (list[i].status === 'REQUEST') {
+            tmp2.push(list[i]);
+          } else {
+            tmp1.push(list[i]);
+          }
+        }
+        setFriends(tmp1);
+        setRequests(tmp2);
       })
       .catch(err => {
         console.log(err);
@@ -123,9 +138,43 @@ const FriendsList = ({navigation, route}) => {
                 id={data.id}
                 status={data.status}
                 target={target}
+                navigate={navigation.navigate}
               />
             ))}
           </View>
+
+          {target === '피보호자' && (
+            <View style={[EnrollStyle.enrollBox, {marginTop: 30}]}>
+              <View style={EnrollStyle.enrollHeader}>
+                <Text style={EnrollStyle.enrollText}>피보호자 요청 대기</Text>
+              </View>
+
+              {requests.length === 0 ? (
+                <Text
+                  style={{
+                    color: '#AAAAAA',
+                  }}>
+                  요청 대기 중인 피보호자가 없습니다.
+                </Text>
+              ) : (
+                <>
+                  {requests.map((data, idx) => (
+                    <Friend
+                      key={idx}
+                      onPress={onPress}
+                      num={idx + 1}
+                      name={data.name}
+                      email={data.email}
+                      id={data.id}
+                      status={data.status}
+                      target={target}
+                      navigate={navigation.navigate}
+                    />
+                  ))}
+                </>
+              )}
+            </View>
+          )}
         </View>
       </ScrollView>
     </>

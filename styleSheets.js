@@ -352,6 +352,14 @@ export const styles = StyleSheet.create({
     fontSize: 10,
     color: '#0CB927',
   },
+  friendStatusBox: {
+    backgroundColor: '#0CB927',
+    padding: 3,
+    paddingLeft: 5,
+    paddingRight: 5,
+    borderRadius: 3,
+    marginLeft: 5,
+  },
   userInfoBox: {
     alignItems: 'center',
   },
@@ -409,6 +417,26 @@ export const styles = StyleSheet.create({
     color: '#CD4444',
     fontSize: 12,
     lineHeight: 20,
+  },
+  scrapList: {
+    width: '90%',
+  },
+  scrapEl: {
+    width: '100%',
+    backgroundColor: 'white',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    borderColor: '#F3CEEC',
+    borderWidth: 2,
+  },
+  spotName: {
+    width: '80%',
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   scrapBox: {
     flexWrap: 'wrap',

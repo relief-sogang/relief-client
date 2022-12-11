@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {styles} from '../../styleSheets';
 import {View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -6,8 +6,16 @@ import Icon5 from 'react-native-vector-icons/FontAwesome5';
 import client from '../../config/axios';
 import {getData} from '../../config/asyncStorage';
 
-const Friend = ({onPress, num, name, id, email, target, status}) => {
+const Friend = ({onPress, num, name, id, email, target, status, navigate}) => {
   const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    if (status === 'ON') {
+      setToggle(true);
+    } else {
+      setToggle(false);
+    }
+  }, [id]);
 
   const guardianOnOff = async isActive => {
     const userId = await getData('userId');
@@ -30,6 +38,32 @@ const Friend = ({onPress, num, name, id, email, target, status}) => {
       setToggle(true);
       guardianOnOff(true);
     }
+  };
+
+  const onIsAccept = async isAccept => {
+    const userId = await getData('userId');
+
+    await client
+      .post('/api/command/guardian/accept', {
+        userId,
+        protegeId: id,
+        protegeName: '',
+        isAccept: isAccept,
+      })
+      .then(res => {
+        console.log(res.data);
+        if (res.data.code === 'ACCEPT') {
+          alert('보호자 요청을 수락하였습니다.');
+        } else {
+          alert('보호자 요청을 거절하였습니다.');
+        }
+        navigate('피보호자/보호자 정보', {
+          name,
+          email,
+          id,
+          target,
+        });
+      });
   };
   return (
     <>
@@ -77,13 +111,36 @@ const Friend = ({onPress, num, name, id, email, target, status}) => {
             </>
           )}
 
-          <Icon
-            style={{marginLeft: 5}}
-            name="gear"
-            size={18}
-            color="#9B9B9B"
-            onPress={() => onPress({name, email, id})}
-          />
+          {target === '피보호자' && status === 'REQUEST' ? (
+            <>
+              <View style={{flexDirection: 'row'}}>
+                <TouchableOpacity
+                  style={[styles.friendStatusBox, {backgroundColor: '#F52929'}]}
+                  onPress={() => onIsAccept(false)}>
+                  <Text
+                    style={{fontSize: 14, color: 'white', fontWeight: 'bold'}}>
+                    거절
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={styles.friendStatusBox}
+                  onPress={() => onIsAccept(true)}>
+                  <Text
+                    style={{fontSize: 14, color: 'white', fontWeight: 'bold'}}>
+                    수락
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </>
+          ) : (
+            <Icon
+              style={{marginLeft: 5}}
+              name="gear"
+              size={18}
+              color="#9B9B9B"
+              onPress={() => onPress({name, email, id})}
+            />
+          )}
         </View>
       </View>
     </>
