@@ -14,6 +14,19 @@ const SettingPushNotice = ({navigation, route}) => {
 
   const savePushSetting = async () => {
     //todo
+    const userId = await getData('userId');
+    await client
+      .post('/api/command/pushalarm/status', {
+        userId,
+        status: toggle ? 'ON' : 'OFF'
+      })
+      .then(res => {
+        const code = res.data.code;
+        if (code === 'SUCCESS') {
+          alert('저장되었습니다.');
+          navigation.pop();
+        }
+      })
   };
   return (
     <ScrollView>

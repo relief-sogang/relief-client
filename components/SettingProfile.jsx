@@ -61,6 +61,20 @@ const SettingProfile = ({navigation, route}) => {
 
   const saveProfileInfo = async () => {
     // todo
+    const userId = await getData('userId');
+    await client
+      .post('/api/command/member/updateinfo', {
+        userId,
+        name,
+        phoneNumber: ph1 + ph2 + ph3,
+      })
+      .then(res => {
+        const code = res.data.code;
+        if (code === 'SUCCESS') {
+          alert('저장되었습니다.');
+          navigation.pop();
+        }
+      })
   };
   return (
     <ScrollView>
