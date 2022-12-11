@@ -15,6 +15,7 @@ import SideMenu from './SideMenu';
 import client from '../config/axios';
 import {getData} from '../config/asyncStorage';
 import {useIsFocused} from '@react-navigation/native';
+import {APIURL} from '../config/key';
 
 const Home = ({navigation, route}) => {
   const [input, setInput] = useState('');
@@ -74,6 +75,21 @@ const Home = ({navigation, route}) => {
   useEffect(() => {
     console.log('home focus');
   }, [isFocused]);
+
+  const sendHelpRequest = async () => {
+    const id = await getData('userId');
+
+    console.log('id: ', id);
+    const res = await client.post(`${APIURL}/api/command/spot/share/help`, {
+      userId: id
+    });
+    console.log('res: ', res)
+    if (res.data.code === 'SUCCESS') {
+      alert('도움을 요청했습니다.')
+    } else if (res.data.code === 'FAIL') {
+      alert('도움 요청에 실패했습니다.')
+    }
+  }
 
   return (
     <TouchableOpacity
@@ -179,7 +195,8 @@ const Home = ({navigation, route}) => {
               style={[
                 HomeStyle.sharingBox,
                 {backgroundColor: '#04BC00', borderColor: '#04BC00'},
-              ]}>
+              ]}
+              onPress={sendHelpRequest}>
               <Text style={HomeStyle.shareLocationText}>도움 요청</Text>
             </TouchableOpacity>
           </View>

@@ -4,6 +4,7 @@ import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import SaveComp from './SaveComp';
+import {APIURL} from '../config/key';
 
 const ManageMessage = ({navigation, route}) => {
   const [toggle, setToggle] = useState(false);
@@ -15,7 +16,23 @@ const ManageMessage = ({navigation, route}) => {
 
   const saveMessageInfo = async () => {
     // todo
+    // '도움요청 시 경찰신고' 아직 처리 안함.
+    const id = await getData('userId');
+
+    console.log('id: ', id);
+    const res = await client.post(`${APIURL}/api/command/message`, {
+      userId: id,
+      message
+    });
+    console.log('res: ', res)
+    if (res.data.code === 'SUCCESS') {
+      alert('저장했습니다.')
+      navigation.pop()
+    } else if (res.data.code === 'FAIL') {
+      alert('저장에 실패했습니다.')
+    }
   };
+
   return (
     <View style={SettingStyle.settingWrap}>
       <View style={SettingStyle.settingBox}>
