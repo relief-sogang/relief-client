@@ -3,6 +3,7 @@ import React from 'react';
 import {View, LogBox, Text} from 'react-native';
 import {WebView} from 'react-native-webview';
 import axios from 'axios'
+import {APIURL} from '../config/key';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -28,21 +29,32 @@ const GoogleLogin = ({navigation: {navigate}}) => {
       const authCode = url.substring(startIndex + startExp.length, endIndex);
       console.log('access code :: ' + authCode);
 
-      //   await axios
-      //     .post('본인 url', {
-      //       params: {
-      //         code: authCode,
-      //       },
-      //     })
-      //     .then(res =>
-      //       AsyncStorage.setItem(
-      //         'userNumber',
-      //         JSON.stringify(res['data']['userId']),
-      //       ),
-      //     );
+        await axios
+          .get(`${APIURL}/oauth2/code/google`, {
+            code: authCode
+            // params: {
+            //   code: authCode,
+            // },
+          })
+          .then(res => {
+            console.log(res)
+            setData('accessToken', res.data.accessToken);
+            setData('refreshToken', res.data.refreshToken);
+            setData('email', res.data.email);
 
-      //   navigate('Home', {screen: 'Home'});
-      navigate('회원가입', {screen: '회원가입'});
+            // return res.data.isNew;
+          })
+          .then(res => {
+            if (res) {
+              navigate('회원가입', {screen: '회원가입'});
+            } else {
+              navigate('Home', {screen: 'Home'});
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      // navigate('회원가입', {screen: '회원가입'});
     }
   };
 
