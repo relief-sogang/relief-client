@@ -28,6 +28,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {getData, setData} from './config/asyncStorage';
 import axios from 'axios';
 import {APIURL} from './config/key';
+import messaging from '@react-native-firebase/messaging';
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,15 @@ const App = () => {
       SplashScreen.hide();
     }, 1500);
   }, []);
+
+  // notification foreground test
+  // useEffect(() => {
+  //   const unsubscribe = messaging().onMessage(async remoteMessage => {
+  //     alert('A new FCM message arrived!', JSON.stringify(remoteMessage));
+  //   });
+
+  //   return unsubscribe;
+  // });
 
   // useEffect(() => {
   //   setData('temp', {

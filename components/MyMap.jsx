@@ -11,6 +11,7 @@ import {PermissionsAndroid, Platform, Text, View} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import client from '../config/axios';
 import {getData} from '../config/asyncStorage';
+import {useIsFocused} from '@react-navigation/native';
 
 function MyMap() {
   // const [location, setLocation] = useState({});
@@ -77,11 +78,12 @@ function MyMap() {
     setCctvs(res.data.cctvList);
   };
 
+  const isFocused = useIsFocused();
   useEffect(() => {
     if (location !== {}) {
       getCctvList();
     }
-  }, [location]);
+  }, [location, isFocused]);
 
   const onScrap = async () => {
     const userId = await getData('userId');

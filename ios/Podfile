@@ -20,6 +20,10 @@ target 'relief' do
   config = use_native_modules!
 
   # new
+  use_modular_headers!
+  pod 'gRPC-Core'
+
+  # new
   pod 'NMapsMap','3.16.0'
 
   # Flags change depending on the env values.

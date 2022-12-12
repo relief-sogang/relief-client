@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import {SettingStyle, styles, EnrollStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -27,6 +27,8 @@ const MyPage = ({navigation, route}) => {
     const name = await getData('userName');
     const email = await getData('email');
 
+    console.log(id, name, email);
+
     setUserId(id);
     setUserName(name);
     setUserEmail(email);
@@ -38,7 +40,7 @@ const MyPage = ({navigation, route}) => {
 
   return (
     <>
-      <View style={SettingStyle.settingWrap}>
+      <ScrollView style={SettingStyle.settingWrap}>
         <View style={SettingStyle.settingBox}>
           <SettingHeader text="마이페이지" navigation={navigation} />
 
@@ -56,7 +58,7 @@ const MyPage = ({navigation, route}) => {
             <MenuSmall onPress={onPress} text={text} />
           ))}
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 };

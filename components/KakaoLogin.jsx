@@ -4,7 +4,7 @@ import React from 'react';
 import {View, LogBox, Text} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {APIURL} from '../config/key';
-import {setData} from '../config/asyncStorage';
+import {getData, setData} from '../config/asyncStorage';
 import {KAKAO_URL} from '../config/key';
 
 LogBox.ignoreLogs(['Remote debugger']);
@@ -30,8 +30,10 @@ const KakaoLogin = ({navigation: {navigate}}) => {
 
           return res.data.isNew;
         })
-        .then(res => {
-          if (res) {
+        .then(async res => {
+          const id = await getData('userId');
+
+          if (res || !id) {
             navigate('회원가입', {screen: '회원가입'});
           } else {
             navigate('Home', {screen: 'Home'});

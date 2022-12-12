@@ -1,4 +1,5 @@
 apply plugin: "com.android.application"
+apply plugin: 'com.google.gms.google-services' // new
 
 import com.android.build.OutputFile
 import org.apache.tools.ant.taskdefs.condition.Os
@@ -144,6 +145,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
+        multiDexEnabled true // new
 
         if (isNewArchitectureEnabled()) {
             // We configure the CMake build only if you decide to opt-in for the New Architecture.
@@ -259,6 +261,12 @@ dependencies {
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
+    // new
+    // Add the SDK for Firebase Cloud Messaging
+    // implementation 'com.google.firebase:firebase-messaging:26.3.0'
+    implementation platform('com.google.firebase:firebase-bom:29.1.0') // 추가 (line:221)
+    implementation "com.google.firebase:firebase-analytics" // 추가 (line:222)
+
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
@@ -280,6 +288,8 @@ dependencies {
     } else {
         implementation jscFlavor
     }
+
+    
 }
 
 if (isNewArchitectureEnabled()) {
