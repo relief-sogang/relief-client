@@ -111,7 +111,17 @@ const Friend = ({onPress, num, name, id, email, target, status, navigate}) => {
             </>
           )}
 
-          {target === '피보호자' && status === 'REQUEST' ? (
+          {target === '피보호자 위치 확인' && (
+            <>
+              <TouchableOpacity
+                style={[styles.acceptBtn, {width: 80}]}
+                onPress={() => onPress({name, email, id})} // todo: param 수정
+              >
+                <Text style={styles.acceptText}>위치 확인</Text>
+              </TouchableOpacity>
+            </>
+          )}
+          {target === '피보호자' && status === 'REQUEST' && (
             <>
               <View style={{flexDirection: 'row'}}>
                 <TouchableOpacity
@@ -132,7 +142,8 @@ const Friend = ({onPress, num, name, id, email, target, status, navigate}) => {
                 </TouchableOpacity>
               </View>
             </>
-          ) : (
+          )}
+          {target !== '피보호자 위치 확인' && !(target === '피보호자' && status === 'REQUEST') && (
             <Icon
               style={{marginLeft: 5}}
               name="gear"

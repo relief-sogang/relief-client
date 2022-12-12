@@ -23,6 +23,7 @@ import AcceptGuardian from './components/AcceptGuardian';
 import Register from './components/Register';
 import KakaoLogin from './components/KakaoLogin';
 import GoogleLogin from './components/GoogleLogin';
+import CheckProtegeLocation from './components/CheckProtegeLocation';
 
 import SplashScreen from 'react-native-splash-screen';
 import {getData, setData} from './config/asyncStorage';
@@ -105,6 +106,9 @@ const App = () => {
         <Stack.Screen name="설정" component={Setting} />
         <Stack.Screen name="비밀번호 변경" component={ChangePassword} />
         <Stack.Screen name="알림 설정" component={SettingPushNotice} />
+
+        {/* 피보호자 요청 관련 스크린 */}
+        <Stack.Screen name="피보호자 위치 확인" component={CheckProtegeLocation} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -46,7 +46,7 @@ const FriendsList = ({navigation, route}) => {
     const token = await getData('accessToken');
 
     await client
-      .post('/api/query/guardian/list', {
+      .post(`${APIURL}/api/query/guardian/list`, {
         userId: id,
       })
       .then(res => {
@@ -63,7 +63,7 @@ const FriendsList = ({navigation, route}) => {
     const token = await getData('accessToken');
 
     await client
-      .post('/api/query/protege/list', {
+      .post(`${APIURL}/api/query/protege/list`, {
         userId: id,
         status: 'ALL',
       })

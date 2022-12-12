@@ -35,7 +35,13 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
               <View style={HomeStyle.menuIcons}>
                 <Icon name="map-marker" size={18} color="#9B9B9B" />
               </View>
-              <Text style={HomeStyle.menuItem}>피보호자 위치 확인</Text>
+              <Text
+                style={HomeStyle.menuItem}
+                onPress={() => {
+                  moveScreen('피보호자 위치 확인');
+                }}>
+                피보호자 위치 확인
+              </Text>
               <View style={HomeStyle.pushAlarmBox}>
                 <Text style={HomeStyle.pushAlarm}>1</Text>
               </View>
