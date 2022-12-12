@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "2495705380",
+    "project_id": "relief-370923",
+    "storage_bucket": "relief-370923.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2495705380:android:90aba97596d2fbad48c3b1",
+        "android_client_info": {
+          "package_name": "com.relief"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "2495705380-ccjirsdvhi3lqh5b1485bussdt3t9ef6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuUtrg_D_ztNY_npWlWLxjwDSHhPbdRSw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "2495705380-ccjirsdvhi3lqh5b1485bussdt3t9ef6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

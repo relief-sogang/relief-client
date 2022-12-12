@@ -109,6 +109,7 @@ const App = () => {
 
         {/* 피보호자 요청 관련 스크린 */}
         <Stack.Screen name="피보호자 위치 확인" component={CheckProtegeLocation} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );
