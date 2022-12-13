@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
@@ -30,6 +30,26 @@ const SettingPushNotice = ({navigation, route}) => {
         }
       });
   };
+
+  const getPushStatus = async () => {
+    const userId = await getData('userId');
+
+    await client
+      .post('/api/query/pushalarm/getstatus', {
+        userId,
+      })
+      .then(res => {
+        if (res.data.status === 'ON') {
+          setToggle(true);
+        } else {
+          setToggle(false);
+        }
+      });
+  };
+
+  useEffect(() => {
+    getPushStatus();
+  }, []);
   return (
     <ScrollView>
       <View style={SettingStyle.settingWrap}>

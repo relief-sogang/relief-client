@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
@@ -34,6 +34,23 @@ const ManageMessage = ({navigation, route}) => {
       alert('저장에 실패했습니다.');
     }
   };
+
+  const getMessage = async () => {
+    const userId = await getData('userId');
+
+    await client
+      .post('/api/query/help/message', {
+        userId,
+      })
+      .then(res => {
+        console.log(res.data);
+        setMessage(res.data.message);
+      });
+  };
+
+  useEffect(() => {
+    getMessage();
+  }, []);
 
   return (
     <View style={SettingStyle.settingWrap}>
