@@ -13,7 +13,15 @@ const MenuBig = ({onPress, text}) => {
             {paddingLeft: 20, paddingRight: 20},
           ]}
           onPress={() => onPress(text)}>
-          <Text style={EnrollStyle.enrollText}>{text}</Text>
+          <View style={EnrollStyle.enrollTextBox}>
+            <Text style={EnrollStyle.enrollText}>{text}</Text>
+
+            {text === '도움 요청 수신 내역' && (
+              <View style={EnrollStyle.messageCount}>
+                <Text style={{fontWeight: 'bold', color: 'white'}}>1</Text>
+              </View>
+            )}
+          </View>
           <Icon name="angle-right" size={24} color="#9B9B9B" />
         </TouchableOpacity>
       </View>

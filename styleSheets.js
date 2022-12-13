@@ -270,6 +270,20 @@ export const EnrollStyle = StyleSheet.create({
     // marginLeft: 20,
     fontWeight: 'bold',
   },
+  enrollTextBox: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  messageCount: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0CB927',
+    marginLeft: 10,
+    // padding: 5,
+    width: 25,
+    height: 25,
+    borderRadius: 12.5,
+  },
   enrollInputBox: {
     width: '100%',
     flexDirection: 'row',
@@ -525,6 +539,38 @@ export const styles = StyleSheet.create({
     color: 'white',
     fontSize: 14,
     fontWeight: 'bold',
+  },
+  messageBox: {
+    width: '90%',
+    // backgroundColor: 'orange',
+  },
+  messageName: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  messageDate: {
+    width: '100%',
+    alignItems: 'flex-end',
+    marginTop: 15,
+  },
+  messageContents: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: 'rgba(72, 72, 72, .5)',
+    padding: 10,
+    minHeight: '30%',
+    marginTop: 5,
+    borderRadius: 5,
+  },
+  messageLabel: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+    paddingRight: 10,
+    paddingLeft: 10,
+    backgroundColor: '#0CB927',
+    borderRadius: 15,
+    marginRight: 10,
   },
 });
 

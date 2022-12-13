@@ -8,7 +8,7 @@ const menu = [
   '보호자 등록',
   '보호자 관리',
   '피보호자 관리',
-  '보호자 요청 수락',
+  // '보호자 요청 수락',
 ];
 
 const SafetySurvice = ({navigation, route}) => {

@@ -23,7 +23,7 @@ const Home = ({navigation, route}) => {
   const [clickSharing, setClickSharing] = useState(false);
   const [loading, setLoading] = useState('');
   const [isSharing, setIsSharing] = useState(false);
-  const [code, setCode] = useState('')
+  const [code, setCode] = useState('');
 
   const onChange = e => {
     setInput(e);
@@ -52,11 +52,18 @@ const Home = ({navigation, route}) => {
     const id = await getData('userId');
 
     console.log('id: ', id);
-    const res = await client.post('/api/command/spot/share/start', {
-      userId: id,
-    });
+    await client
+      .post('/api/command/spot/share/start', {
+        userId: id,
+      })
+      .then(res => {
+        console.log(res);
+        setCode(res.data.code);
+      })
+      .catch(err => {
+        console.log('sharing err: ', err);
+      });
 
-    setCode(res.data.code);
     // console.log('sharing location: ', res.data);
   };
 
@@ -64,17 +71,20 @@ const Home = ({navigation, route}) => {
     const id = await getData('userId');
 
     console.log('id: ', id);
-    const res = await client.post('/api/command/spot/share/end', {
-      userId: id,
-    });
-    const code = res.data.code;
-    if (code === 'SUCCESS') {
-      
-    }
-    // console.log('sharing location: ', res.data);
+    await client
+      .post('/api/command/spot/share/end', {
+        userId: id,
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => {
+        console.log('sharing err: ', err);
+      });
   };
 
   const onSharingClick = () => {
+    console.log('click: ', isSharing);
     if (isSharing) {
       setIsSharing(false);
       endShare();
@@ -96,15 +106,15 @@ const Home = ({navigation, route}) => {
 
     console.log('id: ', id);
     const res = await client.post(`${APIURL}/api/command/spot/share/help`, {
-      userId: id
+      userId: id,
     });
-    console.log('res: ', res)
+    console.log('res: ', res);
     if (res.data.code === 'SUCCESS') {
-      alert('도움을 요청했습니다.')
+      alert('도움을 요청했습니다.');
     } else if (res.data.code === 'FAIL') {
-      alert('도움 요청에 실패했습니다.')
+      alert('도움 요청에 실패했습니다.');
     }
-  }
+  };
 
   return (
     <TouchableOpacity

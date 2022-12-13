@@ -128,19 +128,30 @@ const FriendsList = ({navigation, route}) => {
               </Text>
             )}
 
-            {friends.map((data, idx) => (
-              <Friend
-                key={idx}
-                onPress={onPress}
-                num={idx + 1}
-                name={data.name}
-                email={data.email}
-                id={data.id}
-                status={data.status}
-                target={target}
-                navigate={navigation.navigate}
-              />
-            ))}
+            {friends.length === 0 ? (
+              <Text
+                style={{
+                  color: '#AAAAAA',
+                }}>
+                아직 {target}가 없습니다.
+              </Text>
+            ) : (
+              <>
+                {friends.map((data, idx) => (
+                  <Friend
+                    key={idx}
+                    onPress={onPress}
+                    num={idx + 1}
+                    name={data.name}
+                    email={data.email}
+                    id={data.id}
+                    status={data.status}
+                    target={target}
+                    navigate={navigation.navigate}
+                  />
+                ))}
+              </>
+            )}
           </View>
 
           {target === '피보호자' && (

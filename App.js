@@ -24,6 +24,7 @@ import Register from './components/Register';
 import KakaoLogin from './components/KakaoLogin';
 import GoogleLogin from './components/GoogleLogin';
 import CheckProtegeLocation from './components/CheckProtegeLocation';
+import MessageDetail from './components/MessageDetail';
 
 import SplashScreen from 'react-native-splash-screen';
 import {getData, setData} from './config/asyncStorage';
@@ -85,7 +86,17 @@ const App = () => {
         {/* 도움 요청 메시지 관리 스크린 */}
         <Stack.Screen name="도움 요청 메시지" component={HelpMessageScreen} />
         <Stack.Screen name="도움 요청 메시지 관리" component={ManageMessage} />
-        <Stack.Screen name="도움 요청 메시지 내역" component={MessageRecords} />
+        <Stack.Screen
+          name="도움 요청 발신 내역"
+          component={MessageRecords}
+          initialParams={{target: '발신'}}
+        />
+        <Stack.Screen
+          name="도움 요청 수신 내역"
+          component={MessageRecords}
+          initialParams={{target: '수신'}}
+        />
+        <Stack.Screen name="메시지" component={MessageDetail} />
 
         {/* 마이 페이지 */}
         <Stack.Screen name="My page" component={MyPage} />
@@ -108,7 +119,10 @@ const App = () => {
         <Stack.Screen name="알림 설정" component={SettingPushNotice} />
 
         {/* 피보호자 요청 관련 스크린 */}
-        <Stack.Screen name="피보호자 위치 확인" component={CheckProtegeLocation} />
+        <Stack.Screen
+          name="피보호자 위치 확인"
+          component={CheckProtegeLocation}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

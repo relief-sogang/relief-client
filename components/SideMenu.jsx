@@ -46,7 +46,7 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 <Text style={HomeStyle.pushAlarm}>1</Text>
               </View>
             </View>
-            <View style={HomeStyle.menuItemBox}>
+            {/* <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>
                 <Icon name="bell" size={16} color="#9B9B9B" />
               </View>
@@ -54,7 +54,7 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
               <View style={HomeStyle.pushAlarmBox}>
                 <Text style={HomeStyle.pushAlarm}>1</Text>
               </View>
-            </View>
+            </View> */}
             <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>
                 <Icon name="address-book-o" size={18} color="#9B9B9B" />
@@ -78,6 +78,9 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 }}>
                 도움 요청 메시지
               </Text>
+              <View style={HomeStyle.pushAlarmBox}>
+                <Text style={HomeStyle.pushAlarm}>1</Text>
+              </View>
             </View>
             <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>

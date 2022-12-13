@@ -5,6 +5,7 @@ import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {getData} from '../config/asyncStorage';
+import client from '../config/axios';
 
 const SettingProfile = ({navigation, route}) => {
   const [userId, setUserId] = useState('');
@@ -74,7 +75,7 @@ const SettingProfile = ({navigation, route}) => {
           alert('저장되었습니다.');
           navigation.pop();
         }
-      })
+      });
   };
   return (
     <ScrollView>
