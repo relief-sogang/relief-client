@@ -17,7 +17,7 @@ const DetailFriend = ({navigation, route}) => {
     await client
       .post('/api/command/mapping/delete', {
         userId,
-        deletedId: id,
+        deleteId: id,
         type: target === '보호자' ? 'GUARDIAN' : 'PROTEGE',
       })
       .then(res => {
