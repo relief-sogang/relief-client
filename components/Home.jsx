@@ -24,6 +24,7 @@ const Home = ({navigation, route}) => {
   const [loading, setLoading] = useState('');
   const [isSharing, setIsSharing] = useState(false);
   const [code, setCode] = useState('');
+  const [messageCount, setMessageCount] = useState(0);
 
   const onChange = e => {
     setInput(e);
@@ -96,11 +97,6 @@ const Home = ({navigation, route}) => {
     setClickSharing(false);
   };
 
-  const isFocused = useIsFocused();
-  useEffect(() => {
-    console.log('home focus');
-  }, [isFocused]);
-
   const sendHelpRequest = async () => {
     const id = await getData('userId');
 
@@ -115,6 +111,32 @@ const Home = ({navigation, route}) => {
       alert('도움 요청에 실패했습니다.');
     }
   };
+
+  const getMessageCount = async () => {
+    const id = await getData('userId');
+    await client
+      .post('/api/query/help/receive/count', {
+        receiverId: id,
+      })
+      .then(res => {
+        console.log('count: ', res.data.count);
+        setMessageCount(res.data.count);
+      });
+  };
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    console.log('home focus');
+    // getMessageCount();
+
+    // client
+    //   .post('/api/command/member/withdraw', {
+    //     password: 'aaaa1234',
+    //   })
+    //   .then(res => {
+    //     console.log(res.data);
+    //   });
+  }, [isFocused]);
 
   return (
     <TouchableOpacity
@@ -177,9 +199,17 @@ const Home = ({navigation, route}) => {
           <Icon name="address-book" size={36} color="white" />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => moveScreen('도움 요청 메시지')}
+          onPress={() => moveScreen('도움 요청 수신 내역')}
           style={[HomeStyle.reliefBtn, {backgroundColor: '#2C67FF'}]}>
           <Icon name="comment" size={36} color="white" />
+
+          {messageCount != 0 && (
+            <View style={HomeStyle.messageCount}>
+              <Text style={{color: 'white', fontWeight: 'bold'}}>
+                {messageCount}
+              </Text>
+            </View>
+          )}
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() => setClickSharing(clickSharing ? false : true)}

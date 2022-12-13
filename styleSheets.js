@@ -131,6 +131,18 @@ export const HomeStyle = StyleSheet.create({
     alignItems: 'center',
     position: 'relative',
   },
+  messageCount: {
+    position: 'absolute',
+    zIndex: 10,
+    right: 0,
+    top: -5,
+    width: 25,
+    height: 25,
+    borderRadius: 12.5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0CB927',
+  },
   shareLocationBox: {
     position: 'absolute',
     top: -58,
@@ -321,6 +333,7 @@ export const EnrollStyle = StyleSheet.create({
     borderColor: 'rgba(72, 72, 72, .3)',
     borderWidth: 1,
     borderRadius: 5,
+    padding: 10,
   },
 });
 

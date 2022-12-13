@@ -78,9 +78,6 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 }}>
                 도움 요청 메시지
               </Text>
-              <View style={HomeStyle.pushAlarmBox}>
-                <Text style={HomeStyle.pushAlarm}>1</Text>
-              </View>
             </View>
             <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>
