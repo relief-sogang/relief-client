@@ -25,6 +25,7 @@ import KakaoLogin from './components/KakaoLogin';
 import GoogleLogin from './components/GoogleLogin';
 import CheckProtegeLocation from './components/CheckProtegeLocation';
 import MessageDetail from './components/MessageDetail';
+import KakaoLogout from './components/KakaoLogout';
 
 import SplashScreen from 'react-native-splash-screen';
 import {getData, setData} from './config/asyncStorage';
@@ -109,6 +110,7 @@ const App = () => {
         <Stack.Screen name="카카오로그인" component={KakaoLogin} />
         <Stack.Screen name="구글로그인" component={GoogleLogin} />
         <Stack.Screen name="회원가입" component={Register} />
+        <Stack.Screen name="카카오로그아웃" component={KakaoLogout} />
 
         {/* 안심 서비스 소개 */}
         <Stack.Screen name="안심 서비스 소개" component={ReliefService} />
