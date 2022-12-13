@@ -4,12 +4,11 @@ import {EnrollStyle, SettingStyle, styles} from '../styleSheets';
 import SaveComp from './SaveComp';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {getData} from '../config/asyncStorage';
+import {getData, setData} from '../config/asyncStorage';
 import client from '../config/axios';
 
 const SettingProfile = ({navigation, route}) => {
   const [userId, setUserId] = useState('');
-  const [userName, setUserName] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [inputs, setInputs] = useState({
     name: '',
@@ -30,14 +29,26 @@ const SettingProfile = ({navigation, route}) => {
     const id = await getData('userId');
     const name = await getData('userName');
     const email = await getData('email');
+    const ph1 = await getData('ph1');
+    const ph2 = await getData('ph2');
+    const ph3 = await getData('ph3');
 
     setUserId(id);
-    setUserName(name);
     setUserEmail(email);
-    setInputs({
-      ...inputs,
-      name: name,
-    });
+
+    if (!ph1) {
+      setInputs({
+        ...inputs,
+        name: name,
+      });
+    } else {
+      setInputs({
+        name,
+        ph1,
+        ph2,
+        ph3,
+      });
+    }
   };
 
   useEffect(() => {
@@ -72,9 +83,20 @@ const SettingProfile = ({navigation, route}) => {
       .then(res => {
         const code = res.data.code;
         if (code === 'SUCCESS') {
-          alert('저장되었습니다.');
-          navigation.pop();
+          return true;
         }
+        return false;
+      })
+      .then(async res => {
+        if (res) {
+          await setData('ph1', ph1);
+          await setData('ph2', ph2);
+          await setData('ph3', ph3);
+        }
+      })
+      .then(() => {
+        alert('저장되었습니다.');
+        navigation.pop();
       });
   };
   return (

@@ -6,13 +6,17 @@ import NaverMapView, {
   Polyline,
   Polygon,
 } from 'react-native-nmap';
+import {View, TouchableOpacity, Text} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {HomeStyle} from '../styleSheets';
 import axios from 'axios';
-import {PermissionsAndroid, Platform, Text, View} from 'react-native';
+import {PermissionsAndroid, Platform} from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 import client from '../config/axios';
 import {getData} from '../config/asyncStorage';
+import HomeBtns from './HomeBtns';
 
-function MyMap() {
+function MyMap({navigation}) {
   // const [location, setLocation] = useState({});
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const [location, setLocation] = useState({});
@@ -121,33 +125,37 @@ function MyMap() {
   // }
 
   return (
-    <NaverMapView
-      style={{width: '100%', height: '100%'}}
-      showsMyLocationButton={true}
-      center={{...sogang, zoom: 16}}
-      onTouch={e => {
-        // console.warn('onTouch', JSON.stringify(e.nativeEvent));
-      }}
-      // onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
-      onMapClick={e => {
-        // console.warn('onMapClick', JSON.stringify(e));
-      }}>
-      <Marker coordinate={sogang} onClick={() => console.warn('onClick! p0')} />
+    <View style={{position: 'relative'}}>
+      <NaverMapView
+        style={{width: '100%', height: '100%'}}
+        showsMyLocationButton={true}
+        center={{...sogang, zoom: 16}}
+        onTouch={e => {
+          // console.warn('onTouch', JSON.stringify(e.nativeEvent));
+        }}
+        // onCameraChange={e => console.warn('onCameraChange', JSON.stringify(e))}
+        onMapClick={e => {
+          // console.warn('onMapClick', JSON.stringify(e));
+        }}>
+        <Marker
+          coordinate={sogang}
+          onClick={() => console.warn('onClick! p0')}
+        />
 
-      {cctvs.length !== 0 && (
-        <>
-          {cctvs.map((cctv, idx) => (
-            <Marker
-              key={idx}
-              coordinate={{
-                latitude: cctv.xaxis,
-                longitude: cctv.yaxis,
-              }}
-              pinColor="blue"></Marker>
-          ))}
-        </>
-      )}
-      {/* <Marker
+        {cctvs.length !== 0 && (
+          <>
+            {cctvs.map((cctv, idx) => (
+              <Marker
+                key={idx}
+                coordinate={{
+                  latitude: cctv.xaxis,
+                  longitude: cctv.yaxis,
+                }}
+                pinColor="blue"></Marker>
+            ))}
+          </>
+        )}
+        {/* <Marker
         coordinate={P1}
         pinColor="blue"
         onClick={() => console.warn('onClick! p1')}
@@ -157,7 +165,7 @@ function MyMap() {
         pinColor="red"
         onClick={() => console.warn('onClick! p2')}
       /> */}
-      {/* <Path
+        {/* <Path
         coordinates={[P0, P1]}
         onClick={() => console.warn('onClick! path')}
         width={10}
@@ -177,7 +185,10 @@ function MyMap() {
         color={`rgba(0, 0, 0, 0.5)`}
         onClick={() => console.warn('onClick! polygon')}
       /> */}
-    </NaverMapView>
+      </NaverMapView>
+
+      <HomeBtns navigation={navigation} location={location} />
+    </View>
   );
 }
 

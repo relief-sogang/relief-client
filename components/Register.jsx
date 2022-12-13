@@ -135,6 +135,7 @@ const Register = ({navigation, route}) => {
       })
       .then(res => {
         console.log(res.data);
+        alert('회원가입이 완료되었습니다!');
         setData('userId', id)
           .then(() => setData('userName', name))
           .then(() => {

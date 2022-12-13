@@ -4,6 +4,8 @@ import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import SaveComp from './SaveComp';
+import client from '../config/axios';
+import {getData} from '../config/asyncStorage';
 
 const SettingPushNotice = ({navigation, route}) => {
   const [toggle, setToggle] = useState(false);
@@ -18,7 +20,7 @@ const SettingPushNotice = ({navigation, route}) => {
     await client
       .post('/api/command/pushalarm/status', {
         userId,
-        status: toggle ? 'ON' : 'OFF'
+        status: toggle ? 'ON' : 'OFF',
       })
       .then(res => {
         const code = res.data.code;
@@ -26,7 +28,7 @@ const SettingPushNotice = ({navigation, route}) => {
           alert('저장되었습니다.');
           navigation.pop();
         }
-      })
+      });
   };
   return (
     <ScrollView>
