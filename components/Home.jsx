@@ -96,7 +96,7 @@ const Home = ({navigation, route}) => {
 
     console.log('id: ', id);
     const res = await client.post(`${APIURL}/api/command/spot/share/help`, {
-      userId: id
+      userId: id,
     });
     console.log('res: ', res)
     if (res.data.code === 'SUCCESS') {
