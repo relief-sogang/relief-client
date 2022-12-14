@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+import React, {useState, useEffect} from 'react';
+=======
 import React, {useEffect, useState} from 'react';
+>>>>>>> 9b3edbea06bb09165ad5d7bf9aead869d33dda8c
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
@@ -23,7 +27,9 @@ const SettingPushNotice = ({navigation, route}) => {
         status: toggle ? 'ON' : 'OFF',
       })
       .then(res => {
+        console.log('res : ' + res);
         const code = res.data.code;
+        console.log('code : ' + code);
         if (code === 'SUCCESS') {
           alert('저장되었습니다.');
           navigation.pop();
@@ -31,14 +37,36 @@ const SettingPushNotice = ({navigation, route}) => {
       });
   };
 
+<<<<<<< HEAD
+  const getToggleState = async () => {
+    const userId = await getData('userId');
+=======
   const getPushStatus = async () => {
     const userId = await getData('userId');
 
+>>>>>>> 9b3edbea06bb09165ad5d7bf9aead869d33dda8c
     await client
       .post('/api/query/pushalarm/getstatus', {
         userId,
       })
       .then(res => {
+<<<<<<< HEAD
+        console.log(res);
+        const status = res.data.status;
+        console.log('status : ' + status);
+        if (status === 'ON') {
+          setToggle(true);
+        } else if (status === 'OFF') {
+          setToggle(false);
+        }
+      })
+  }
+
+  useEffect(() => {
+    getToggleState();
+  }, [])
+
+=======
         if (res.data.status === 'ON') {
           setToggle(true);
         } else {
@@ -50,6 +78,7 @@ const SettingPushNotice = ({navigation, route}) => {
   useEffect(() => {
     getPushStatus();
   }, []);
+>>>>>>> 9b3edbea06bb09165ad5d7bf9aead869d33dda8c
   return (
     <ScrollView>
       <View style={SettingStyle.settingWrap}>

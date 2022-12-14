@@ -74,7 +74,7 @@ const HomeBtns = ({navigation, location}) => {
     const id = await getData('userId');
 
     console.log('id: ', id);
-    const res = await client.post(`${APIURL}/api/command/spot/share/help`, {
+    const res = await client.post('api/command/spot/share/help', {
       userId: id,
     });
     console.log('res: ', res);
