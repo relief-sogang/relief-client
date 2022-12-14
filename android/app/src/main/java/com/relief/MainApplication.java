@@ -13,6 +13,8 @@ import com.relief.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
+import io.invertase.firebase.app.ReactNativeFirebaseAppPackage; // new(fcm)
+
 public class MainApplication extends Application implements ReactApplication {
 
   private final ReactNativeHost mReactNativeHost =
@@ -28,6 +30,10 @@ public class MainApplication extends Application implements ReactApplication {
           List<ReactPackage> packages = new PackageList(this).getPackages();
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
+
+          // packages.add( new RNFirebaseAuthPackage()); // new(fcm)
+          // packages.add( new ReactNativeFirebaseAppPackage()); // new(fcm)
+
           return packages;
         }
 

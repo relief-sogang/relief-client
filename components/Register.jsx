@@ -12,6 +12,7 @@ import {APIURL} from '../config/key';
 import {EnrollStyle, LoginPageStyles, styles} from '../styleSheets';
 import {getData, setData} from '../config/asyncStorage';
 import client from '../config/axios';
+import messaging from '@react-native-firebase/messaging';
 
 const Register = ({navigation, route}) => {
   const [isValidId, setIsValidId] = useState(false);
@@ -77,7 +78,7 @@ const Register = ({navigation, route}) => {
     }
 
     await client
-      .post('/api/query/member/checkid', {
+      .post(`${APIURL}/api/query/member/checkid`, {
         userId: id,
       })
       .then(res => {
@@ -95,6 +96,11 @@ const Register = ({navigation, route}) => {
   };
 
   const onRegister = async () => {
+    await sendRegisterRequest();
+    await sendFcmTokenToServer();
+  }
+
+  const sendRegisterRequest = async () => {
     // 임시
     // navigation.navigate('Home', {screen: 'Home'});
 
@@ -126,7 +132,7 @@ const Register = ({navigation, route}) => {
     const email = await getData('email');
 
     await client
-      .post('/api/command/member/signupdetail', {
+      .post(`${APIURL}/api/command/member/signupdetail`, {
         email,
         userId: id,
         userName: name,
@@ -137,12 +143,24 @@ const Register = ({navigation, route}) => {
         console.log(res.data);
         alert('회원가입이 완료되었습니다!');
         setData('userId', id)
-          .then(() => setData('userName', name))
-          .then(() => {
-            navigation.navigate('Home');
-          });
+          .then(() => setData('userName', name));
       });
   };
+
+  const sendFcmTokenToServer = async () => {
+    const fcmToken = await messaging().getToken();
+		console.log('fcmToken : ' + fcmToken)
+
+    await client
+      .post(`${APIURL}/api/command/member/fcmtoken/register`, {
+        userId: id,
+        fcmToken,
+      })
+      .then(() => {
+        navigation.navigate('Home');
+      });
+  }
+
   return (
     <>
       <ScrollView style={LoginPageStyles.Rectangle1}>

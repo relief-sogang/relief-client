@@ -1,12 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import {TouchableOpacity, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import client from '../config/axios';
 import {HomeStyle} from '../styleSheets';
+import {getData} from '../config/asyncStorage';
 
 const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
+  const [sharingCount, setSharingCount] = useState(0)
   const onPress = e => {
     setClickMenu(clickMenu ? false : true);
   };
+
+  const getProtegeSharingCount = async () => {
+    const id = await getData('userId');
+
+    await client
+      .post('/api/query/protege/list', {
+        userId: id,
+        status: 'SHARING',
+      })
+      .then(res => {
+        console.log(res.data);
+        setSharingCount(res.data.protegeList.length());
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
+
+  useEffect(() => {
+    getProtegeSharingCount();
+  }, [])
+  
 
   return (
     <>
@@ -42,9 +67,12 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 }}>
                 피보호자 위치 확인
               </Text>
-              <View style={HomeStyle.pushAlarmBox}>
-                <Text style={HomeStyle.pushAlarm}>1</Text>
-              </View>
+              {sharingCount !== 0 && 
+                <View style={HomeStyle.pushAlarmBox}>
+                  <Text style={HomeStyle.pushAlarm}>{sharingCount}</Text>
+                </View>
+              }
+              
             </View>
             {/* <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>

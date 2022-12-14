@@ -4,8 +4,10 @@ import React from 'react';
 import {View, LogBox, Text} from 'react-native';
 import {WebView} from 'react-native-webview';
 import {APIURL} from '../config/key';
-import {setData} from '../config/asyncStorage';
+import {setData, getData} from '../config/asyncStorage';
 import {KAKAO_URL} from '../config/key';
+import messaging from '@react-native-firebase/messaging';
+import client from '../config/axios';
 
 LogBox.ignoreLogs(['Remote debugger']);
 
@@ -48,6 +50,7 @@ const KakaoLogin = ({navigation: {navigate}}) => {
           if (res) {
             navigate('회원가입', {screen: '회원가입'});
           } else {
+            sendFcmTokenToServer();
             navigate('Home', {screen: 'Home'});
           }
         })
@@ -56,6 +59,22 @@ const KakaoLogin = ({navigation: {navigate}}) => {
         });
     }
   };
+
+  const sendFcmTokenToServer = async () => {
+    const userId = await getData('userId');
+    const fcmToken = await messaging().getToken();
+		console.log('fcmToken : ' + fcmToken)
+    console.log('userId : ' + userId);
+
+    await client
+      .post(`${APIURL}/api/command/member/fcmtoken/register`, {
+        userId,
+        fcmToken,
+      })
+      .then(res => {
+        console.log(res);
+      })
+  }
 
   return (
     <View style={{flex: 1}}>
