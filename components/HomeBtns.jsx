@@ -5,11 +5,10 @@ import {getData} from '../config/asyncStorage';
 import client from '../config/axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const HomeBtns = ({navigation, location}) => {
+const HomeBtns = ({navigation, setCode, stopSharing}) => {
   const [clickSharing, setClickSharing] = useState(false);
   const [loading, setLoading] = useState('');
   const [isSharing, setIsSharing] = useState(false);
-  const [code, setCode] = useState('');
   const [messageCount, setMessageCount] = useState(0);
 
   const moveScreen = text => {
@@ -27,8 +26,6 @@ const HomeBtns = ({navigation, location}) => {
   }
   const onShare = async () => {
     const id = await getData('userId');
-
-    console.log('id: ', id);
     await client
       .post('/api/command/spot/share/start', {
         userId: id,
@@ -40,19 +37,17 @@ const HomeBtns = ({navigation, location}) => {
       .catch(err => {
         console.log('sharing err: ', err);
       });
-
-    // console.log('sharing location: ', res.data);
   };
   const endShare = async () => {
     const id = await getData('userId');
-
-    console.log('id: ', id);
     await client
       .post('/api/command/spot/share/end', {
         userId: id,
       })
       .then(res => {
         console.log(res.data);
+        stopSharing();
+        setCode(0);
       })
       .catch(err => {
         console.log('sharing err: ', err);
@@ -73,16 +68,21 @@ const HomeBtns = ({navigation, location}) => {
   const sendHelpRequest = async () => {
     const id = await getData('userId');
 
-    console.log('id: ', id);
-    const res = await client.post('api/command/spot/share/help', {
-      userId: id,
-    });
-    console.log('res: ', res);
-    if (res.data.code === 'SUCCESS') {
-      alert('도움을 요청했습니다.');
-    } else if (res.data.code === 'FAIL') {
-      alert('도움 요청에 실패했습니다.');
-    }
+    await client
+      .post('api/command/spot/share/help', {
+        userId: id,
+      })
+      .then(res => {
+        console.log('res: ', res.data);
+        if (res.data.code === 'SUCCESS') {
+          alert('도움을 요청했습니다.');
+        } else if (res.data.code === 'FAIL') {
+          alert('도움 요청에 실패했습니다.');
+        }
+      })
+      .catch(err => {
+        console.log('help request err: ', err);
+      });
   };
   const getMessageCount = async () => {
     const id = await getData('userId');
@@ -95,13 +95,12 @@ const HomeBtns = ({navigation, location}) => {
         setMessageCount(res.data.count);
       });
   };
-  const shareLocation = async () => {
-    await client.post('/api/command/spot/share', {
-      code,
-      lat: location.latitude,
-      lng: location.longitude,
-    });
-  };
+
+  //   useEffect(() => {
+  //     getMessageCount().catch(err => {
+  //       console.log('count err: ', err);
+  //     });
+  //   }, []);
 
   return (
     <View style={HomeStyle.buttonContainer}>

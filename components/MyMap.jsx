@@ -19,10 +19,53 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 function MyMap({navigation}) {
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
-  const [location, setLocation] = useState({});
+  const [location, setLocation] = useState({
+    latitude: '',
+    longitude: '',
+  });
   const [cctvs, setCctvs] = useState([]);
+  const [places, setPlaces] = useState([]);
   const [showCctv, setShowCctv] = useState(false);
   const [showPlace, setShowPlace] = useState(false);
+  // 위치 공유 코드
+  const [code, setCode] = useState(0);
+
+  const sharingLocation = async () => {
+    if (code === 0) {
+      return;
+    } else {
+      await client
+        .post('/api/command/spot/share', {
+          code,
+          lat: location.latitude,
+          lng: location.longitude,
+        })
+        .then(res => {
+          console.log('sharing: ', res.data);
+        })
+        .catch(err => {
+          console.log('sharing location err: ', err);
+        });
+    }
+  };
+
+  var sharing;
+  const stopSharing = () => {
+    console.log('end');
+    clearInterval(sharing);
+  };
+
+  useEffect(() => {
+    if (code !== 0) {
+      sharingLocation();
+      console.log('start');
+      sharing = setInterval(() => {
+        if (code !== 0) {
+          sharingLocation();
+        }
+      }, 10000);
+    }
+  }, [code]);
 
   // 위치 추적 허가
   const requestPermission = async () => {
@@ -80,9 +123,24 @@ function MyMap({navigation}) {
     setCctvs(res.data.cctvList);
   };
 
+  const getPlaceList = async () => {
+    await client
+      .post('/api/query/spot/police', {
+        lat: location.latitude,
+        lng: location.longitude,
+      })
+      .then(res => {
+        console.log(res.data.policeList);
+      })
+      .catch(err => {
+        console.log('place err: ', err);
+      });
+  };
+
   useEffect(() => {
     if (location !== {}) {
       getCctvList();
+      getPlaceList();
     }
   }, [location]);
 
@@ -113,11 +171,11 @@ function MyMap({navigation}) {
   //   }
   // }, [location]);
 
-  // // 사용자 위치 계속 추적
-  // Geolocation.watchPosition(position => {
-  //   const {latitude, longitude} = position.coords;
-  //   console.log(latitude, longitude);
-  // });
+  // 사용자 위치 계속 추적
+  Geolocation.watchPosition(position => {
+    const {latitude, longitude} = position.coords;
+    console.log(latitude, longitude);
+  });
 
   // if (!location) {
   //   return <></>;
@@ -194,7 +252,11 @@ function MyMap({navigation}) {
       /> */}
       </NaverMapView>
 
-      <HomeBtns navigation={navigation} location={location} />
+      <HomeBtns
+        stopSharing={stopSharing}
+        navigation={navigation}
+        setCode={setCode}
+      />
     </View>
   );
 }

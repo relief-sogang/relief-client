@@ -62,6 +62,9 @@ const MessageRecords = ({navigation, route}) => {
       })
       .then(res => {
         setList(res.data.sendList);
+      })
+      .catch(err => {
+        console.log('send list err: ', err);
       });
   };
 
@@ -73,15 +76,18 @@ const MessageRecords = ({navigation, route}) => {
       })
       .then(res => {
         setList(res.data.receiveList);
+      })
+      .catch(err => {
+        console.log('receive list err: ', err);
       });
   };
 
   useEffect(() => {
-    // if(target === '발신'){
-    //   getSendList();
-    // } else {
-    //   getReceiveList();
-    // }
+    if (target === '발신') {
+      getSendList();
+    } else {
+      getReceiveList();
+    }
   }, [target]);
 
   const onPress = ({name, messageId, message, date, checkStatus}) => {
