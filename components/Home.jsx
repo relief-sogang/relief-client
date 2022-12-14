@@ -44,6 +44,7 @@ const Home = ({navigation, route}) => {
       style={HomeStyle.container}
       onPress={onClick}
       activeOpacity={1}>
+      {/* 피보호자 위치 공유 시 띄어줄 문구 */}
       {/* <TouchableOpacity
         style={[
           HomeStyle.sharingBox,
@@ -59,7 +60,7 @@ const Home = ({navigation, route}) => {
 
           loading.length % 2 == 0 && {borderColor: 'white'},
         ]}>
-        <Text style={HomeStyle.shareLocationText}>신짱구님의 위치 찾기</Text>
+        <Text style={HomeStyle.shareLocationText}>신짱구님의 위치</Text>
         <Text style={[HomeStyle.shareLocationText, {width: 17}]}>
           {loading}
         </Text>
