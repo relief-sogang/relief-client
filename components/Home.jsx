@@ -66,7 +66,7 @@ const Home = ({navigation, route}) => {
       </TouchableOpacity> */}
 
       {/* search bar */}
-      <View style={HomeStyle.searchContainer}>
+      {/* <View style={HomeStyle.searchContainer}>
         <View style={HomeStyle.searchBar}>
           <TextInput
             placeholder="지역 / 근처 CCTV / 치안 센터 / 경찰서 etc."
@@ -77,7 +77,7 @@ const Home = ({navigation, route}) => {
             <Icon name="search" size={24} color="#D9D9D9" />
           </View>
         </View>
-      </View>
+      </View> */}
 
       {/* menu bar */}
       <SideMenu

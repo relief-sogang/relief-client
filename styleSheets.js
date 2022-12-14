@@ -54,7 +54,7 @@ export const HomeStyle = StyleSheet.create({
   },
   menuIcon: {
     position: 'absolute',
-    top: 75,
+    top: 25,
     right: 15,
     // backgroundColor: 'orange',
     width: 30,
@@ -176,6 +176,31 @@ export const HomeStyle = StyleSheet.create({
     backgroundColor: '#F461CB',
     marginBottom: 5,
     flexDirection: 'row',
+  },
+  mapBtnBox: {
+    position: 'absolute',
+    zIndex: 10,
+    top: 20,
+    left: 10,
+    // backgroundColor: 'orange',
+    flexDirection: 'row',
+  },
+  mapBtn: {
+    borderRadius: 5,
+    width: 100,
+    height: 35,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#49D05E',
+    marginRight: 5,
+    borderWidth: 1,
+    borderColor: 'white',
+  },
+  mapBtnText: {
+    color: 'white',
+    fontWeight: 'bold',
+    marginRight: 5,
   },
 });
 

@@ -7,7 +7,7 @@ import NaverMapView, {
   Polygon,
 } from 'react-native-nmap';
 import {View, TouchableOpacity, Text} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 import {HomeStyle} from '../styleSheets';
 import axios from 'axios';
 import {PermissionsAndroid, Platform} from 'react-native';
@@ -15,15 +15,14 @@ import Geolocation from 'react-native-geolocation-service';
 import client from '../config/axios';
 import {getData} from '../config/asyncStorage';
 import HomeBtns from './HomeBtns';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 function MyMap({navigation}) {
-  // const [location, setLocation] = useState({});
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const [location, setLocation] = useState({});
-  const P0 = {latitude: 37.564362, longitude: 126.977011};
-  const P1 = {latitude: 37.565051, longitude: 126.978567};
-  const P2 = {latitude: 37.565383, longitude: 126.976292};
   const [cctvs, setCctvs] = useState([]);
+  const [showCctv, setShowCctv] = useState(false);
+  const [showPlace, setShowPlace] = useState(false);
 
   // 위치 추적 허가
   const requestPermission = async () => {
@@ -126,6 +125,24 @@ function MyMap({navigation}) {
 
   return (
     <View style={{position: 'relative'}}>
+      {/* cctv, 주변 치안센터 보기 버튼 */}
+      <View style={HomeStyle.mapBtnBox}>
+        <TouchableOpacity
+          style={HomeStyle.mapBtn}
+          activeOpacity={0.5}
+          onPress={() => setShowCctv(showCctv ? false : true)}>
+          <Text style={HomeStyle.mapBtnText}>CCTV</Text>
+          <Icon name="eye" color="white" size={20} />
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setShowPlace(showPlace ? false : true)}
+          style={[HomeStyle.mapBtn, {backgroundColor: '#F48BD7'}]}
+          activeOpacity={0.5}>
+          <Text style={HomeStyle.mapBtnText}>치안센터</Text>
+          <Icon name="search-location" color="white" size={20} />
+        </TouchableOpacity>
+      </View>
+
       <NaverMapView
         style={{width: '100%', height: '100%'}}
         showsMyLocationButton={true}
@@ -140,9 +157,10 @@ function MyMap({navigation}) {
         <Marker
           coordinate={sogang}
           onClick={() => console.warn('onClick! p0')}
+          pinColor="red"
         />
 
-        {cctvs.length !== 0 && (
+        {showCctv && cctvs.length !== 0 && (
           <>
             {cctvs.map((cctv, idx) => (
               <Marker
@@ -150,21 +168,10 @@ function MyMap({navigation}) {
                 coordinate={{
                   latitude: cctv.xaxis,
                   longitude: cctv.yaxis,
-                }}
-                pinColor="blue"></Marker>
+                }}></Marker>
             ))}
           </>
         )}
-        {/* <Marker
-        coordinate={P1}
-        pinColor="blue"
-        onClick={() => console.warn('onClick! p1')}
-      />
-      <Marker
-        coordinate={P2}
-        pinColor="red"
-        onClick={() => console.warn('onClick! p2')}
-      /> */}
         {/* <Path
         coordinates={[P0, P1]}
         onClick={() => console.warn('onClick! path')}
