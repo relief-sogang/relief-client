@@ -34,7 +34,7 @@ const HomeBtns = ({navigation, location}) => {
         userId: id,
       })
       .then(res => {
-        console.log(res);
+        console.log(res.data);
         setCode(res.data.code);
       })
       .catch(err => {
@@ -52,7 +52,7 @@ const HomeBtns = ({navigation, location}) => {
         userId: id,
       })
       .then(res => {
-        console.log(res);
+        console.log(res.data);
       })
       .catch(err => {
         console.log('sharing err: ', err);

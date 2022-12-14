@@ -23,11 +23,25 @@ const KakaoLogin = ({navigation: {navigate}}) => {
       await axios
         .get(`${APIURL}/login/oauth2/code/kakao?code=${authCode}`)
         .then(res => {
+          console.log('login: ', res.data);
           setData('accessToken', res.data.accessToken);
           setData('refreshToken', res.data.refreshToken);
           setData('email', res.data.email);
-          setData('provider', 'kakao');
 
+          if (!res.data.isNew) {
+            setData('userName', res.data.name);
+            setData('userId', res.data.userId);
+
+            if (res.data.phoneNumber) {
+              const ph = res.data.phoneNumber;
+              const ph1 = ph.slice(0, 3);
+              const ph2 = ph.slice(3, 7);
+              const ph3 = ph.slice(7, 11);
+              setData('ph1', ph1);
+              setData('ph2', ph2);
+              setData('ph3', ph3);
+            }
+          }
           return res.data.isNew;
         })
         .then(res => {
