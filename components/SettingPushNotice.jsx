@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity} from 'react-native';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
@@ -23,13 +23,38 @@ const SettingPushNotice = ({navigation, route}) => {
         status: toggle ? 'ON' : 'OFF',
       })
       .then(res => {
+        console.log('res : ' + res);
         const code = res.data.code;
+        console.log('code : ' + code);
         if (code === 'SUCCESS') {
           alert('저장되었습니다.');
           navigation.pop();
         }
       });
   };
+
+  const getToggleState = async () => {
+    const userId = await getData('userId');
+    await client
+      .post('/api/query/pushalarm/getstatus', {
+        userId,
+      })
+      .then(res => {
+        console.log(res);
+        const status = res.data.status;
+        console.log('status : ' + status);
+        if (status === 'ON') {
+          setToggle(true);
+        } else if (status === 'OFF') {
+          setToggle(false);
+        }
+      })
+  }
+
+  useEffect(() => {
+    getToggleState();
+  }, [])
+
   return (
     <ScrollView>
       <View style={SettingStyle.settingWrap}>
