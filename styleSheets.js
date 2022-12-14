@@ -59,7 +59,7 @@ export const HomeStyle = StyleSheet.create({
     // backgroundColor: 'orange',
     width: 30,
     height: 30,
-    zIndex: 10,
+    zIndex: 100,
   },
   menuBar: {
     position: 'absolute',
@@ -202,6 +202,27 @@ export const HomeStyle = StyleSheet.create({
     fontWeight: 'bold',
     marginRight: 5,
   },
+  placeModal: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    zIndex: 1000,
+    backgroundColor: 'rgba(0, 0, 0, .2)',
+    width: chartWidth,
+    height: chartHeight,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeBox: {
+    backgroundColor: 'white',
+  },
+  placeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    height: chartHeight * 0.07,
+  },
+  placeName: {},
+  placeAddress: {},
 });
 
 export const SettingStyle = StyleSheet.create({

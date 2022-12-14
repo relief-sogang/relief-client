@@ -54,7 +54,7 @@ const FriendsList = ({navigation, route}) => {
         setFriends(res.data.guardianList);
       })
       .catch(err => {
-        console.log(err);
+        console.log('guardian list err: ', err);
       });
   };
 
