@@ -3,7 +3,7 @@ import {TouchableOpacity, View, Text} from 'react-native';
 import {EnrollStyle} from '../../styleSheets';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const MenuBig = ({onPress, text}) => {
+const MenuBig = ({onPress, text, count}) => {
   return (
     <>
       <View style={EnrollStyle.enrollBox}>
@@ -16,9 +16,9 @@ const MenuBig = ({onPress, text}) => {
           <View style={EnrollStyle.enrollTextBox}>
             <Text style={EnrollStyle.enrollText}>{text}</Text>
 
-            {text === '도움 요청 수신 내역' && (
+            {text === '도움 요청 수신 내역' && count != 0 &&(
               <View style={EnrollStyle.messageCount}>
-                <Text style={{fontWeight: 'bold', color: 'white'}}>1</Text>
+                <Text style={{fontWeight: 'bold', color: 'white'}}>{count}</Text>
               </View>
             )}
           </View>

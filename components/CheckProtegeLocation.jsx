@@ -30,10 +30,10 @@ const CheckProtegeLocation = ({navigation, route}) => {
 		if (code !== '0') {	// 성공
 			navigation.navigate('Home', {
 				// todo: param 수정
-				name,
-				email,
-				id,
-				code,
+				protegeName: name,
+				protegeEmail: email,
+				protegeId: id,
+				protegeCode: code,
 			});
 		} else { // 실패
 			alert('피보호자의 위치를 확인하는 데 실패했습니다.');

@@ -17,7 +17,7 @@ import {getData} from '../config/asyncStorage';
 import HomeBtns from './HomeBtns';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-function MyMap({navigation}) {
+function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) {
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const [location, setLocation] = useState({
     latitude: '',
@@ -29,6 +29,7 @@ function MyMap({navigation}) {
   const [showPlace, setShowPlace] = useState(false);
   // 위치 공유 코드
   const [code, setCode] = useState(0);
+  const [protegeLocation, setProtegeLocation] = useState(sogang);
 
   const sharingLocation = async () => {
     if (code === 0) {
@@ -181,6 +182,27 @@ function MyMap({navigation}) {
   //   return <></>;
   // }
 
+  useEffect(() => {
+    if (protegeCode === undefined) return;
+    const interval = setInterval(() => {
+      getProtegeLocation();
+    }, 10000);
+    return () => clearInterval(interval);
+  }, []);
+  
+  const getProtegeLocation = async () => {
+    await client.post('/api/query/spot/share/get', {
+      code: protegeCode,
+    })
+    .then(res =>  {
+      console.log(res.data);
+      setProtegeLocation({
+        latitude: res.data.lat,
+        longitude: res.data.lng,
+      });
+    });
+  };
+
   return (
     <View style={{position: 'relative'}}>
       {/* cctv, 주변 치안센터 보기 버튼 */}
@@ -250,6 +272,16 @@ function MyMap({navigation}) {
         color={`rgba(0, 0, 0, 0.5)`}
         onClick={() => console.warn('onClick! polygon')}
       /> */}
+        {protegeCode && (
+          <Marker
+            coordinate={protegeLocation}
+            pinColor="blue"
+            caption={{
+              text: protegeName + '님의 위치',
+            }}
+          >
+          </Marker>
+        )}
       </NaverMapView>
 
       <HomeBtns

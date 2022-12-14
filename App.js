@@ -36,14 +36,19 @@ import messaging from '@react-native-firebase/messaging';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
+
+  const handleMessage = (remoteMessage) => {
+    console.log('pushMessage : ' + remoteMessage);
+  }
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
 
     messaging().onNotificationOpenedApp(remoteMessage => {
-      console.log(
-        'Notification caused app to open from background state:',
-        remoteMessage.notification,
-      );
+      handleMessage(remoteMessage);
+      // console.log(
+      //   'Notification caused app to open from background state:',
+      //   remoteMessage.notification,
+      // );
       // navigation.navigate(remoteMessage.data.type);
     });
 
@@ -52,10 +57,11 @@ const App = () => {
       .getInitialNotification()
       .then(remoteMessage => {
         if (remoteMessage) {
-          console.log(
-            'Notification caused app to open from quit state:',
-            remoteMessage.notification,
-          );
+          handleMessage(remoteMessage);
+          // console.log(
+          //   'Notification caused app to open from quit state:',
+          //   remoteMessage.notification,
+          // );
           // setInitialRoute(remoteMessage.data.type); // e.g. "Settings"
         }
         // setLoading(false);

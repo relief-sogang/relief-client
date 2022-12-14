@@ -6,7 +6,9 @@ import {HomeStyle} from '../styleSheets';
 import {getData} from '../config/asyncStorage';
 
 const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
-  const [sharingCount, setSharingCount] = useState(0)
+  const [sharingCount, setSharingCount] = useState(0);
+  const [messageCount, setMessageCount] = useState(0);
+
   const onPress = e => {
     setClickMenu(clickMenu ? false : true);
   };
@@ -28,8 +30,21 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
       });
   }
 
+  const getMessageCount = async () => {
+    const id = await getData('userId');
+    await client
+      .post('/api/query/help/receive/count', {
+        receiverId: id,
+      })
+      .then(res => {
+        console.log('count: ', res.data.count);
+        setMessageCount(res.data.count);
+      });
+  };
+
   useEffect(() => {
     getProtegeSharingCount();
+    getMessageCount();
   }, [])
   
 
@@ -67,12 +82,11 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 }}>
                 피보호자 위치 확인
               </Text>
-              {sharingCount !== 0 && 
+              {sharingCount != 0 && 
                 <View style={HomeStyle.pushAlarmBox}>
                   <Text style={HomeStyle.pushAlarm}>{sharingCount}</Text>
                 </View>
               }
-              
             </View>
             {/* <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>
@@ -106,6 +120,11 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 }}>
                 도움 요청 메시지
               </Text>
+              {messageCount != 0 && (
+                <View style={HomeStyle.pushAlarmBox}>
+                  <Text style={HomeStyle.pushAlarm}>{messageCount}</Text>
+                </View>
+              )}
             </View>
             <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>

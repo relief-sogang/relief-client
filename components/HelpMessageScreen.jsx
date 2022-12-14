@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
 import {EnrollStyle, SettingStyle} from '../styleSheets';
 import SettingHeader from './SettingHeader';
@@ -30,6 +30,11 @@ const HelpMessageScreen = ({navigation, route}) => {
       });
   };
 
+  useEffect(() => {
+    countHelpMessage();
+  }, [])
+  
+
   return (
     <>
       <View style={SettingStyle.settingWrap}>
@@ -39,7 +44,7 @@ const HelpMessageScreen = ({navigation, route}) => {
           <View style={{marginTop: 30}} />
 
           {menu.map((text, idx) => (
-            <MenuBig key={idx} onPress={onPress} text={text} />
+            <MenuBig key={idx} onPress={onPress} text={text} count={count}/>
           ))}
         </View>
       </View>
