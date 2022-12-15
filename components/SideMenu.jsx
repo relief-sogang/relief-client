@@ -23,7 +23,7 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
       })
       .then(res => {
         console.log(res.data);
-        setSharingCount(res.data.protegeList.length());
+        setSharingCount(res.data.protegeList.length);
       })
       .catch(err => {
         console.log(err);

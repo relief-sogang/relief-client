@@ -225,6 +225,7 @@ export const HomeStyle = StyleSheet.create({
     alignItems: 'center',
   },
   placeBox: {
+    padding: 10,
     backgroundColor: 'white',
   },
   placeHeader: {
@@ -232,8 +233,14 @@ export const HomeStyle = StyleSheet.create({
     alignItems: 'center',
     height: chartHeight * 0.07,
   },
-  placeName: {},
-  placeAddress: {},
+  placeName: {
+    fontSize: 25,
+    fontWeight: 'bold',
+    marginRight: 8,
+  },
+  placeAddress: {
+    fontSize: 25,
+  },
 });
 
 export const SettingStyle = StyleSheet.create({

@@ -24,10 +24,6 @@ const DetailFriend = ({navigation, route}) => {
         const code = res.data.code;
         if (code === 'SUCCESS') {
           alert(`${target}가 삭제되었습니다.`);
-          if (target === '피보호자')
-            alert(
-              '보호자 요청 수락 페이지에서 다시 피보호자로 등록할 수 있습니다.',
-            );
           navigation.navigate(`${target} 관리`);
         }
       });
