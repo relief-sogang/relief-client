@@ -225,6 +225,12 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
         </TouchableOpacity>
       </View>
 
+      {protegeCode && (
+        <View style={HomeStyle.isSharingBox}>
+          <Text style={HomeStyle.isSharingText}>{protegeName}님이 위치 공유중...</Text>
+        </View>
+      )}
+
       <NaverMapView
         style={{width: '100%', height: '100%'}}
         showsMyLocationButton={true}
@@ -294,7 +300,7 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
         {protegeCode && (
           <Marker
             coordinate={protegeLocation}
-            pinColor="blue"
+            pinColor="green"
             caption={{
               text: protegeName + '님의 위치',
             }}

@@ -62,14 +62,14 @@ const KakaoLogin = ({navigation: {navigate}}) => {
 
   const sendFcmTokenToServer = async () => {
     const userId = await getData('userId');
-    const fcmToken = await messaging().getToken();
-		console.log('fcmToken : ' + fcmToken)
+    const token = await messaging().getToken();
+		console.log('token : ' + token)
     console.log('userId : ' + userId);
 
     await client
       .post(`${APIURL}/api/command/member/fcmtoken/register`, {
         userId,
-        fcmToken,
+        token,
       })
       .then(res => {
         console.log(res);

@@ -148,13 +148,13 @@ const Register = ({navigation, route}) => {
   };
 
   const sendFcmTokenToServer = async () => {
-    const fcmToken = await messaging().getToken();
-		console.log('fcmToken : ' + fcmToken)
+    const token = await messaging().getToken();
+		console.log('token : ' + token)
 
     await client
       .post(`${APIURL}/api/command/member/fcmtoken/register`, {
         userId: id,
-        fcmToken,
+        token,
       })
       .then(() => {
         navigation.navigate('Home');

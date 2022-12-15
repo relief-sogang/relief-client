@@ -185,6 +185,17 @@ export const HomeStyle = StyleSheet.create({
     // backgroundColor: 'orange',
     flexDirection: 'row',
   },
+  isSharingBox: {
+    position: 'absolute',
+    zIndex: 10,
+    top: 60,
+    left: 10,
+  },
+  isSharingText: {
+    color: 'blue',
+    fontWeight: 'bold',
+    // marginRight: 5,
+  },
   mapBtn: {
     borderRadius: 5,
     width: 100,
