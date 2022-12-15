@@ -7,7 +7,7 @@ import NaverMapView, {
   Polygon,
 } from 'react-native-nmap';
 import {View, TouchableOpacity, Text} from 'react-native';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import Iconi from 'react-native-vector-icons/FontAwesome';
 import {HomeStyle} from '../styleSheets';
 import axios from 'axios';
 import {PermissionsAndroid, Platform} from 'react-native';
@@ -18,8 +18,14 @@ import HomeBtns from './HomeBtns';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PlaceDetail from './atomic/PlaceDetail';
 
-function MyMap({navigation, protegeData}) {
-  const sogang = {latitude: 37.5509442, longitude: 126.9410023};
+const sogang = {latitude: 37.5509442, longitude: 126.9410023};
+function MyMap({
+  navigation,
+  protegeData,
+  protegeLocation,
+  isProSharing,
+  getProtegeLocation,
+}) {
   const [location, setLocation] = useState({
     latitude: sogang.latitude,
     longitude: sogang.longitude,
@@ -33,11 +39,11 @@ function MyMap({navigation, protegeData}) {
   // 장소 모달
   const [clickPlace, setClickPlace] = useState(null);
   // 위치를 공유중인 피보호자의 위치
-  const [protegeLocation, setProtegeLocation] = useState({
-    latitude: '',
-    longitude: '',
-  });
-  const [protegeCode, setProtegeCode] = useState(protegeData.protegeCode);
+  // const [protegeLocation, setProtegeLocation] = useState({
+  //   latitude: '',
+  //   longitude: '',
+  // });
+  // const [protegeCode, setProtegeCode] = useState(protegeData.protegeCode);
 
   const sharingLocation = async () => {
     if (code === 0) {
@@ -154,23 +160,6 @@ function MyMap({navigation, protegeData}) {
     }
   }, [location]);
 
-  const onScrap = async () => {
-    const userId = await getData('userId');
-    await client
-      .post('/api/command/spot/register', {
-        userId,
-        name: '서강대학교',
-        lat: sogang.latitude,
-        lng: sogang.longitude,
-      })
-      .then(res => {
-        console.log('test scrap: ', res.data);
-      })
-      .catch(err => {
-        console.log('scrap err: ', err);
-      });
-  };
-
   // 사용자 위치 계속 추적
   // Geolocation.watchPosition(position => {
   //   const {latitude, longitude} = position.coords;
@@ -180,47 +169,9 @@ function MyMap({navigation, protegeData}) {
   //   });
   //   // console.log(latitude, longitude);
   // });
-
-  var interval;
-  const stopProtegeSharing = () => {
-    clearInterval(interval);
-  };
-
-  const getProtegeLocation = async () => {
-    await client
-      .post('/api/query/spot/share/get', {
-        code: protegeCode,
-      })
-      .then(res => {
-        console.log('피보호자 위치 : ', res.data);
-        setProtegeLocation({
-          latitude: res.data.lat,
-          longitude: res.data.lng,
-        });
-      })
-      .catch(err => {
-        console.log('피보호자 위치 에러 : ', err);
-      });
-  };
-
-  // useEffect(() => {
-  //   console.log('protege: ', protegeData);
-  //   console.log('protegeCode: ', protegeCode);
-  //   if (protegeCode) {
-  //     getProtegeLocation();
-  //     interval = setInterval(() => {
-  //       if (protegeCode != 0) {
-  //         getProtegeLocation();
-  //       }
-  //     }, 10000);
-  //   } else {
-  //     stopProtegeSharing();
-  //   }
-  // }, [protegeCode]);
-
-  // useEffect(() => {
-  //   console.log('protegeLocation: ', protegeLocation);
-  // }, [protegeLocation]);
+  useEffect(() => {
+    console.log(protegeLocation);
+  }, [protegeLocation]);
 
   return (
     <View style={{position: 'relative'}}>
@@ -246,16 +197,39 @@ function MyMap({navigation, protegeData}) {
         </TouchableOpacity>
       </View>
 
-      {/* {protegeCode && (
-        <View style={HomeStyle.isSharingBox}>
-          <Text style={HomeStyle.isSharingText}>님이 위치 공유중...</Text>
-        </View>
-      )} */}
+      {isProSharing && (
+        <TouchableOpacity
+          style={[
+            HomeStyle.sharingBox,
+            {
+              backgroundColor: '#336EFF',
+              borderColor: '#336EFF',
+              position: 'absolute',
+              left: 10,
+              top: 70,
+              zIndex: 20,
+              width: 200,
+            },
+
+            {borderColor: 'white'},
+          ]}
+          onPress={getProtegeLocation}>
+          <Text style={HomeStyle.shareLocationText}>
+            {protegeData.protegeId}님의 위치 찾기
+          </Text>
+          <Iconi
+            name="refresh"
+            size={20}
+            color={'white'}
+            style={{marginLeft: 5}}
+          />
+        </TouchableOpacity>
+      )}
 
       <NaverMapView
         style={{width: '100%', height: '100%'}}
         showsMyLocationButton={true}
-        center={{...location, zoom: 15}}
+        center={{...sogang, zoom: 15}}
         onTouch={e => {
           // console.warn('onTouch', JSON.stringify(e.nativeEvent));
         }}
@@ -263,10 +237,10 @@ function MyMap({navigation, protegeData}) {
         onMapClick={e => {
           // console.warn('onMapClick', JSON.stringify(e));
         }}>
-        {/* <Marker
-          coordinate={location}
+        <Marker
+          coordinate={sogang}
           onClick={() => console.warn('onClick! p0')}
-        /> */}
+        />
 
         {showCctv && cctvs.length !== 0 && (
           <>
@@ -318,7 +292,7 @@ function MyMap({navigation, protegeData}) {
         color={`rgba(0, 0, 0, 0.5)`}
         onClick={() => console.warn('onClick! polygon')}
       /> */}
-        {protegeCode && (
+        {isProSharing && (
           <Marker
             coordinate={protegeLocation}
             pinColor="green"

@@ -19,12 +19,17 @@ import {APIURL} from '../config/key';
 
 const Home = ({navigation, route}) => {
   const [clickMenu, setClickMenu] = useState(false);
-  const [protegeData, setProtegeData] = useState({
+  const [isProSharing, setIsProSharing] = useState(false);
+  const [protegeLocation, setProtegeLocation] = useState({
+    latitude: 0,
+    longitude: 0,
+  });
+  const protegeData = {
     protegeName: route.params.protegeName,
     protegeId: route.params.protegeId,
     protegeCode: route.params.protegeCode,
     protegeEmail: route.params.protegeEmail,
-  });
+  };
 
   const moveScreen = text => {
     navigation.navigate(text);
@@ -35,10 +40,53 @@ const Home = ({navigation, route}) => {
     setClickMenu(false);
   };
 
+  var interval;
+  const stopProtegeSharing = () => {
+    clearInterval(interval);
+  };
+
+  const getProtegeLocation = async () => {
+    await client
+      .post('/api/query/spot/share/get', {
+        code: protegeData.protegeCode,
+      })
+      .then(res => {
+        console.log('피보호자 위치 : ', res.data);
+        setProtegeLocation({
+          latitude: Number(res.data.lat),
+          longitude: Number(res.data.lng),
+        });
+      })
+      .catch(err => {
+        console.log('피보호자 위치 에러 : ', err);
+      });
+  };
+
   const isFocused = useIsFocused();
   useEffect(() => {
     console.log('home focus');
+    console.log('data: ', protegeData);
+
+    if (protegeData.protegeCode) {
+      setIsProSharing(true);
+      getProtegeLocation();
+      // interval = setInterval(() => {
+      //   if (protegeData.protegeCode) {
+      //     getProtegeLocation();
+      //   }
+      // }, 1000);
+    } else {
+      setIsProSharing(false);
+      stopProtegeSharing();
+    }
   }, [isFocused]);
+
+  useEffect(() => {
+    if (protegeLocation.latitude == 0 && protegeLocation.longitude == 0) {
+      stopProtegeSharing();
+      setIsProSharing(false);
+    }
+  }, [protegeLocation]);
 
   return (
     <TouchableOpacity
@@ -74,7 +122,13 @@ const Home = ({navigation, route}) => {
         moveScreen={moveScreen}
       />
 
-      <MyMap navigation={navigation} protegeData={protegeData} />
+      <MyMap
+        navigation={navigation}
+        protegeData={protegeData}
+        protegeLocation={protegeLocation}
+        isProSharing={isProSharing}
+        getProtegeLocation={getProtegeLocation}
+      />
     </TouchableOpacity>
   );
 };

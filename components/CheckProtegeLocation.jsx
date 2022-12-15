@@ -20,6 +20,7 @@ const CheckProtegeLocation = ({navigation, route}) => {
 
   // 위치 확인 버튼 누르면, 서버에서 code를 받아와서 Home page에 props로 넘겨줍니다. 그 코드로 IF-29에 요청 보내서 위치 받아올게요.
   const onPress = async ({name, email, id}) => {
+    console.log(name, email, id);
     const userId = await getData('userId');
     await client
       .post(`/api/query/spot/share/code`, {
@@ -28,6 +29,7 @@ const CheckProtegeLocation = ({navigation, route}) => {
       })
       .then(res => {
         const code = res.data.code;
+        console.log('protege code: ', code);
         navigation.navigate('Home', {
           protegeName: name,
           protegeEmail: email,
