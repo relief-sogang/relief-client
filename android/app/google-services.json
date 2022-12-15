@@ -7,6 +7,42 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:389841366286:android:214e0b21098a2353ad3b5f",
+        "android_client_info": {
+          "package_name": "com.dsdfe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "389841366286-q6iqrd89qvatv2l34n6kt9fu1dic3cj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt-wwWbGVjRzbAbSiJ3OSEVw1s0cnOLJk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "389841366286-q6iqrd89qvatv2l34n6kt9fu1dic3cj1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "389841366286-t8osjbpsgjs353p2p0rn89cl8l7v1qs1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.relief"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:389841366286:android:14d4f3740c91035fad3b5f",
         "android_client_info": {
           "package_name": "com.relief"
