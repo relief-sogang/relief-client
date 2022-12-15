@@ -61,6 +61,7 @@ const MessageRecords = ({navigation, route}) => {
         senderId,
       })
       .then(res => {
+        console.log('send list: ', res.data.sendList);
         setList(res.data.sendList);
       })
       .catch(err => {
@@ -75,6 +76,7 @@ const MessageRecords = ({navigation, route}) => {
         receiverId,
       })
       .then(res => {
+        console.log('receive list: ', res.data.receiveList);
         setList(res.data.receiveList);
       })
       .catch(err => {

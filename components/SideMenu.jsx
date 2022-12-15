@@ -28,7 +28,7 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
       .catch(err => {
         console.log(err);
       });
-  }
+  };
 
   const getMessageCount = async () => {
     const id = await getData('userId');
@@ -45,8 +45,20 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
   useEffect(() => {
     getProtegeSharingCount();
     getMessageCount();
-  }, [])
-  
+  }, []);
+
+  const unRegister = async () => {
+    const userId = await getData('userId');
+    client
+      .post('/api/command/member/withdraw', {
+        userId,
+      })
+      .then(res => {
+        if (res.data.code === 'SUCCESS') {
+          alert('회원탈퇴 성공');
+        }
+      });
+  };
 
   return (
     <>
@@ -82,11 +94,11 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                 }}>
                 피보호자 위치 확인
               </Text>
-              {sharingCount != 0 && 
+              {sharingCount != 0 && (
                 <View style={HomeStyle.pushAlarmBox}>
                   <Text style={HomeStyle.pushAlarm}>{sharingCount}</Text>
                 </View>
-              }
+              )}
             </View>
             {/* <View style={HomeStyle.menuItemBox}>
               <View style={HomeStyle.menuIcons}>
@@ -184,6 +196,18 @@ const SideMenu = ({clickMenu, setClickMenu, moveScreen}) => {
                   moveScreen('카카오로그아웃');
                 }}>
                 카카오로그아웃(임시)
+              </Text>
+            </View>
+            <View style={HomeStyle.menuItemBox}>
+              <View style={HomeStyle.menuIcons}>
+                <Icon name="comment" size={14} color="#9B9B9B" />
+              </View>
+              <Text
+                style={HomeStyle.menuItem}
+                onPress={() => {
+                  unRegister();
+                }}>
+                회원탈퇴(임시)
               </Text>
             </View>
           </View>

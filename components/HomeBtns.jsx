@@ -96,11 +96,11 @@ const HomeBtns = ({navigation, setCode, stopSharing}) => {
       });
   };
 
-  //   useEffect(() => {
-  //     getMessageCount().catch(err => {
-  //       console.log('count err: ', err);
-  //     });
-  //   }, []);
+  useEffect(() => {
+    getMessageCount().catch(err => {
+      console.log('count err: ', err);
+    });
+  }, []);
 
   return (
     <View style={HomeStyle.buttonContainer}>

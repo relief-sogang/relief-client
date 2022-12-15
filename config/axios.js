@@ -1,6 +1,7 @@
 import {APIURL} from './key';
 import axios from 'axios';
 import {getData} from './asyncStorage';
+import navigation from './navigation';
 
 const client = axios.create({
   baseURL: APIURL,
@@ -28,11 +29,7 @@ client.interceptors.response.use(
     return response;
   },
   async function (error) {
-    const provider = await getData('provider');
-
-    if (provider === 'kakao') {
-      // code & accessToken 다시 받기
-    }
+    navigation.navigate('로그인');
     return Promise.reject(error);
   },
 );
