@@ -18,11 +18,17 @@ import HomeBtns from './HomeBtns';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PlaceDetail from './atomic/PlaceDetail';
 
-function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) {
+function MyMap({
+  navigation,
+  protegeName,
+  protegeEmail,
+  protegeId,
+  protegeCode,
+}) {
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const [location, setLocation] = useState({
-    latitude: '',
-    longitude: '',
+    latitude: sogang.latitude,
+    longitude: sogang.longitude,
   });
   const [cctvs, setCctvs] = useState([]);
   const [places, setPlaces] = useState([]);
@@ -102,10 +108,10 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
       if (result === 'granted') {
         Geolocation.getCurrentPosition(
           pos => {
-            setLocation({
-              latitude: pos.coords.latitude,
-              longitude: pos.coords.longitude,
-            });
+            // setLocation({
+            //   latitude: pos.coords.latitude,
+            //   longitude: pos.coords.longitude,
+            // });
             console.log(pos.coords);
           },
           error => {
@@ -171,14 +177,14 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
   };
 
   // 사용자 위치 계속 추적
-  Geolocation.watchPosition(position => {
-    const {latitude, longitude} = position.coords;
-    setLocation({
-      latitude,
-      longitude,
-    });
-    // console.log(latitude, longitude);
-  });
+  // Geolocation.watchPosition(position => {
+  //   const {latitude, longitude} = position.coords;
+  //   setLocation({
+  //     latitude,
+  //     longitude,
+  //   });
+  //   // console.log(latitude, longitude);
+  // });
 
   useEffect(() => {
     if (protegeCode === undefined) return;
@@ -187,18 +193,19 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
     }, 10000);
     return () => clearInterval(interval);
   }, []);
-  
+
   const getProtegeLocation = async () => {
-    await client.post('/api/query/spot/share/get', {
-      code: protegeCode,
-    })
-    .then(res =>  {
-      console.log(res.data);
-      setProtegeLocation({
-        latitude: res.data.lat,
-        longitude: res.data.lng,
+    await client
+      .post('/api/query/spot/share/get', {
+        code: protegeCode,
+      })
+      .then(res => {
+        console.log(res.data);
+        setProtegeLocation({
+          latitude: res.data.lat,
+          longitude: res.data.lng,
+        });
       });
-    });
   };
 
   return (
@@ -237,7 +244,7 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
           // console.warn('onMapClick', JSON.stringify(e));
         }}>
         <Marker
-          coordinate={sogang}
+          coordinate={location}
           onClick={() => console.warn('onClick! p0')}
         />
 
@@ -297,9 +304,7 @@ function MyMap({navigation, protegeName, protegeEmail, protegeId, protegeCode}) 
             pinColor="blue"
             caption={{
               text: protegeName + '님의 위치',
-            }}
-          >
-          </Marker>
+            }}></Marker>
         )}
       </NaverMapView>
 

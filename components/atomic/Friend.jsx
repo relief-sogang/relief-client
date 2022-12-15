@@ -57,12 +57,13 @@ const Friend = ({onPress, num, name, id, email, target, status, navigate}) => {
         } else {
           alert('보호자 요청을 거절하였습니다.');
         }
-        navigate('피보호자/보호자 정보', {
-          name,
-          email,
-          id,
-          target,
-        });
+        // navigate('피보호자/보호자 정보', {
+        //   name,
+        //   email,
+        //   id,
+        //   target,
+        // });
+        navigate(`${target} 관리`);
       });
   };
   return (
@@ -143,15 +144,16 @@ const Friend = ({onPress, num, name, id, email, target, status, navigate}) => {
               </View>
             </>
           )}
-          {target !== '피보호자 위치 확인' && !(target === '피보호자' && status === 'REQUEST') && (
-            <Icon
-              style={{marginLeft: 5}}
-              name="gear"
-              size={18}
-              color="#9B9B9B"
-              onPress={() => onPress({name, email, id})}
-            />
-          )}
+          {target !== '피보호자 위치 확인' &&
+            !(target === '피보호자' && status === 'REQUEST') && (
+              <Icon
+                style={{marginLeft: 5}}
+                name="gear"
+                size={18}
+                color="#9B9B9B"
+                onPress={() => onPress({name, email, id})}
+              />
+            )}
         </View>
       </View>
     </>

@@ -36,10 +36,9 @@ import messaging from '@react-native-firebase/messaging';
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-
-  const handleMessage = (remoteMessage) => {
+  const handleMessage = remoteMessage => {
     console.log('pushMessage : ' + remoteMessage);
-  }
+  };
   useEffect(() => {
     // Assume a message-notification contains a "type" property in the data payload of the screen to open
 
