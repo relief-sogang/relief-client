@@ -18,12 +18,13 @@ import {useIsFocused} from '@react-navigation/native';
 import {APIURL} from '../config/key';
 
 const Home = ({navigation, route}) => {
-  const [input, setInput] = useState('');
   const [clickMenu, setClickMenu] = useState(false);
-
-  const onChange = e => {
-    setInput(e);
-  };
+  const [protegeData, setProtegeData] = useState({
+    protegeName: route.params.protegeName,
+    protegeId: route.params.protegeId,
+    protegeCode: route.params.protegeCode,
+    protegeEmail: route.params.protegeEmail,
+  });
 
   const moveScreen = text => {
     navigation.navigate(text);
@@ -66,20 +67,6 @@ const Home = ({navigation, route}) => {
         </Text>
       </TouchableOpacity> */}
 
-      {/* search bar */}
-      {/* <View style={HomeStyle.searchContainer}>
-        <View style={HomeStyle.searchBar}>
-          <TextInput
-            placeholder="지역 / 근처 CCTV / 치안 센터 / 경찰서 etc."
-            style={HomeStyle.searchInput}
-            onChangeText={onChange}
-          />
-          <View style={HomeStyle.searchBtn}>
-            <Icon name="search" size={24} color="#D9D9D9" />
-          </View>
-        </View>
-      </View> */}
-
       {/* menu bar */}
       <SideMenu
         clickMenu={clickMenu}
@@ -87,7 +74,7 @@ const Home = ({navigation, route}) => {
         moveScreen={moveScreen}
       />
 
-      <MyMap navigation={navigation} />
+      <MyMap navigation={navigation} protegeData={protegeData} />
     </TouchableOpacity>
   );
 };

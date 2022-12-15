@@ -116,7 +116,13 @@ const Friend = ({onPress, num, name, id, email, target, status, navigate}) => {
             <>
               <TouchableOpacity
                 style={[styles.acceptBtn, {width: 80}]}
-                onPress={() => onPress({name, email, id})} // todo: param 수정
+                onPress={() =>
+                  onPress({
+                    name,
+                    email,
+                    id,
+                  })
+                } // todo: param 수정
               >
                 <Text style={styles.acceptText}>위치 확인</Text>
               </TouchableOpacity>

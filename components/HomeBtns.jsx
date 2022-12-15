@@ -4,6 +4,10 @@ import {HomeStyle} from '../styleSheets';
 import {getData} from '../config/asyncStorage';
 import client from '../config/axios';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import {
+  useIsFocused,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 
 const HomeBtns = ({navigation, setCode, stopSharing}) => {
   const [clickSharing, setClickSharing] = useState(false);
@@ -96,11 +100,12 @@ const HomeBtns = ({navigation, setCode, stopSharing}) => {
       });
   };
 
+  const isFocused = useIsFocused();
   useEffect(() => {
     getMessageCount().catch(err => {
       console.log('count err: ', err);
     });
-  }, []);
+  }, [isFocused]);
 
   return (
     <View style={HomeStyle.buttonContainer}>

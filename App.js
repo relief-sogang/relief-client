@@ -96,7 +96,13 @@ const App = () => {
           headerTitleAlign: 'center',
         }}>
         {/* Home: Map */}
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          initialParams={{
+            protegeName: '',
+          }}
+        />
 
         {/* 보호자/피보호자 관리 스크린 */}
         <Stack.Screen name="보호자/피보호자 관리" component={SafetySurvice} />

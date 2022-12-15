@@ -18,13 +18,7 @@ import HomeBtns from './HomeBtns';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import PlaceDetail from './atomic/PlaceDetail';
 
-function MyMap({
-  navigation,
-  protegeName,
-  protegeEmail,
-  protegeId,
-  protegeCode,
-}) {
+function MyMap({navigation, protegeData}) {
   const sogang = {latitude: 37.5509442, longitude: 126.9410023};
   const [location, setLocation] = useState({
     latitude: sogang.latitude,
@@ -43,6 +37,7 @@ function MyMap({
     latitude: '',
     longitude: '',
   });
+  const [protegeCode, setProtegeCode] = useState(protegeData.protegeCode);
 
   const sharingLocation = async () => {
     if (code === 0) {
@@ -186,13 +181,10 @@ function MyMap({
   //   // console.log(latitude, longitude);
   // });
 
-  useEffect(() => {
-    if (protegeCode === undefined) return;
-    const interval = setInterval(() => {
-      getProtegeLocation();
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
+  var interval;
+  const stopProtegeSharing = () => {
+    clearInterval(interval);
+  };
 
   const getProtegeLocation = async () => {
     await client
@@ -200,13 +192,35 @@ function MyMap({
         code: protegeCode,
       })
       .then(res => {
-        console.log(res.data);
+        console.log('피보호자 위치 : ', res.data);
         setProtegeLocation({
           latitude: res.data.lat,
           longitude: res.data.lng,
         });
+      })
+      .catch(err => {
+        console.log('피보호자 위치 에러 : ', err);
       });
   };
+
+  // useEffect(() => {
+  //   console.log('protege: ', protegeData);
+  //   console.log('protegeCode: ', protegeCode);
+  //   if (protegeCode) {
+  //     getProtegeLocation();
+  //     interval = setInterval(() => {
+  //       if (protegeCode != 0) {
+  //         getProtegeLocation();
+  //       }
+  //     }, 10000);
+  //   } else {
+  //     stopProtegeSharing();
+  //   }
+  // }, [protegeCode]);
+
+  // useEffect(() => {
+  //   console.log('protegeLocation: ', protegeLocation);
+  // }, [protegeLocation]);
 
   return (
     <View style={{position: 'relative'}}>
@@ -232,16 +246,16 @@ function MyMap({
         </TouchableOpacity>
       </View>
 
-      {protegeCode && (
+      {/* {protegeCode && (
         <View style={HomeStyle.isSharingBox}>
-          <Text style={HomeStyle.isSharingText}>{protegeName}님이 위치 공유중...</Text>
+          <Text style={HomeStyle.isSharingText}>님이 위치 공유중...</Text>
         </View>
-      )}
+      )} */}
 
       <NaverMapView
         style={{width: '100%', height: '100%'}}
         showsMyLocationButton={true}
-        center={{...sogang, zoom: 15}}
+        center={{...location, zoom: 15}}
         onTouch={e => {
           // console.warn('onTouch', JSON.stringify(e.nativeEvent));
         }}
@@ -249,10 +263,10 @@ function MyMap({
         onMapClick={e => {
           // console.warn('onMapClick', JSON.stringify(e));
         }}>
-        <Marker
+        {/* <Marker
           coordinate={location}
           onClick={() => console.warn('onClick! p0')}
-        />
+        /> */}
 
         {showCctv && cctvs.length !== 0 && (
           <>
@@ -309,7 +323,7 @@ function MyMap({
             coordinate={protegeLocation}
             pinColor="green"
             caption={{
-              text: protegeName + '님의 위치',
+              text: protegeData.protegeName + '님의 위치',
             }}></Marker>
         )}
       </NaverMapView>
